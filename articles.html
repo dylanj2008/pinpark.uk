@@ -139,41 +139,45 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Back link at bottom of sidebar (no highlight, inactive colour; hover -> white) */
+			/* ✅ Back button: same size as tabs + bottom-left of sidebar */
+			#header {
+				position: relative; /* anchor for absolute positioning */
+			}
 			#header .bottom {
-				display: flex;
-				align-items: flex-end;
-				justify-content: center;
-				padding: 0 0 18px 0;
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				padding: 0; /* keep exact sizing controlled by link */
+				margin: 0;
 			}
 			#back-link {
-				display: inline-flex;
-				align-items: center;
-				gap: 10px;
+				/* ✅ mimic tab sizing */
+				display: block;
+				width: 100%;
+				padding: 0.5em 1em; /* matches typical Prologue nav padding */
+				line-height: inherit;
 
-				text-decoration: none !important;
 				background: transparent !important;
 				border: 0 !important;
 				box-shadow: none !important;
+				text-decoration: none !important;
 
 				/* ✅ same colour as inactive tab text */
 				color: rgba(255, 255, 255, 0.55) !important;
 			}
 			#back-link span.icon:before {
-				/* match inactive look too */
 				color: rgba(255, 255, 255, 0.55) !important;
 			}
-			#back-link:hover {
-				color: #fff !important;
-			}
+			#back-link:hover,
 			#back-link:hover span.icon:before {
 				color: #fff !important;
 			}
-			/* ✅ prevent any "active" styling from ever applying */
-			#back-link.active,
-			#back-link.active-locked,
+			/* ✅ ensure it never highlights like an active tab */
 			#back-link:before,
-			#back-link:after {
+			#back-link:after,
+			#back-link.active,
+			#back-link.active-locked {
 				background: transparent !important;
 			}
 
@@ -239,7 +243,7 @@
 
 				</div>
 
-				<!-- ✅ Back button at bottom of sidebar -->
+				<!-- ✅ Back button at bottom-left of sidebar -->
 				<div class="bottom">
 					<a href="index.html" id="back-link">
 						<span class="icon solid fa-arrow-left"></span>
