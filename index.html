@@ -17,6 +17,22 @@
 				height: calc(100vh - 275px) !important;
 				min-height: calc(100vh - 275px) !important;
 			}
+
+			/* ✅ Make PinPark logo 15% smaller */
+			#logo .image img {
+				width: 85%;
+				height: auto;
+			}
+
+			/* ✅ Ensure left nav icons visibly highlight when active */
+			#nav ul li a.active span.icon:before,
+			#nav ul li a.active-locked span.icon:before {
+				color: #fff !important;
+			}
+			#nav ul li a.active,
+			#nav ul li a.active-locked {
+				color: #fff !important;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -206,6 +222,7 @@
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
