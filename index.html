@@ -29,6 +29,33 @@
 				) !important;
 			}
 
+			/* ✅ PinPark hero tint overlay (forces #00ADEE → white → #008ACD) */
+			#top.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
+			#top.cover::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.75) 0%,
+					rgba(255, 255, 255, 0.18) 50%,
+					rgba(0, 138, 205, 0.75) 100%
+				);
+			}
+
+			/* ✅ keep your hero content above the tint */
+			#top.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
 			/* ✅ Make PinPark logo 25% smaller total (was 15%, now 10% smaller again) */
 			#logo .image img {
 				width: 75%;
