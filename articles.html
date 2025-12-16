@@ -14,14 +14,14 @@
 
 		<!-- ✅ Keep same formatting/styling as main page -->
 		<style>
-			#articles.cover {
+			#current.cover {
 				height: calc(100vh - 275px) !important;
 				min-height: calc(100vh - 275px) !important;
 			}
 
 			/* ✅ PinPark hero tint */
-			#articles.cover:before,
-			#articles:before {
+			#current.cover:before,
+			#current:before {
 				background: linear-gradient(
 					135deg,
 					rgba(0, 173, 238, 0.78) 0%,
@@ -31,12 +31,12 @@
 			}
 
 			/* ✅ PinPark hero tint overlay */
-			#articles.cover {
+			#current.cover {
 				position: relative;
 				overflow: hidden;
 			}
 
-			#articles.cover::after {
+			#current.cover::after {
 				content: "";
 				position: absolute;
 				inset: 0;
@@ -67,13 +67,13 @@
 			}
 
 			/* ✅ keep your hero content above the tint */
-			#articles.cover > .container {
+			#current.cover > .container {
 				position: relative;
 				z-index: 1;
 			}
 
 			/* ✅ Keep same link-style button styling (in case you use it later) */
-			#articles .button.scrolly {
+			#current .button.scrolly {
 				background: transparent !important;
 				border: 0 !important;
 				box-shadow: none !important;
@@ -89,7 +89,7 @@
 				/* ✅ same 10% smaller size */
 				font-size: 90% !important;
 			}
-			#articles .button.scrolly:hover {
+			#current .button.scrolly:hover {
 				background: transparent !important;
 				border: 0 !important;
 				box-shadow: none !important;
@@ -183,12 +183,17 @@
 							<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
 						</div>
 
-					<!-- Nav (✅ only one tab: Articles) -->
+					<!-- Nav (✅ two tabs: Current Article, Other Articles) -->
 						<nav id="nav">
 							<ul>
 								<li>
-									<a href="?section=articles" id="articles-link">
-										<span class="icon solid fa-newspaper">Articles</span>
+									<a href="?section=current" id="current-link">
+										<span class="icon solid fa-file-alt">Current Article</span>
+									</a>
+								</li>
+								<li>
+									<a href="?section=other" id="other-link">
+										<span class="icon solid fa-list">Other Articles</span>
 									</a>
 								</li>
 							</ul>
@@ -203,28 +208,26 @@
 		<!-- Main -->
 			<div id="main">
 
-				<!-- Intro -->
-					<section id="articles" class="one dark cover">
+				<!-- Current Article (cover) -->
+					<section id="current" class="one dark cover">
 						<div class="container">
-
 							<header>
-								<h2 class="alt">Articles</h2>
+								<h2 class="alt">Current Article</h2>
 								<p></p>
 							</header>
-
 						</div>
 					</section>
 
-				<!-- Articles content -->
-					<section class="two">
+				<!-- Other Articles -->
+					<section id="other" class="two">
 						<div class="container">
 
 							<header>
-								<h2>Latest</h2>
+								<h2>Other Articles</h2>
 							</header>
 
 							<p>
-								<!-- Add your articles here -->
+								<!-- Add your other articles here -->
 							</p>
 
 						</div>
@@ -247,7 +250,7 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-			<!-- ✅ Keep the same active-tab stabilizer (works fine with a single tab) -->
+			<!-- ✅ Keep the same active-tab stabilizer -->
 			<script>
 				(function () {
 					var nav = document.querySelector('#nav');
