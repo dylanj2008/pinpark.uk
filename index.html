@@ -80,9 +80,10 @@
 				margin: 0 !important;
 
 				color: #fff !important;
-				font-weight: 600;
-				text-transform: none !important;
-				letter-spacing: inherit !important;
+
+				/* ✅ revert font (let main.css handle it) + raise 5px */
+				position: relative;
+				top: -5px;
 			}
 			#home .button.scrolly:hover {
 				background: transparent !important;
