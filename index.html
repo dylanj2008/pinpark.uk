@@ -131,11 +131,11 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="#home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
-								<li><a href="#about" id="portfolio-link"><span class="icon solid fa-th">About</span></a></li>
-								<li><a href="#features" id="about-link"><span class="icon solid fa-user">Features</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
-								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Donations</span></a></li>
+								<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+								<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-th">About</span></a></li>
+								<li><a href="?section=features" id="about-link"><span class="icon solid fa-user">Features</span></a></li>
+								<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
+								<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Donations</span></a></li>
 							</ul>
 						</nav>
 
@@ -171,7 +171,7 @@
 							</header>
 
 							<footer>
-								<a href="#about" class="button scrolly">Read more</a>
+								<a href="?section=about" class="button scrolly">Read more</a>
 							</footer>
 
 						</div>
@@ -313,10 +313,19 @@
 					var nav = document.querySelector('#nav');
 					if (!nav) return;
 
-					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+					function hrefToId(href) {
+						try {
+							var u = new URL(href, window.location.href);
+							return u.searchParams.get('section');
+						} catch (_) {
+							return null;
+						}
+					}
+
+					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
 					var sections = links
 						.map(function (a) {
-							var id = (a.getAttribute('href') || '').slice(1);
+							var id = hrefToId(a.getAttribute('href') || '');
 							return id ? document.getElementById(id) : null;
 						})
 						.filter(Boolean);
@@ -326,20 +335,45 @@
 					var lockedUntil = 0;
 					function setActiveById(id) {
 						links.forEach(function (a) {
-							var href = (a.getAttribute('href') || '');
-							var on = href === '#' + id;
+							var linkId = hrefToId(a.getAttribute('href') || '');
+							var on = linkId === id;
 							a.classList.toggle('active', on);
 							a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
 						});
 					}
 
+					function scrollToId(id) {
+						var el = document.getElementById(id);
+						if (!el) return;
+						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+
 					links.forEach(function (a) {
-						a.addEventListener('click', function () {
+						a.addEventListener('click', function (e) {
+							var id = hrefToId(a.getAttribute('href') || '');
+							if (!id) return;
+
+							e.preventDefault();
+
 							lockedUntil = Date.now() + 600; // brief lock during smooth scroll
-							var id = (a.getAttribute('href') || '').slice(1);
-							if (id) setActiveById(id);
+							setActiveById(id);
+
+							var u = new URL(window.location.href);
+							u.searchParams.set('section', id);
+							history.pushState(null, '', u.toString());
+
+							scrollToId(id);
 						});
 					});
+
+					// If user loads / refreshes with ?section=...
+					var initial = (new URL(window.location.href)).searchParams.get('section');
+					if (initial && document.getElementById(initial)) {
+						requestAnimationFrame(function () {
+							scrollToId(initial);
+							setActiveById(initial);
+						});
+					}
 
 					var ticking = false;
 					function onScroll() {
@@ -382,6 +416,13 @@
 
 					window.addEventListener('scroll', onScroll, { passive: true });
 					window.addEventListener('resize', onScroll);
+					window.addEventListener('popstate', function () {
+						var id = (new URL(window.location.href)).searchParams.get('section');
+						if (id && document.getElementById(id)) {
+							scrollToId(id);
+							setActiveById(id);
+						}
+					});
 					onScroll();
 				})();
 			</script>
