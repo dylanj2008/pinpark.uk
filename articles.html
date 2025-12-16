@@ -14,11 +14,22 @@
 
 		<!-- ✅ Keep same formatting/styling as main page -->
 		<style>
-	#current.cover {
-	height: 15px !important;
-	min-height: 15px !important;
-}
-
+			/* ✅ Make the blue cover part exactly 50px tall (padding was keeping it tall) */
+			#current.cover {
+				height: 50px !important;
+				min-height: 50px !important;
+				padding: 0 !important;          /* ✅ this is the key */
+			}
+			#current.cover > .container {
+				padding: 0 !important;          /* ✅ remove inner padding */
+				margin: 0 !important;
+			}
+			#current.cover header,
+			#current.cover h2,
+			#current.cover p {
+				margin: 0 !important;           /* ✅ stop margins adding height */
+				padding: 0 !important;
+			}
 
 			/* ✅ PinPark hero tint */
 			#current.cover:before,
@@ -81,13 +92,11 @@
 				padding: 0 !important;
 				margin: 0 !important;
 
-				/* ✅ same colour as heading text */
 				color: inherit !important;
 
 				position: relative;
 				top: -5px;
 
-				/* ✅ same 10% smaller size */
 				font-size: 90% !important;
 			}
 			#current .button.scrolly:hover {
@@ -142,36 +151,29 @@
 
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
-				text-align: left !important; /* bottom-left in sidebar */
-
-				/* ✅ make left distance match bottom distance (now nudged +5px right & +5px up) */
+				text-align: left !important;
 				padding-left: 15px !important;
 				padding-bottom: 15px !important;
 			}
 			#nav-back ul,
 			#nav-back ul li {
-				list-style: none !important;     /* remove bullet */
+				list-style: none !important;
 				margin: 0 !important;
 				padding: 0 !important;
 			}
 
-			/* ✅ prevent Prologue underline/border on this link */
 			#back-link {
 				text-decoration: none !important;
 				border-bottom: 0 !important;
 				box-shadow: none !important;
-
-				/* ✅ match normal tab text size */
 				font-size: 0.8em !important;
 			}
 
-			/* ✅ move arrow 5px away from text + match tab icon size */
 			#back-link .icon:before {
 				margin-right: 5px !important;
 				font-size: 1em !important;
 			}
 
-			/* ✅ same colour as inactive tabs; hover -> white */
 			#nav-back ul li a,
 			#nav-back ul li a span.icon:before {
 				color: rgba(255, 255, 255, 0.55) !important;
@@ -179,11 +181,10 @@
 			#nav-back ul li a:hover,
 			#nav-back ul li a:hover span.icon:before {
 				color: #fff !important;
-				text-decoration: none !important; /* keep no underline on hover too */
+				text-decoration: none !important;
 				border-bottom: 0 !important;
 			}
 
-			/* ✅ ensure it never highlights like an active tab */
 			#nav-back ul li a:before,
 			#nav-back ul li a:after {
 				background: transparent !important;
@@ -200,7 +201,6 @@
 			#footer {
 				position: static !important;
 				overflow: visible !important;
-
 				height: 70px;
 				padding: 0 !important;
 				display: flex;
@@ -227,208 +227,175 @@
 
 		<!-- Header -->
 			<div id="header">
-
 				<div class="top">
+					<div id="logo">
+						<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+					</div>
 
-					<!-- Logo -->
-						<div id="logo">
-							<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
-						</div>
-
-					<!-- Nav (✅ two tabs: Current Article, Other Articles) -->
-						<nav id="nav">
-							<ul>
-								<li>
-									<a href="?section=current" id="current-link">
-										<span class="icon solid fa-file-alt">Current Article</span>
-									</a>
-								</li>
-								<li>
-									<a href="?section=other" id="other-link">
-										<span class="icon solid fa-list">Other Articles</span>
-									</a>
-								</li>
-							</ul>
-						</nav>
-
-				</div>
-
-				<!-- ✅ Back button at bottom of sidebar -->
-				<div class="bottom">
-					<nav id="nav-back">
+					<nav id="nav">
 						<ul>
-							<li>
-								<a href="index.html" id="back-link">
-									<span class="icon solid fa-arrow-left">Back</span>
-								</a>
-							</li>
+							<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Current Article</span></a></li>
+							<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
 						</ul>
 					</nav>
 				</div>
 
+				<div class="bottom">
+					<nav id="nav-back">
+						<ul>
+							<li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 
 		<!-- Main -->
 			<div id="main">
+				<section id="current" class="one dark cover">
+					<div class="container">
+						<header>
+							<h2 class="alt">Current Article</h2>
+							<p></p>
+						</header>
+					</div>
+				</section>
 
-				<!-- Current Article (cover) -->
-					<section id="current" class="one dark cover">
-						<div class="container">
-							<header>
-								<h2 class="alt">Current Article</h2>
-								<p></p>
-							</header>
-						</div>
-					</section>
-
-				<!-- Other Articles -->
-					<section id="other" class="two">
-						<div class="container">
-
-							<header>
-								<h2>Other Articles</h2>
-							</header>
-
-							<p>
-								<!-- Add your other articles here -->
-							</p>
-
-						</div>
-					</section>
-
+				<section id="other" class="two">
+					<div class="container">
+						<header><h2>Other Articles</h2></header>
+						<p><!-- Add your other articles here --></p>
+					</div>
+				</section>
 			</div>
 
-		<!-- Footer -->
-			<div id="footer">
-				<ul class="copyright">
-					<li>&copy; 2025 PinPark. All rights reserved</li>
-				</ul>
-			</div>
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; 2025 PinPark. All rights reserved</li>
+			</ul>
+		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
-			<!-- ✅ Keep the same active-tab stabilizer -->
-			<script>
-				(function () {
-					var nav = document.querySelector('#nav');
-					if (!nav) return;
+		<script>
+			(function () {
+				var nav = document.querySelector('#nav');
+				if (!nav) return;
 
-					function hrefToId(href) {
-						try {
-							var u = new URL(href, window.location.href);
-							return u.searchParams.get('section');
-						} catch (_) {
-							return null;
-						}
+				function hrefToId(href) {
+					try {
+						var u = new URL(href, window.location.href);
+						return u.searchParams.get('section');
+					} catch (_) {
+						return null;
 					}
+				}
 
-					function clearSectionFromUrl() {
-						try {
-							var u = new URL(window.location.href);
-							if (!u.searchParams.has('section')) return;
-							u.searchParams.delete('section');
-							history.replaceState(null, '', u.toString());
-						} catch (_) {}
-					}
+				function clearSectionFromUrl() {
+					try {
+						var u = new URL(window.location.href);
+						if (!u.searchParams.has('section')) return;
+						u.searchParams.delete('section');
+						history.replaceState(null, '', u.toString());
+					} catch (_) {}
+				}
 
-					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
-					var sections = links
-						.map(function (a) {
-							var id = hrefToId(a.getAttribute('href') || '');
-							return id ? document.getElementById(id) : null;
-						})
-						.filter(Boolean);
+				var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
+				var sections = links
+					.map(function (a) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						return id ? document.getElementById(id) : null;
+					})
+					.filter(Boolean);
 
-					if (!links.length || !sections.length) return;
+				if (!links.length || !sections.length) return;
 
-					var lockedUntil = 0;
-					function setActiveById(id) {
-						links.forEach(function (a) {
-							var linkId = hrefToId(a.getAttribute('href') || '');
-							var on = linkId === id;
-							a.classList.toggle('active', on);
-							a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
-						});
-					}
-
-					function scrollToId(id) {
-						var el = document.getElementById(id);
-						if (!el) return;
-						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-					}
-
+				var lockedUntil = 0;
+				function setActiveById(id) {
 					links.forEach(function (a) {
-						a.addEventListener('click', function (e) {
-							var id = hrefToId(a.getAttribute('href') || '');
-							if (!id) return;
-
-							e.preventDefault();
-
-							lockedUntil = Date.now() + 600;
-							setActiveById(id);
-
-							scrollToId(id);
-							clearSectionFromUrl();
-						});
+						var linkId = hrefToId(a.getAttribute('href') || '');
+						var on = linkId === id;
+						a.classList.toggle('active', on);
+						a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
 					});
+				}
 
-					var initial = (new URL(window.location.href)).searchParams.get('section');
-					if (initial && document.getElementById(initial)) {
-						requestAnimationFrame(function () {
-							scrollToId(initial);
-							setActiveById(initial);
-							clearSectionFromUrl();
-						});
-					}
+				function scrollToId(id) {
+					var el = document.getElementById(id);
+					if (!el) return;
+					el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
 
-					var ticking = false;
-					function onScroll() {
-						if (ticking) return;
-						ticking = true;
+				links.forEach(function (a) {
+					a.addEventListener('click', function (e) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						if (!id) return;
 
-						requestAnimationFrame(function () {
-							ticking = false;
+						e.preventDefault();
 
-							var probeY = window.innerHeight * 0.35;
-							var best = null;
+						lockedUntil = Date.now() + 600;
+						setActiveById(id);
 
-							for (var i = 0; i < sections.length; i++) {
-								var s = sections[i];
-								var r = s.getBoundingClientRect();
-								if (r.top <= probeY && r.bottom > probeY) {
-									best = s;
-									break;
-								}
+						scrollToId(id);
+						clearSectionFromUrl();
+					});
+				});
+
+				var initial = (new URL(window.location.href)).searchParams.get('section');
+				if (initial && document.getElementById(initial)) {
+					requestAnimationFrame(function () {
+						scrollToId(initial);
+						setActiveById(initial);
+						clearSectionFromUrl();
+					});
+				}
+
+				var ticking = false;
+				function onScroll() {
+					if (ticking) return;
+					ticking = true;
+
+					requestAnimationFrame(function () {
+						ticking = false;
+
+						var probeY = window.innerHeight * 0.35;
+						var best = null;
+
+						for (var i = 0; i < sections.length; i++) {
+							var s = sections[i];
+							var r = s.getBoundingClientRect();
+							if (r.top <= probeY && r.bottom > probeY) {
+								best = s;
+								break;
 							}
+						}
 
-							if (!best) best = sections[0];
+						if (!best) best = sections[0];
 
-							if (best && Date.now() >= lockedUntil) {
-								setActiveById(best.id);
-							}
-						});
-					}
-
-					window.addEventListener('scroll', onScroll, { passive: true });
-					window.addEventListener('resize', onScroll);
-					window.addEventListener('popstate', function () {
-						var id = (new URL(window.location.href)).searchParams.get('section');
-						if (id && document.getElementById(id)) {
-							scrollToId(id);
-							setActiveById(id);
-							clearSectionFromUrl();
+						if (best && Date.now() >= lockedUntil) {
+							setActiveById(best.id);
 						}
 					});
+				}
 
-					onScroll();
-				})();
-			</script>
+				window.addEventListener('scroll', onScroll, { passive: true });
+				window.addEventListener('resize', onScroll);
+				window.addEventListener('popstate', function () {
+					var id = (new URL(window.location.href)).searchParams.get('section');
+					if (id && document.getElementById(id)) {
+						scrollToId(id);
+						setActiveById(id);
+						clearSectionFromUrl();
+					}
+				});
+
+				onScroll();
+			})();
+		</script>
 
 	</body>
 </html>
