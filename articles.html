@@ -139,46 +139,29 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Back button: same size as tabs + bottom-left of sidebar */
-			#header {
-				position: relative; /* anchor for absolute positioning */
+			/* ✅ Back button (same size as tabs, bottom-left, no highlight) */
+			#nav-back ul {
+				margin: 0 !important;
 			}
-			#header .bottom {
-				position: absolute;
-				left: 0;
-				bottom: 0;
-				width: 100%;
-				padding: 0; /* keep exact sizing controlled by link */
-				margin: 0;
-			}
-			#back-link {
-				/* ✅ mimic tab sizing */
-				display: block;
-				width: 100%;
-				padding: 0.5em 1em; /* matches typical Prologue nav padding */
-				line-height: inherit;
-
+			#nav-back ul li a:before,
+			#nav-back ul li a:after {
 				background: transparent !important;
-				border: 0 !important;
 				box-shadow: none !important;
-				text-decoration: none !important;
+				opacity: 0 !important;
+			}
+			#nav-back ul li a:hover:before,
+			#nav-back ul li a:hover:after {
+				opacity: 0 !important;
+			}
 
-				/* ✅ same colour as inactive tab text */
+			/* ✅ same colour as inactive tabs; hover -> white */
+			#nav-back ul li a,
+			#nav-back ul li a span.icon:before {
 				color: rgba(255, 255, 255, 0.55) !important;
 			}
-			#back-link span.icon:before {
-				color: rgba(255, 255, 255, 0.55) !important;
-			}
-			#back-link:hover,
-			#back-link:hover span.icon:before {
+			#nav-back ul li a:hover,
+			#nav-back ul li a:hover span.icon:before {
 				color: #fff !important;
-			}
-			/* ✅ ensure it never highlights like an active tab */
-			#back-link:before,
-			#back-link:after,
-			#back-link.active,
-			#back-link.active-locked {
-				background: transparent !important;
 			}
 
 			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
@@ -243,12 +226,17 @@
 
 				</div>
 
-				<!-- ✅ Back button at bottom-left of sidebar -->
+				<!-- ✅ Back button at bottom of sidebar -->
 				<div class="bottom">
-					<a href="index.html" id="back-link">
-						<span class="icon solid fa-arrow-left"></span>
-						<span>Back</span>
-					</a>
+					<nav id="nav-back">
+						<ul>
+							<li>
+								<a href="index.html" id="back-link">
+									<span class="icon solid fa-arrow-left">Back</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
 				</div>
 
 			</div>
