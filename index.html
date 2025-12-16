@@ -13,14 +13,14 @@
 
 		<!-- ✅ Make the hero (top/intro cover) 100px shorter -->
 		<style>
-			#top.cover {
+			#home.cover {
 				height: calc(100vh - 275px) !important;
 				min-height: calc(100vh - 275px) !important;
 			}
 
 			/* ✅ PinPark hero tint (replace pink/blue/grey with PinPark palette) */
-			#top.cover:before,
-			#top:before {
+			#home.cover:before,
+			#home:before {
 				background: linear-gradient(
 					135deg,
 					rgba(0, 173, 238, 0.78) 0%,
@@ -30,12 +30,12 @@
 			}
 
 			/* ✅ PinPark hero tint overlay (forces #00ADEE + circular highlights) */
-			#top.cover {
+			#home.cover {
 				position: relative;
 				overflow: hidden;
 			}
 
-			#top.cover::after {
+			#home.cover::after {
 				content: "";
 				position: absolute;
 				inset: 0;
@@ -66,13 +66,13 @@
 			}
 
 			/* ✅ keep your hero content above the tint */
-			#top.cover > .container {
+			#home.cover > .container {
 				position: relative;
 				z-index: 1;
 			}
 
 			/* ✅ Make "Read more" button PinPark light blue */
-			#top .button.scrolly {
+			#home .button.scrolly {
 				background: #00ADEE !important;
 				border-color: #00ADEE !important;
 				color: #fff !important;
@@ -80,7 +80,7 @@
 				transform: scale(0.8);
 				transform-origin: center;
 			}
-			#top .button.scrolly:hover {
+			#home .button.scrolly:hover {
 				background: #008ACD !important;
 				border-color: #008ACD !important;
 				color: #fff !important;
@@ -131,9 +131,9 @@
 					<!-- Nav -->
 						<nav id="nav">
 							<ul>
-								<li><a href="#top" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
-								<li><a href="#portfolio" id="portfolio-link"><span class="icon solid fa-th">About</span></a></li>
-								<li><a href="#about" id="about-link"><span class="icon solid fa-user">Features</span></a></li>
+								<li><a href="#home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+								<li><a href="#about" id="portfolio-link"><span class="icon solid fa-th">About</span></a></li>
+								<li><a href="#features" id="about-link"><span class="icon solid fa-user">Features</span></a></li>
 								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
 								<li><a href="#contact" id="contact-link"><span class="icon solid fa-envelope">Donations</span></a></li>
 							</ul>
@@ -160,7 +160,7 @@
 			<div id="main">
 
 				<!-- Intro -->
-					<section id="top" class="one dark cover">
+					<section id="home" class="one dark cover">
 						<div class="container">
 
 							<header>
@@ -171,14 +171,14 @@
 							</header>
 
 							<footer>
-								<a href="#portfolio" class="button scrolly">Read more</a>
+								<a href="#about" class="button scrolly">Read more</a>
 							</footer>
 
 						</div>
 					</section>
 
 				<!-- Portfolio -->
-					<section id="portfolio" class="two">
+					<section id="about" class="two">
 						<div class="container">
 
 							<header>
@@ -239,7 +239,7 @@
 					</section>
 
 				<!-- About Me -->
-					<section id="about" class="three">
+					<section id="features" class="three">
 						<div class="container">
 
 							<header>
