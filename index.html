@@ -71,19 +71,26 @@
 				z-index: 1;
 			}
 
-			/* ✅ Make "Read more" button PinPark light blue */
+			/* ✅ Replace "Read more" button with link-style text (white underline on hover) */
 			#home .button.scrolly {
-				background: #00ADEE !important;
-				border-color: #00ADEE !important;
-				color: #fff !important;
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				padding: 0 !important;
+				margin: 0 !important;
 
-				transform: scale(0.8);
-				transform-origin: center;
+				color: #fff !important;
+				font-weight: 600;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
 			}
 			#home .button.scrolly:hover {
-				background: #008ACD !important;
-				border-color: #008ACD !important;
-				color: #fff !important;
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				text-decoration: underline;
+				text-decoration-color: #fff;
+				text-underline-offset: 4px;
 			}
 
 			/* ✅ Make PinPark logo 25% smaller total (was 15%, now 10% smaller again) */
@@ -159,16 +166,21 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Make the donations button PinPark-style (Update Note vibe)
-			   ✅ Rectangular w/ rounded corners + align on same x-axis as Send Message */
+			/* ✅ Remove bullet point next to Support PinPark */
 			#donations .actions {
 				margin-left: 0 !important;
 				padding-left: 0 !important;
 				text-align: center !important;
+				list-style: none !important;
 			}
 			#donations .actions li {
+				list-style: none !important;
 				padding-left: 0 !important;
+				margin-left: 0 !important;
 			}
+
+			/* ✅ Make the donations button PinPark-style (Update Note vibe)
+			   ✅ Rectangular w/ rounded corners + align on same x-axis as Send Message */
 			#donations .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
