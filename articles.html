@@ -139,19 +139,22 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Back button (same size as tabs, bottom-left, no highlight) */
-			#nav-back ul {
+			/* ✅ Back button: bottom-left, no bullet, no underline */
+			#header .bottom {
+				text-align: left !important; /* bottom-left in sidebar */
+			}
+			#nav-back ul,
+			#nav-back ul li {
+				list-style: none !important;     /* remove bullet */
 				margin: 0 !important;
+				padding: 0 !important;
 			}
-			#nav-back ul li a:before,
-			#nav-back ul li a:after {
-				background: transparent !important;
+
+			/* ✅ prevent Prologue underline/border on this link */
+			#back-link {
+				text-decoration: none !important; /* remove underline */
+				border-bottom: 0 !important;
 				box-shadow: none !important;
-				opacity: 0 !important;
-			}
-			#nav-back ul li a:hover:before,
-			#nav-back ul li a:hover:after {
-				opacity: 0 !important;
 			}
 
 			/* ✅ same colour as inactive tabs; hover -> white */
@@ -162,6 +165,16 @@
 			#nav-back ul li a:hover,
 			#nav-back ul li a:hover span.icon:before {
 				color: #fff !important;
+				text-decoration: none !important; /* keep no underline on hover too */
+				border-bottom: 0 !important;
+			}
+
+			/* ✅ ensure it never highlights like an active tab */
+			#nav-back ul li a:before,
+			#nav-back ul li a:after {
+				background: transparent !important;
+				box-shadow: none !important;
+				opacity: 0 !important;
 			}
 
 			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
