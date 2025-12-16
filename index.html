@@ -115,39 +115,26 @@
 				color: #fff !important;
 			}
 
-			/* ✅ Footer: dark bar base, light-blue overlay at 80% opacity */
-			#footer {
-				position: relative;
-				overflow: hidden;
-				background: #008ACD !important; /* dark PinPark blue base */
-			}
+			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			#footer,
 			#footer::after {
-				content: "";
-				position: absolute;
-				inset: 0;
-				pointer-events: none;
-				z-index: 0;
-
-				/* light blue overlay (80% opacity) fading to dark */
-				background: linear-gradient(
-					90deg,
-					rgba(0, 173, 238, 0.80) 0%,
-					rgba(0, 138, 205, 0.80) 100%
-				);
+				background: none !important;
+				content: none !important;
 			}
-			#footer > * {
-				position: relative;
-				z-index: 1;
+			#footer {
+				position: static !important;
+				overflow: visible !important;
 			}
-			#footer, #footer * {
-				color: #fff !important;
+			#footer,
+			#footer * {
+				color: #000 !important;
 			}
 			#footer a {
-				color: #fff !important;
-				border-bottom-color: rgba(255, 255, 255, 0.6) !important;
+				color: #000 !important;
+				border-bottom-color: rgba(0, 0, 0, 0.35) !important;
 			}
 			#footer a:hover {
-				border-bottom-color: rgba(255, 255, 255, 1) !important;
+				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 		</style>
 	</head>
