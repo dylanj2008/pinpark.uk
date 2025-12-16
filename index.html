@@ -160,13 +160,21 @@
 			}
 
 			/* ✅ Make the donations button PinPark-style (Update Note vibe)
-			   ✅ Keep size + font the same as it is now */
+			   ✅ Rectangular w/ rounded corners + align on same x-axis as Send Message */
+			#donations .actions {
+				margin-left: 0 !important;
+				padding-left: 0 !important;
+				text-align: center !important;
+			}
+			#donations .actions li {
+				padding-left: 0 !important;
+			}
 			#donations .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
 				color: #fff !important;
 				box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14) !important;
-				border-radius: 999px !important;
+				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
 			}
