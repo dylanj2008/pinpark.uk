@@ -24,6 +24,18 @@
 				height: auto;
 			}
 
+			/* ✅ Center the PinPark logo horizontally in the sidebar column */
+			#logo {
+				text-align: center;
+			}
+			#logo .image {
+				display: inline-block;
+			}
+			#logo .image img {
+				display: block;
+				margin: 0 auto;
+			}
+
 			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
@@ -222,9 +234,87 @@
 			<script src="assets/js/jquery.scrolly.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+
+			<!-- ✅ Stabilize active tab highlighting (prevents flicker/mis-highlights on scroll) -->
+			<script>
+				(function () {
+					var nav = document.querySelector('#nav');
+					if (!nav) return;
+
+					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'));
+					var sections = links
+						.map(function (a) {
+							var id = (a.getAttribute('href') || '').slice(1);
+							return id ? document.getElementById(id) : null;
+						})
+						.filter(Boolean);
+
+					if (!links.length || !sections.length) return;
+
+					var lockedUntil = 0;
+					function setActiveById(id) {
+						links.forEach(function (a) {
+							var href = (a.getAttribute('href') || '');
+							var on = href === '#' + id;
+							a.classList.toggle('active', on);
+							a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
+						});
+					}
+
+					links.forEach(function (a) {
+						a.addEventListener('click', function () {
+							lockedUntil = Date.now() + 600; // brief lock during smooth scroll
+							var id = (a.getAttribute('href') || '').slice(1);
+							if (id) setActiveById(id);
+						});
+					});
+
+					var ticking = false;
+					function onScroll() {
+						if (ticking) return;
+						ticking = true;
+
+						requestAnimationFrame(function () {
+							ticking = false;
+
+							var probeY = window.innerHeight * 0.35; // stable point in viewport
+							var best = null;
+
+							for (var i = 0; i < sections.length; i++) {
+								var s = sections[i];
+								var r = s.getBoundingClientRect();
+								if (r.top <= probeY && r.bottom > probeY) {
+									best = s;
+									break;
+								}
+							}
+
+							if (!best) {
+								// fallback: closest top to probeY
+								var bestDist = Infinity;
+								for (var j = 0; j < sections.length; j++) {
+									var rr = sections[j].getBoundingClientRect();
+									var d = Math.abs(rr.top - probeY);
+									if (d < bestDist) {
+										bestDist = d;
+										best = sections[j];
+									}
+								}
+							}
+
+							if (best && Date.now() >= lockedUntil) {
+								setActiveById(best.id);
+							}
+						});
+					}
+
+					window.addEventListener('scroll', onScroll, { passive: true });
+					window.addEventListener('resize', onScroll);
+					onScroll();
+				})();
+			</script>
 
 	</body>
 </html>
