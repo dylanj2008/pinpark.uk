@@ -149,21 +149,25 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
+/* ✅ prevent Prologue underline/border on this link */
+#back-link {
+	text-decoration: none !important;
+	border-bottom: 0 !important;
+	box-shadow: none !important;
 
-			/* ✅ prevent Prologue underline/border on this link */
-			#back-link {
-				text-decoration: none !important; /* remove underline */
-				border-bottom: 0 !important;
-				box-shadow: none !important;
+	/* ✅ move the whole button 10px right */
+	padding-left: 10px !important;
 
-				/* ✅ move the whole button 10px right */
-				padding-left: 10px !important;
-			}
+	/* ✅ match normal tab text size */
+	font-size: 0.8em !important;
+}
 
-			/* ✅ move arrow 5px away from text */
-			#back-link .icon:before {
-				margin-right: 5px !important;
-			}
+/* ✅ move arrow 5px away from text + match tab icon size */
+#back-link .icon:before {
+	margin-right: 5px !important;
+	font-size: 1em !important;
+}
+
 
 			/* ✅ same colour as inactive tabs; hover -> white */
 			#nav-back ul li a,
