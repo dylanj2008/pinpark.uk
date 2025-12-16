@@ -142,6 +142,10 @@
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important; /* bottom-left in sidebar */
+
+				/* ✅ make left distance match bottom distance */
+				padding-left: 10px !important;
+				padding-bottom: 10px !important;
 			}
 			#nav-back ul,
 			#nav-back ul li {
@@ -149,25 +153,22 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
-/* ✅ prevent Prologue underline/border on this link */
-#back-link {
-	text-decoration: none !important;
-	border-bottom: 0 !important;
-	box-shadow: none !important;
 
-	/* ✅ move the whole button 10px right */
-	padding-left: 10px !important;
+			/* ✅ prevent Prologue underline/border on this link */
+			#back-link {
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+				box-shadow: none !important;
 
-	/* ✅ match normal tab text size */
-	font-size: 0.8em !important;
-}
+				/* ✅ match normal tab text size */
+				font-size: 0.8em !important;
+			}
 
-/* ✅ move arrow 5px away from text + match tab icon size */
-#back-link .icon:before {
-	margin-right: 5px !important;
-	font-size: 1em !important;
-}
-
+			/* ✅ move arrow 5px away from text + match tab icon size */
+			#back-link .icon:before {
+				margin-right: 5px !important;
+				font-size: 1em !important;
+			}
 
 			/* ✅ same colour as inactive tabs; hover -> white */
 			#nav-back ul li a,
