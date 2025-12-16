@@ -375,6 +375,15 @@
 						}
 					}
 
+					function clearSectionFromUrl() {
+						try {
+							var u = new URL(window.location.href);
+							if (!u.searchParams.has('section')) return;
+							u.searchParams.delete('section');
+							history.replaceState(null, '', u.toString());
+						} catch (_) {}
+					}
+
 					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
 					var sections = links
 						.map(function (a) {
@@ -411,11 +420,10 @@
 							lockedUntil = Date.now() + 600; // brief lock during smooth scroll
 							setActiveById(id);
 
-							var u = new URL(window.location.href);
-							u.searchParams.set('section', id);
-							history.pushState(null, '', u.toString());
-
 							scrollToId(id);
+
+							// ✅ Do NOT keep ?section= in the URL (prevents refresh jumping back)
+							clearSectionFromUrl();
 						});
 					});
 
@@ -425,6 +433,9 @@
 						requestAnimationFrame(function () {
 							scrollToId(initial);
 							setActiveById(initial);
+
+							// ✅ Remove it right after using it, so refresh stays normal
+							clearSectionFromUrl();
 						});
 					}
 
@@ -470,10 +481,12 @@
 					window.addEventListener('scroll', onScroll, { passive: true });
 					window.addEventListener('resize', onScroll);
 					window.addEventListener('popstate', function () {
+						// If someone navigates history with a ?section= link, still support it once
 						var id = (new URL(window.location.href)).searchParams.get('section');
 						if (id && document.getElementById(id)) {
 							scrollToId(id);
 							setActiveById(id);
+							clearSectionFromUrl();
 						}
 					});
 					onScroll();
