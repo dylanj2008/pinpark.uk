@@ -1,0 +1,368 @@
+<!-- articles.html -->
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>PinPark</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- ✅ Keep same formatting/styling as main page -->
+		<style>
+			#articles.cover {
+				height: calc(100vh - 275px) !important;
+				min-height: calc(100vh - 275px) !important;
+			}
+
+			/* ✅ PinPark hero tint */
+			#articles.cover:before,
+			#articles:before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				) !important;
+			}
+
+			/* ✅ PinPark hero tint overlay */
+			#articles.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
+			#articles.cover::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+
+			/* ✅ keep your hero content above the tint */
+			#articles.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* ✅ Keep same link-style button styling (in case you use it later) */
+			#articles .button.scrolly {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				padding: 0 !important;
+				margin: 0 !important;
+
+				/* ✅ same colour as heading text */
+				color: inherit !important;
+
+				position: relative;
+				top: -5px;
+
+				/* ✅ same 10% smaller size */
+				font-size: 90% !important;
+			}
+			#articles .button.scrolly:hover {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				text-decoration: underline;
+				text-decoration-color: #fff;
+				text-underline-offset: 4px;
+			}
+
+			/* ✅ Make PinPark logo 25% smaller total */
+			#logo .image img {
+				width: 75%;
+				height: auto;
+				transform: translateY(-10px);
+			}
+
+			/* ✅ Center the PinPark logo horizontally in the sidebar column */
+			#logo {
+				text-align: center;
+			}
+			#logo .image {
+				display: inline-block;
+			}
+			#logo .image img {
+				display: block;
+				margin: 0 auto;
+			}
+
+			/* ✅ Ensure left nav icons visibly highlight when active */
+			#nav ul li a.active span.icon:before,
+			#nav ul li a.active-locked span.icon:before {
+				color: #fff !important;
+			}
+			#nav ul li a.active,
+			#nav ul li a.active-locked {
+				color: #fff !important;
+			}
+
+			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
+			#nav ul li a,
+			#nav ul li a:before,
+			#nav ul li a:after,
+			#nav ul li a span.icon:before {
+				transition:
+					background-color 0.1s ease,
+					color 0.1s ease,
+					opacity 0.1s ease,
+					border-color 0.1s ease;
+			}
+
+			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			#footer,
+			#footer::after {
+				background: none !important;
+				content: none !important;
+			}
+			#footer {
+				position: static !important;
+				overflow: visible !important;
+
+				height: 70px;
+				padding: 0 !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright {
+				margin: 0 !important;
+			}
+			#footer,
+			#footer * {
+				color: #000 !important;
+			}
+			#footer a {
+				color: #000 !important;
+				border-bottom-color: rgba(0, 0, 0, 0.35) !important;
+			}
+			#footer a:hover {
+				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<div id="header">
+
+				<div class="top">
+
+					<!-- Logo -->
+						<div id="logo">
+							<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+						</div>
+
+					<!-- Nav (✅ only one tab: Articles) -->
+						<nav id="nav">
+							<ul>
+								<li>
+									<a href="?section=articles" id="articles-link">
+										<span class="icon solid fa-newspaper">Articles</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+
+				</div>
+
+				<div class="bottom"></div>
+
+			</div>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro -->
+					<section id="articles" class="one dark cover">
+						<div class="container">
+
+							<header>
+								<h2 class="alt">Articles</h2>
+								<p></p>
+							</header>
+
+						</div>
+					</section>
+
+				<!-- Articles content -->
+					<section class="two">
+						<div class="container">
+
+							<header>
+								<h2>Latest</h2>
+							</header>
+
+							<p>
+								<!-- Add your articles here -->
+							</p>
+
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<div id="footer">
+				<ul class="copyright">
+					<li>&copy; 2025 PinPark. All rights reserved</li>
+				</ul>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<!-- ✅ Keep the same active-tab stabilizer (works fine with a single tab) -->
+			<script>
+				(function () {
+					var nav = document.querySelector('#nav');
+					if (!nav) return;
+
+					function hrefToId(href) {
+						try {
+							var u = new URL(href, window.location.href);
+							return u.searchParams.get('section');
+						} catch (_) {
+							return null;
+						}
+					}
+
+					function clearSectionFromUrl() {
+						try {
+							var u = new URL(window.location.href);
+							if (!u.searchParams.has('section')) return;
+							u.searchParams.delete('section');
+							history.replaceState(null, '', u.toString());
+						} catch (_) {}
+					}
+
+					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
+					var sections = links
+						.map(function (a) {
+							var id = hrefToId(a.getAttribute('href') || '');
+							return id ? document.getElementById(id) : null;
+						})
+						.filter(Boolean);
+
+					if (!links.length || !sections.length) return;
+
+					var lockedUntil = 0;
+					function setActiveById(id) {
+						links.forEach(function (a) {
+							var linkId = hrefToId(a.getAttribute('href') || '');
+							var on = linkId === id;
+							a.classList.toggle('active', on);
+							a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
+						});
+					}
+
+					function scrollToId(id) {
+						var el = document.getElementById(id);
+						if (!el) return;
+						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					}
+
+					links.forEach(function (a) {
+						a.addEventListener('click', function (e) {
+							var id = hrefToId(a.getAttribute('href') || '');
+							if (!id) return;
+
+							e.preventDefault();
+
+							lockedUntil = Date.now() + 600;
+							setActiveById(id);
+
+							scrollToId(id);
+							clearSectionFromUrl();
+						});
+					});
+
+					var initial = (new URL(window.location.href)).searchParams.get('section');
+					if (initial && document.getElementById(initial)) {
+						requestAnimationFrame(function () {
+							scrollToId(initial);
+							setActiveById(initial);
+							clearSectionFromUrl();
+						});
+					}
+
+					var ticking = false;
+					function onScroll() {
+						if (ticking) return;
+						ticking = true;
+
+						requestAnimationFrame(function () {
+							ticking = false;
+
+							var probeY = window.innerHeight * 0.35;
+							var best = null;
+
+							for (var i = 0; i < sections.length; i++) {
+								var s = sections[i];
+								var r = s.getBoundingClientRect();
+								if (r.top <= probeY && r.bottom > probeY) {
+									best = s;
+									break;
+								}
+							}
+
+							if (!best) best = sections[0];
+
+							if (best && Date.now() >= lockedUntil) {
+								setActiveById(best.id);
+							}
+						});
+					}
+
+					window.addEventListener('scroll', onScroll, { passive: true });
+					window.addEventListener('resize', onScroll);
+					window.addEventListener('popstate', function () {
+						var id = (new URL(window.location.href)).searchParams.get('section');
+						if (id && document.getElementById(id)) {
+							scrollToId(id);
+							setActiveById(id);
+							clearSectionFromUrl();
+						}
+					});
+
+					onScroll();
+				})();
+			</script>
+
+	</body>
+</html>
