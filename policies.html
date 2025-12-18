@@ -153,7 +153,7 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Insert pinpark.png 200px below the top strip */
+			/* ✅ Move pinpark.png 200px lower (without shifting the strip/other content) */
 			#main .pinpark-under-strip {
 				margin-top: 200px !important;
 				text-align: center;
@@ -268,11 +268,6 @@
 
 		<!-- Main -->
 			<div id="main">
-				<!-- ✅ pinpark.png 200px below the top strip -->
-				<div class="pinpark-under-strip">
-					<img src="pinpark.png" alt="PinPark" />
-				</div>
-
 				<section id="current" class="one dark cover">
 					<div class="container">
 						<header>
@@ -281,6 +276,11 @@
 						</header>
 					</div>
 				</section>
+
+				<!-- ✅ pinpark.png 200px lower than the top strip (without moving the strip itself) -->
+				<div class="pinpark-under-strip">
+					<img src="pinpark.png" alt="PinPark" />
+				</div>
 
 				<section id="other" class="two">
 					<div class="container">
