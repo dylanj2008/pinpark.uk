@@ -131,14 +131,6 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Terms under the logo */
-			#logo .logo-terms {
-				margin-top: -4px;
-				font-size: 0.85em;
-				color: rgba(255, 255, 255, 0.55);
-				line-height: 1.1;
-			}
-
 			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
@@ -163,7 +155,7 @@
 
 			/* ✅ Move pinpark.png down 100px (was 50px) */
 			#main .pinpark-under-strip {
-				margin-top: 100px !important; /* ✅ was 150px; raised by 50px */
+				margin-top: 100px !important;
 				text-align: center;
 			}
 			#main .pinpark-under-strip img {
@@ -279,8 +271,6 @@
 				<section id="current" class="one dark cover">
 					<div class="container">
 						<header>
-							<h2 class="alt">Terms</h2>
-							<p></p>
 						</header>
 					</div>
 				</section>
@@ -288,7 +278,7 @@
 				<!-- ✅ pinpark.png 200px lower than the top strip (without moving the strip itself) -->
 				<div class="pinpark-under-strip">
 					<img src="pinpark.png" alt="PinPark" />
-					<div class="logo-terms">Terms</div>
+					<header><h2>Terms</h2></header>
 				</div>
 
 				<section id="other" class="two">
