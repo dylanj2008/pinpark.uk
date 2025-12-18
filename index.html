@@ -7,7 +7,7 @@
 -->
 <html>
 	<head>
-		<title>PinPark</title>
+		<title>PinPark.uk</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -95,7 +95,7 @@
 				border: 0 !important;
 				box-shadow: none !important;
 				text-decoration: underline;
-				text-decoration-color: currentColor; /* ✅ underline matches text colour */
+				text-decoration-color: currentColor;
 				text-underline-offset: 4px;
 			}
 
@@ -149,8 +149,6 @@
 			#footer {
 				position: static !important;
 				overflow: visible !important;
-
-				/* ✅ 10px taller (was 60px, now 70px) + keep text vertically centered */
 				height: 70px;
 				padding: 0 !important;
 				display: flex;
@@ -214,35 +212,28 @@
 				margin-left: 0 !important;
 			}
 
-			/* ✅ Make the donations button PinPark-style (Update Note vibe)
-			   ✅ Rectangular w/ rounded corners + align on same x-axis as Send Message */
+			/* ✅ Make the donations button PinPark-style (Update Note vibe) */
 			#donations .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
 				color: #fff !important;
-
-				/* ✅ shadow reduced by 50% */
 				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
-
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
 
-				/* ✅ grow 5% over 100ms on hover (and reverse) */
+				/* ✅ grow 2.5% over 100ms on hover (and reverse) */
 				transform: scale(1);
 				transition: transform 100ms ease;
 				display: inline-block;
 			}
 			#donations .actions .button:hover {
 				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-
-				/* ✅ hover shadow reduced by 50% */
 				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-
-				transform: scale(1.05);
+				transform: scale(1.025);
 			}
 			#donations .actions .button:active {
-				transform: scale(1.05) translateY(1px);
+				transform: scale(1.025) translateY(1px);
 			}
 
 			/* ✅ Apply the same PinPark button styling to "Send Message" */
@@ -250,28 +241,22 @@
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
 				color: #fff !important;
-
-				/* ✅ shadow reduced by 50% */
 				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
-
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
 
-				/* ✅ grow 5% over 100ms on hover (and reverse) */
+				/* ✅ grow 2.5% over 100ms on hover (and reverse) */
 				transform: scale(1);
 				transition: transform 100ms ease;
 			}
 			#contact form input[type="submit"]:hover {
 				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-
-				/* ✅ hover shadow reduced by 50% */
 				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-
-				transform: scale(1.05);
+				transform: scale(1.025);
 			}
 			#contact form input[type="submit"]:active {
-				transform: scale(1.05) translateY(1px);
+				transform: scale(1.025) translateY(1px);
 			}
 		</style>
 	</head>
@@ -279,165 +264,156 @@
 		<!-- Header -->
 			<div id="header">
 				<div class="top">
-					<!-- Logo -->
-						<div id="logo">
-							<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
-						</div>
+					<div id="logo">
+						<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+					</div>
 
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
-								<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
-								<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
-								<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
-								<li><a href="?section=donations" id="contact-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
-							</ul>
-						</nav>
+					<nav id="nav">
+						<ul>
+							<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+							<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
+							<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
+							<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
+							<li><a href="?section=donations" id="contact-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
+						</ul>
+					</nav>
 				</div>
 				<div class="bottom"></div>
 			</div>
 
 		<!-- Main -->
 			<div id="main">
+				<section id="home" class="one dark cover">
+					<div class="container">
+						<header>
+							<h2 class="alt">V1.0.0 In Development</h2>
+							<p></p>
+						</header>
+						<footer>
+							<a href="articles.html" class="button scrolly">Read more</a>
+						</footer>
+					</div>
+				</section>
 
-				<!-- Intro -->
-					<section id="home" class="one dark cover">
-						<div class="container">
-							<header>
-								<h2 class="alt">V1.0.0 In Development</h2>
-								<p></p>
-							</header>
-							<footer>
-								<a href="articles.html" class="button scrolly">Read more</a>
-							</footer>
-						</div>
-					</section>
+				<section id="about" class="two">
+					<div class="container">
+						<header>
+							<h2>What we're about</h2>
+						</header>
 
-				<!-- Portfolio -->
-					<section id="about" class="two">
-						<div class="container">
-							<header>
-								<h2>What we're about</h2>
-							</header>
+						<p>PinPark is independently designed with a focus on reliability, transparency, and long 
+							term support in mind. We have carefully designed our interface to ensure a fast, effortless 
+							parking experience, and make travelling less stressful and more enjoyable.
+						</p>
 
-							<p>PinPark is independently designed with a focus on reliability, transparency, and long 
-								term support in mind. We have carefully designed our interface to ensure a fast, effortless 
-								parking experience, and make travelling less stressful and more enjoyable.
-							</p>
-
-							<div class="row">
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-										<header>
-											<h3>Ipsum Feugiat</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-										<header>
-											<h3>Rhoncus Semper</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-										<header>
-											<h3>Magna Nullam</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-										<header>
-											<h3>Natoque Vitae</h3>
-										</header>
-									</article>
-								</div>
-								<div class="col-4 col-12-mobile">
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-										<header>
-											<h3>Dolor Penatibus</h3>
-										</header>
-									</article>
-									<article class="item">
-										<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-										<header>
-											<h3>Orci Convallis</h3>
-										</header>
-									</article>
-								</div>
+						<div class="row">
+							<div class="col-4 col-12-mobile">
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+									<header>
+										<h3>Ipsum Feugiat</h3>
+									</header>
+								</article>
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
+									<header>
+										<h3>Rhoncus Semper</h3>
+									</header>
+								</article>
+							</div>
+							<div class="col-4 col-12-mobile">
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+									<header>
+										<h3>Magna Nullam</h3>
+									</header>
+								</article>
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
+									<header>
+										<h3>Natoque Vitae</h3>
+									</header>
+								</article>
+							</div>
+							<div class="col-4 col-12-mobile">
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
+									<header>
+										<h3>Dolor Penatibus</h3>
+									</header>
+								</article>
+								<article class="item">
+									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+									<header>
+										<h3>Orci Convallis</h3>
+									</header>
+								</article>
 							</div>
 						</div>
-					</section>
+					</div>
+				</section>
 
-				<!-- About Me -->
-					<section id="features" class="three">
-						<div class="container">
-							<header>
-								<h2>Features</h2>
-							</header>
+				<section id="features" class="three">
+					<div class="container">
+						<header>
+							<h2>Features</h2>
+						</header>
 
-							<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
+						<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
 
-							<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-							ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-							laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-							ornare iaculis.</p>
-						</div>
-					</section>
+						<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+						ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+						laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+						parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+						dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+						ornare iaculis.</p>
+					</div>
+				</section>
 
-				<!-- Contact -->
-					<section id="contact" class="four">
-						<div class="container">
-							<header>
-								<h2>Contact</h2>
-							</header>
+				<section id="contact" class="four">
+					<div class="container">
+						<header>
+							<h2>Contact</h2>
+						</header>
 
-							<p>PinPark is continuously evolving. If you have found an issue, have feedback,
-								or want to get in touch for any other reason, feel free to send a message. 
-								we'd love to hear from you!
-							</p>
+						<p>PinPark is continuously evolving. If you have found an issue, have feedback,
+							or want to get in touch for any other reason, feel free to send a message. 
+							we'd love to hear from you!
+						</p>
 
-							<form method="post" action="#">
-								<div class="row">
-									<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-									<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-									<div class="col-12">
-										<textarea name="message" placeholder="Message"></textarea>
-									</div>
-									<div class="col-12">
-										<input type="submit" value="Send Message" />
-									</div>
+						<form method="post" action="#">
+							<div class="row">
+								<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+								<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+								<div class="col-12">
+									<textarea name="message" placeholder="Message"></textarea>
 								</div>
-							</form>
-						</div>
-					</section>
+								<div class="col-12">
+									<input type="submit" value="Send Message" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</section>
 
-				<!-- Donations -->
-					<section id="donations" class="four">
-						<div class="container">
-							<header>
-								<h2>Donations</h2>
-							</header>
+				<section id="donations" class="four">
+					<div class="container">
+						<header>
+							<h2>Donations</h2>
+						</header>
 
-							<p>PinPark is independently developed and will be continuously improved.
-							   If you think you will find our app useful, you can choose to contribute
-							   here. All donations will help us cover infrastructure costs, and allow
-							   more time to be spent improving and refining current features and performance.
-							   Thank you in advance for any donations.
-							</p>
+						<p>PinPark is independently developed and will be continuously improved.
+						   If you think you will find our app useful, you can choose to contribute
+						   here. All donations will help us cover infrastructure costs, and allow
+						   more time to be spent improving and refining current features and performance.
+						   Thank you in advance for any donations.
+						</p>
 
-							<ul class="actions">
-								<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
-							</ul>
-						</div>
-					</section>
-
+						<ul class="actions">
+							<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
+						</ul>
+					</div>
+				</section>
 			</div>
 
 		<!-- Footer -->
