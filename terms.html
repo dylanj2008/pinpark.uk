@@ -153,6 +153,30 @@
 					border-color 0.1s ease;
 			}
 
+			/* ✅ Privacy icon: outline shield + inner info */
+			#nav .privacy-outline {
+				position: relative;
+				display: inline-block;
+			}
+			#nav .privacy-outline:before {
+				color: inherit !important;
+				-webkit-text-fill-color: transparent;
+				-webkit-text-stroke: 1.6px currentColor;
+			}
+			#nav .privacy-outline:after {
+				content: "\f129"; /* fa-info */
+				font-family: "Font Awesome 5 Free";
+				font-weight: 900;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -55%);
+				font-size: 0.55em;
+				line-height: 1;
+				color: currentColor;
+				pointer-events: none;
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
@@ -238,9 +262,9 @@
 
 					<nav id="nav">
 						<ul>
-							<!-- ✅ Match app icons: Terms (description_outlined) + Privacy (privacy_tip_outlined) -->
+							<!-- ✅ Match app icons: Terms (description_outlined) + Privacy (privacy_tip_outlined style) -->
 							<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Terms</span></a></li>
-							<li><a href="?section=other" id="other-link"><span class="icon solid fa-shield-alt">Privacy</span></a></li>
+							<li><a href="?section=other" id="other-link"><span class="icon solid fa-shield-alt privacy-outline">Privacy</span></a></li>
 						</ul>
 					</nav>
 				</div>
