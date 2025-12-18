@@ -168,8 +168,13 @@
 			/* ✅ Make Terms the same distance from pinpark.png as pinpark.png is from the top strip */
 			#main .pinpark-under-strip .terms-under-logo {
 				margin-top: 100px !important;
+				margin-bottom: 2em !important; /* ✅ matches typical section header → paragraph spacing */
 			}
 			#main .pinpark-under-strip .terms-under-logo h2 {
+				margin-top: 0 !important;
+			}
+			/* ✅ Paragraph sits under Terms with the same spacing behaviour */
+			#main .pinpark-under-strip .terms-paragraph {
 				margin-top: 0 !important;
 			}
 
@@ -287,6 +292,11 @@
 				<div class="pinpark-under-strip">
 					<img src="pinpark.png" alt="PinPark" />
 					<header class="terms-under-logo"><h2>Terms</h2></header>
+
+					<!-- ✅ Paragraph under Terms (spacing matches main page heading → paragraph spacing) -->
+					<p class="terms-paragraph">
+						Please read these Terms and Conditions carefully before using PinPark. Replace this paragraph with your full Terms content.
+					</p>
 				</div>
 
 				<section id="other" class="two">
