@@ -165,6 +165,14 @@
 				display: inline-block;
 			}
 
+			/* ✅ Make Terms the same distance from pinpark.png as pinpark.png is from the top strip */
+			#main .pinpark-under-strip .terms-under-logo {
+				margin-top: 100px !important;
+			}
+			#main .pinpark-under-strip .terms-under-logo h2 {
+				margin-top: 0 !important;
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
@@ -278,7 +286,7 @@
 				<!-- ✅ pinpark.png 200px lower than the top strip (without moving the strip itself) -->
 				<div class="pinpark-under-strip">
 					<img src="pinpark.png" alt="PinPark" />
-					<header><h2>Terms</h2></header>
+					<header class="terms-under-logo"><h2>Terms</h2></header>
 				</div>
 
 				<section id="other" class="two">
