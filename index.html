@@ -173,6 +173,8 @@
 			}
 			#footer .copyright li:nth-child(2) {
 				margin-left: auto;
+				padding-left: 0 !important;   /* ✅ remove left separator spacing */
+				border-left: 0 !important;    /* ✅ remove left separator */
 			}
 			#footer .copyright li:nth-child(3) {
 				margin-left: 12px;
@@ -182,6 +184,13 @@
 			#footer .copyright li:nth-child(2) a,
 			#footer .copyright li:nth-child(3) a {
 				font-size: 12px !important;
+			}
+
+			/* ✅ move Terms + Privacy left by 2px total */
+			#footer .copyright li:nth-child(2),
+			#footer .copyright li:nth-child(3) {
+				position: relative;
+				left: -2px;
 			}
 
 			#footer,
