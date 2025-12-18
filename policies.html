@@ -1,4 +1,4 @@
-<!-- policies.html -->
+<!-- terms.html -->
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -153,15 +153,16 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Privacy icon: outline shield + inner info */
+			/* ✅ Privacy icon: align with Terms icon + fill shield, keep inner info */
 			#nav .privacy-outline {
 				position: relative;
 				display: inline-block;
+				vertical-align: middle;
 			}
 			#nav .privacy-outline:before {
 				color: inherit !important;
-				-webkit-text-fill-color: transparent;
-				-webkit-text-stroke: 1.6px currentColor;
+				-webkit-text-fill-color: currentColor;
+				-webkit-text-stroke: 0;
 			}
 			#nav .privacy-outline:after {
 				content: "\f129"; /* fa-info */
@@ -170,7 +171,7 @@
 				position: absolute;
 				left: 50%;
 				top: 50%;
-				transform: translate(-50%, -55%);
+				transform: translate(-50%, -50%);
 				font-size: 0.55em;
 				line-height: 1;
 				color: currentColor;
