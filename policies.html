@@ -131,6 +131,21 @@
 				margin: 0 auto;
 			}
 
+			/* ✅ Insert pinpark.png 2px below the top strip */
+			#main #current.cover + #other-strip-image {
+				display: none;
+			}
+			#other-strip-image {
+				margin-top: 2px;
+				text-align: center;
+			}
+			#other-strip-image img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
+			}
+
 			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
@@ -258,18 +273,17 @@
 			<div id="main">
 				<section id="current" class="one dark cover">
 					<div class="container">
-
-						<!-- ✅ PinPark image directly under the top blue strip -->
-						<div style="text-align:center; margin-top: 14px;">
-							<img src="pinpark.png" alt="PinPark" style="max-width:260px; width:60%; height:auto; display:inline-block;" />
-						</div>
-
 						<header>
 							<h2 class="alt">Terms</h2>
 							<p></p>
 						</header>
 					</div>
 				</section>
+
+				<!-- ✅ pinpark.png inserted 2px below the top strip -->
+				<div id="other-strip-image">
+					<img src="pinpark.png" alt="PinPark" />
+				</div>
 
 				<section id="other" class="two">
 					<div class="container">
