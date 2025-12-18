@@ -16,9 +16,6 @@
 
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- ✅ Material icons (match PinPark app style) -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
 		<!-- ✅ Keep same formatting/styling as main page -->
 		<style>
 			/* ✅ Make the blue cover part exactly 50px tall (padding was keeping it tall) */
@@ -228,44 +225,6 @@
 			#footer a:hover {
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
-
-			/* ✅ Position Material icons exactly like FontAwesome ones in articles.html */
-			#nav ul li a span.icon.mi-terms:before {
-				font-family: "Material Symbols Outlined" !important;
-				content: "description" !important; /* Terms */
-				font-variation-settings: "opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0;
-
-				/* ✅ match default icon sizing/placement */
-				font-size: 1.25em !important;
-				line-height: 1 !important;
-				display: inline-block;
-				vertical-align: middle;
-
-				/* ✅ match FontAwesome spacing */
-				margin-right: 0.6em !important;
-
-				/* ✅ let the baseline behave like the normal tab icons */
-				position: relative;
-				top: 0 !important;
-			}
-			#nav ul li a span.icon.mi-privacy:before {
-				font-family: "Material Symbols Outlined" !important;
-				content: "privacy_tip" !important; /* Privacy */
-				font-variation-settings: "opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0;
-
-				/* ✅ match default icon sizing/placement */
-				font-size: 1.25em !important;
-				line-height: 1 !important;
-				display: inline-block;
-				vertical-align: middle;
-
-				/* ✅ match FontAwesome spacing */
-				margin-right: 0.6em !important;
-
-				/* ✅ let the baseline behave like the normal tab icons */
-				position: relative;
-				top: 0 !important;
-			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -279,8 +238,9 @@
 
 					<nav id="nav">
 						<ul>
-							<li><a href="?section=current" id="current-link"><span class="icon solid mi-terms">Terms</span></a></li>
-							<li><a href="?section=other" id="other-link"><span class="icon solid mi-privacy">Privacy</span></a></li>
+							<!-- ✅ FontAwesome icons so they sit on the exact same x-axis as index.html tab icons -->
+							<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-contract">Terms</span></a></li>
+							<li><a href="?section=other" id="other-link"><span class="icon solid fa-user-shield">Privacy</span></a></li>
 						</ul>
 					</nav>
 				</div>
