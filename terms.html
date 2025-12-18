@@ -11,7 +11,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<!-- ✅ Tab icon (same idea as main page) -->
+		<!-- ✅ Site icon -->
 		<link rel="icon" type="image/jpg" href="pinicon.jpg" />
 
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -229,20 +229,32 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Nav tab icons: use Material icons (match PinPark app style) */
+			/* ✅ Nav tab icons: force SAME size & alignment as FontAwesome tabs in articles.html */
 			#nav ul li a span.icon.mi-terms:before {
 				font-family: "Material Symbols Outlined" !important;
-				content: "description" !important; /* like Icons.description_outlined */
+				content: "description" !important; /* Terms */
 				font-variation-settings: "opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0;
-				font-size: 1em !important; /* ✅ match other PinPark site tab icon size */
+
+				/* match Prologue icon sizing/positioning */
+				font-size: 1.25em !important;
 				line-height: 1 !important;
+				display: inline-block;
+				vertical-align: middle;
+				position: relative;
+				top: -0.05em;
 			}
 			#nav ul li a span.icon.mi-privacy:before {
 				font-family: "Material Symbols Outlined" !important;
-				content: "privacy_tip" !important; /* like Icons.privacy_tip_outlined */
+				content: "privacy_tip" !important; /* Privacy */
 				font-variation-settings: "opsz" 24, "wght" 400, "FILL" 0, "GRAD" 0;
-				font-size: 1em !important; /* ✅ match other PinPark site tab icon size */
+
+				/* match Prologue icon sizing/positioning */
+				font-size: 1.25em !important;
 				line-height: 1 !important;
+				display: inline-block;
+				vertical-align: middle;
+				position: relative;
+				top: -0.05em;
 			}
 		</style>
 	</head>
