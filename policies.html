@@ -131,18 +131,6 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Insert pinpark.png 2px below the top strip (raised by 100px) */
-			#other-strip-image {
-				margin-top: -98px;
-				text-align: center;
-			}
-			#other-strip-image img {
-				max-width: 260px;
-				width: 60%;
-				height: auto;
-				display: inline-block;
-			}
-
 			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
@@ -163,6 +151,18 @@
 					color 0.1s ease,
 					opacity 0.1s ease,
 					border-color 0.1s ease;
+			}
+
+			/* ✅ Insert pinpark.png 200px below the top strip */
+			#main .pinpark-under-strip {
+				margin-top: 200px !important;
+				text-align: center;
+			}
+			#main .pinpark-under-strip img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
 			}
 
 			/* ✅ Back button: bottom-left, no bullet, no underline */
@@ -268,6 +268,11 @@
 
 		<!-- Main -->
 			<div id="main">
+				<!-- ✅ pinpark.png 200px below the top strip -->
+				<div class="pinpark-under-strip">
+					<img src="pinpark.png" alt="PinPark" />
+				</div>
+
 				<section id="current" class="one dark cover">
 					<div class="container">
 						<header>
@@ -276,11 +281,6 @@
 						</header>
 					</div>
 				</section>
-
-				<!-- ✅ pinpark.png inserted 2px below the top strip -->
-				<div id="other-strip-image">
-					<img src="pinpark.png" alt="PinPark" />
-				</div>
 
 				<section id="other" class="two">
 					<div class="container">
