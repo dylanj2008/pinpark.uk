@@ -173,20 +173,16 @@
 			}
 			#footer .copyright li:nth-child(2) {
 				margin-left: auto;
-				padding-left: 0 !important;   /* ✅ remove left separator spacing */
-				border-left: 0 !important;    /* ✅ remove left separator */
+				padding-left: 0 !important;
+				border-left: 0 !important;
 			}
 			#footer .copyright li:nth-child(3) {
 				margin-left: 12px;
 			}
-
-			/* ✅ Terms + Privacy font size = 12px */
 			#footer .copyright li:nth-child(2) a,
 			#footer .copyright li:nth-child(3) a {
 				font-size: 12px !important;
 			}
-
-			/* ✅ move Terms + Privacy left by 7px total (was 2px, now 5px more) */
 			#footer .copyright li:nth-child(2),
 			#footer .copyright li:nth-child(3) {
 				position: relative;
@@ -231,15 +227,22 @@
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
+
+				/* ✅ grow 5% over 100ms on hover (and reverse) */
+				transform: scale(1);
+				transition: transform 100ms ease;
+				display: inline-block;
 			}
 			#donations .actions .button:hover {
 				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
 
 				/* ✅ hover shadow reduced by 50% */
 				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+
+				transform: scale(1.05);
 			}
 			#donations .actions .button:active {
-				transform: translateY(1px);
+				transform: scale(1.05) translateY(1px);
 			}
 
 			/* ✅ Apply the same PinPark button styling to "Send Message" */
@@ -254,25 +257,28 @@
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
+
+				/* ✅ grow 5% over 100ms on hover (and reverse) */
+				transform: scale(1);
+				transition: transform 100ms ease;
 			}
 			#contact form input[type="submit"]:hover {
 				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
 
 				/* ✅ hover shadow reduced by 50% */
 				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+
+				transform: scale(1.05);
 			}
 			#contact form input[type="submit"]:active {
-				transform: translateY(1px);
+				transform: scale(1.05) translateY(1px);
 			}
 		</style>
 	</head>
 	<body class="is-preload">
-
 		<!-- Header -->
 			<div id="header">
-
 				<div class="top">
-
 					<!-- Logo -->
 						<div id="logo">
 							<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
@@ -288,13 +294,8 @@
 								<li><a href="?section=donations" id="contact-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
 							</ul>
 						</nav>
-
 				</div>
-
-				<div class="bottom">
-
-				</div>
-
+				<div class="bottom"></div>
 			</div>
 
 		<!-- Main -->
@@ -303,26 +304,19 @@
 				<!-- Intro -->
 					<section id="home" class="one dark cover">
 						<div class="container">
-
 							<header>
 								<h2 class="alt">V1.0.0 In Development</h2>
-								<p>                                                  
-
-								</p>
+								<p></p>
 							</header>
-
 							<footer>
-								<!-- ✅ Read more now links to a new page -->
 								<a href="articles.html" class="button scrolly">Read more</a>
 							</footer>
-
 						</div>
 					</section>
 
 				<!-- Portfolio -->
 					<section id="about" class="two">
 						<div class="container">
-
 							<header>
 								<h2>What we're about</h2>
 							</header>
@@ -376,14 +370,12 @@
 									</article>
 								</div>
 							</div>
-
 						</div>
 					</section>
 
 				<!-- About Me -->
 					<section id="features" class="three">
 						<div class="container">
-
 							<header>
 								<h2>Features</h2>
 							</header>
@@ -396,14 +388,12 @@
 							parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
 							dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
 							ornare iaculis.</p>
-
 						</div>
 					</section>
 
 				<!-- Contact -->
 					<section id="contact" class="four">
 						<div class="container">
-
 							<header>
 								<h2>Contact</h2>
 							</header>
@@ -425,14 +415,12 @@
 									</div>
 								</div>
 							</form>
-
 						</div>
 					</section>
 
 				<!-- Donations -->
 					<section id="donations" class="four">
 						<div class="container">
-
 							<header>
 								<h2>Donations</h2>
 							</header>
@@ -447,7 +435,6 @@
 							<ul class="actions">
 								<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
 							</ul>
-
 						</div>
 					</section>
 
@@ -455,14 +442,11 @@
 
 		<!-- Footer -->
 			<div id="footer">
-
-				<!-- Copyright -->
-					<ul class="copyright">
-						<li>&copy; 2025 PinPark. All rights reserved</li>
-						<li><a href="terms.html">Terms</a></li>
-						<li><a href="privacy.html">Privacy</a></li>
-					</ul>
-
+				<ul class="copyright">
+					<li>&copy; 2025 PinPark. All rights reserved</li>
+					<li><a href="terms.html">Terms</a></li>
+					<li><a href="privacy.html">Privacy</a></li>
+				</ul>
 			</div>
 
 		<!-- Scripts -->
@@ -473,7 +457,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
-			<!-- ✅ Stabilize active tab highlighting (prevents flicker/mis-highlights on scroll) -->
 			<script>
 				(function () {
 					var nav = document.querySelector('#nav');
@@ -530,24 +513,19 @@
 
 							e.preventDefault();
 
-							lockedUntil = Date.now() + 600; // brief lock during smooth scroll
+							lockedUntil = Date.now() + 600;
 							setActiveById(id);
 
 							scrollToId(id);
-
-							// ✅ Do NOT keep ?section= in the URL (prevents refresh jumping back)
 							clearSectionFromUrl();
 						});
 					});
 
-					// If user loads / refreshes with ?section=...
 					var initial = (new URL(window.location.href)).searchParams.get('section');
 					if (initial && document.getElementById(initial)) {
 						requestAnimationFrame(function () {
 							scrollToId(initial);
 							setActiveById(initial);
-
-							// ✅ Remove it right after using it, so refresh stays normal
 							clearSectionFromUrl();
 						});
 					}
@@ -560,7 +538,7 @@
 						requestAnimationFrame(function () {
 							ticking = false;
 
-							var probeY = window.innerHeight * 0.35; // stable point in viewport
+							var probeY = window.innerHeight * 0.35;
 							var best = null;
 
 							for (var i = 0; i < sections.length; i++) {
@@ -573,7 +551,6 @@
 							}
 
 							if (!best) {
-								// fallback: closest top to probeY
 								var bestDist = Infinity;
 								for (var j = 0; j < sections.length; j++) {
 									var rr = sections[j].getBoundingClientRect();
@@ -594,7 +571,6 @@
 					window.addEventListener('scroll', onScroll, { passive: true });
 					window.addEventListener('resize', onScroll);
 					window.addEventListener('popstate', function () {
-						// If someone navigates history with a ?section= link, still support it once
 						var id = (new URL(window.location.href)).searchParams.get('section');
 						if (id && document.getElementById(id)) {
 							scrollToId(id);
