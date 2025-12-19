@@ -185,6 +185,14 @@
 				text-align: center !important;
 			}
 
+			/* ✅ Privacy: remove template container max-width + padding so it can touch edges */
+			#other .container {
+				max-width: none !important;
+				width: 100% !important;
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			}
+
 			/* ✅ Privacy paragraph: 0px padding each side */
 			#other .privacy-paragraph {
 				padding-left: 0px !important;
@@ -534,7 +542,7 @@
 		</div>
 
 		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/jsjquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/jquery.scrollex.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/util.js"></script>
@@ -658,4 +666,5 @@
 
 	</body>
 </html>
+
 ::contentReference[oaicite:0]{index=0}
