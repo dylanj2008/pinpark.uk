@@ -200,6 +200,13 @@
 				box-sizing: border-box;
 			}
 
+			/* ✅ Make section headings scale with screen size (same responsive scaling idea as the main section titles) */
+			#main .terms-paragraph span[style*="font-size: 2em"],
+			#other .privacy-paragraph span[style*="font-size: 2em"] {
+				font-size: clamp(1.35rem, 3.2vw, 2rem) !important;
+				line-height: 1.2 !important;
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
