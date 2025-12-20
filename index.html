@@ -476,10 +476,11 @@
 						});
 					}
 
-					function scrollToId(id) {
+					// ✅ Add "instant" option so initial load doesn't smooth-scroll
+					function scrollToId(id, instant) {
 						var el = document.getElementById(id);
 						if (!el) return;
-						el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
 					}
 
 					links.forEach(function (a) {
@@ -492,7 +493,7 @@
 							lockedUntil = Date.now() + 600;
 							setActiveById(id);
 
-							scrollToId(id);
+							scrollToId(id, false);
 							clearSectionFromUrl();
 						});
 					});
@@ -500,7 +501,8 @@
 					var initial = (new URL(window.location.href)).searchParams.get('section');
 					if (initial && document.getElementById(initial)) {
 						requestAnimationFrame(function () {
-							scrollToId(initial);
+							// ✅ Initial load jumps instantly (no scroll animation)
+							scrollToId(initial, true);
 							setActiveById(initial);
 							clearSectionFromUrl();
 						});
@@ -549,7 +551,8 @@
 					window.addEventListener('popstate', function () {
 						var id = (new URL(window.location.href)).searchParams.get('section');
 						if (id && document.getElementById(id)) {
-							scrollToId(id);
+							// ✅ Back/forward jumps instantly too
+							scrollToId(id, true);
 							setActiveById(id);
 							clearSectionFromUrl();
 						}
