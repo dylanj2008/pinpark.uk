@@ -791,7 +791,14 @@
 
 				if (!links.length || !sections.length) return;
 
+				// ✅ 1) Keep your existing "locked" styling timing
 				var lockedUntil = 0;
+
+				// ✅ 2) NEW: keep the tab fixed to the clicked target while smooth-scrolling
+				//    (prevents the mid-scroll flip back to Terms)
+				var forcedId = null;
+				var forcedUntil = 0;
+
 				function setActiveById(id) {
 					links.forEach(function (a) {
 						var linkId = hrefToId(a.getAttribute('href') || '');
@@ -799,6 +806,29 @@
 						a.classList.toggle('active', on);
 						a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
 					});
+				}
+
+				function forceActive(id) {
+					forcedId = id;
+					// long enough to cover the scroll; we auto-release when the section is actually reached
+					forcedUntil = Date.now() + 15000;
+					setActiveById(id);
+				}
+
+				function maybeReleaseForce(probeY) {
+					if (!forcedId) return;
+					var el = document.getElementById(forcedId);
+					if (!el) {
+						forcedId = null;
+						forcedUntil = 0;
+						return;
+					}
+					var r = el.getBoundingClientRect();
+					// once the forced section is actually the one in the probe zone, release
+					if (r.top <= probeY && r.bottom > probeY) {
+						forcedId = null;
+						forcedUntil = 0;
+					}
 				}
 
 				// ✅ Add "instant" option (used for initial load + back/forward)
@@ -816,7 +846,9 @@
 						e.preventDefault();
 
 						lockedUntil = Date.now() + 600;
-						setActiveById(id);
+
+						// ✅ keep the clicked tab active for the whole smooth scroll (no flicker)
+						forceActive(id);
 
 						// ✅ normal clicks stay smooth
 						scrollToId(id, false);
@@ -847,6 +879,16 @@
 						ticking = false;
 
 						var probeY = window.innerHeight * 0.35;
+
+						// ✅ If we’re forcing a tab (during smooth scroll), keep it locked visually
+						//    but auto-release once the target section is actually reached.
+						maybeReleaseForce(probeY);
+						if (forcedId && Date.now() < forcedUntil) {
+							setActiveById(forcedId);
+							return;
+						}
+
+						// (existing behaviour) choose best section for the probe line
 						var best = null;
 
 						for (var i = 0; i < sections.length; i++) {
