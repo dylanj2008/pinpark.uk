@@ -1,0 +1,504 @@
+<!-- articles.html -->
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>PinPark</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+		<!-- ✅ Tab icon -->
+		<link rel="icon" type="image/png" href="pinparklogo.png" />
+
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<style>
+			/* ✅ Make the blue cover part exactly 60px tall */
+			#current.cover {
+				height: 60px !important;
+				min-height: 60px !important;
+				padding: 0 !important;
+			}
+			#current.cover > .container {
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+			#current.cover header,
+			#current.cover h2,
+			#current.cover p {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			/* ✅ PinPark hero tint */
+			#current.cover:before,
+			#current:before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				) !important;
+			}
+
+			/* ✅ PinPark hero tint overlay */
+			#current.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
+			#current.cover::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+
+			/* ✅ keep your hero content above the tint */
+			#current.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* ✅ Make PinPark logo 25% smaller total */
+			#logo .image img {
+				width: 75%;
+				height: auto;
+				transform: translateY(-10px);
+			}
+
+			/* ✅ Center the PinPark logo horizontally in the sidebar column */
+			#logo {
+				text-align: center;
+			}
+			#logo .image {
+				display: inline-block;
+			}
+			#logo .image img {
+				display: block;
+				margin: 0 auto;
+			}
+
+			/* ✅ Ensure left nav icons visibly highlight when active */
+			#nav ul li a.active span.icon:before,
+			#nav ul li a.active-locked span.icon:before {
+				color: #fff !important;
+			}
+			#nav ul li a.active,
+			#nav ul li a.active-locked {
+				color: #fff !important;
+			}
+
+			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
+			#nav ul li a,
+			#nav ul li a:before,
+			#nav ul li a:after,
+			#nav ul li a span.icon:before {
+				transition:
+					background-color 0.1s ease,
+					color 0.1s ease,
+					opacity 0.1s ease,
+					border-color 0.1s ease;
+			}
+
+			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
+			#main .pinpark-under-strip {
+				margin-top: 120px !important;
+				text-align: center;
+			}
+			#main .pinpark-under-strip img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
+			}
+
+			/* ✅ Make "Current Article" the same distance from pinpark.png as in terms.html */
+			#main .pinpark-under-strip .articles-under-logo {
+				margin-top: 100px !important;
+				margin-bottom: 2em !important;
+			}
+			#main .pinpark-under-strip .articles-under-logo h2 {
+				margin-top: 0 !important;
+			}
+
+			/* ✅ Current Article paragraph: centered + 30px padding each side */
+			#main .pinpark-under-strip .articles-paragraph {
+				margin-top: 0 !important;
+				padding-left: 30px !important;
+				padding-right: 30px !important;
+				box-sizing: border-box;
+				text-align: center !important;
+			}
+
+			/* ✅ Other Articles: remove template container max-width + padding so it can touch edges */
+			#other .container {
+				max-width: none !important;
+				width: 100% !important;
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			}
+
+			/* ✅ Other Articles paragraph: 30px padding each side */
+			#other .other-paragraph {
+				padding-left: 30px !important;
+				padding-right: 30px !important;
+				box-sizing: border-box;
+			}
+
+			/* ✅ Back button: bottom-left, no bullet, no underline */
+			#header .bottom {
+				text-align: left !important;
+				padding-left: 15px !important;
+				padding-bottom: 15px !important;
+			}
+			#nav-back ul,
+			#nav-back ul li {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			#back-link {
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+				box-shadow: none !important;
+				font-size: 0.8em !important;
+			}
+
+			#back-link .icon:before {
+				margin-right: 5px !important;
+				font-size: 1em !important;
+			}
+
+			#nav-back ul li a,
+			#nav-back ul li a span.icon:before {
+				color: rgba(255, 255, 255, 0.55) !important;
+			}
+			#nav-back ul li a:hover,
+			#nav-back ul li a:hover span.icon:before {
+				color: #fff !important;
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+			}
+
+			#nav-back ul li a:before,
+			#nav-back ul li a:after {
+				background: transparent !important;
+				box-shadow: none !important;
+				opacity: 0 !important;
+			}
+
+			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			#footer,
+			#footer::after {
+				background: none !important;
+				content: none !important;
+			}
+			#footer {
+				position: static !important;
+				overflow: visible !important;
+				height: 70px;
+				padding: 0 !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright {
+				margin: 0 !important;
+			}
+			#footer,
+			#footer * {
+				color: #000 !important;
+			}
+			#footer a {
+				color: #000 !important;
+				border-bottom-color: rgba(0, 0, 0, 0.35) !important;
+			}
+			#footer a:hover {
+				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
+			}
+
+			/* ✅ PRESET SECTION (hide until we jump instantly into position) */
+			html[data-prejump] {
+				scroll-behavior: auto !important;
+			}
+			html[data-prejump] body {
+				visibility: hidden;
+			}
+		</style>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Header -->
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+				</div>
+
+				<nav id="nav">
+					<ul>
+						<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Selected Article</span></a></li>
+						<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="bottom">
+				<nav id="nav-back">
+					<ul>
+						<li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Main -->
+		<div id="main">
+			<!-- ✅ Top strip only -->
+			<section id="current" class="one dark cover">
+				<div class="container">
+					<header></header>
+				</div>
+			</section>
+
+			<!-- ✅ Positioned like terms.html -->
+			<div class="pinpark-under-strip">
+				<img src="pinpark.png" alt="PinPark" />
+				<header class="articles-under-logo"><h2>V1.0.0 In Development</h2></header>
+
+				<!-- 🔹 New blue "Create post" button (admin-style) -->
+				<ul class="actions" style="margin-top: 0.7em;">
+					<li>
+						<a
+							href="#"
+							class="button"
+							style="
+								background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+								border-radius: 14px;
+								color: #fff;
+								border: 1px solid rgba(255,255,255,0);
+								box-shadow: 0 5px 11px rgba(0,0,0,0.07);
+								text-transform: none;
+								letter-spacing: inherit;
+							"
+						>
+							Create post
+						</a>
+					</li>
+				</ul>
+
+				<p class="articles-paragraph">
+					<!-- ✅ Put your current article content here -->
+					Your current article will go here.
+				</p>
+			</div>
+
+			<section id="other" class="two">
+				<div class="container">
+					<header><h2>Other Articles</h2></header>
+
+					<p class="other-paragraph">
+						<!-- ✅ Add your other articles here -->
+						Add your other articles here.
+					</p>
+				</div>
+			</section>
+		</div>
+
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; 2025 PinPark. All rights reserved</li>
+			</ul>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<script>
+			(function () {
+				var nav = document.querySelector('#nav');
+				if (!nav) return;
+
+				function hrefToId(href) {
+					try {
+						var u = new URL(href, window.location.href);
+						return u.searchParams.get('section');
+					} catch (_) {
+						return null;
+					}
+				}
+
+				function clearSectionFromUrl() {
+					try {
+						var u = new URL(window.location.href);
+						if (!u.searchParams.has('section')) return;
+						u.searchParams.delete('section');
+						history.replaceState(null, '', u.toString());
+					} catch (_) {}
+				}
+
+				var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
+				var sections = links
+					.map(function (a) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						return id ? document.getElementById(id) : null;
+					})
+					.filter(Boolean);
+
+				if (!links.length || !sections.length) return;
+
+				// ✅ Keep "locked" styling timing
+				var lockedUntil = 0;
+
+				// ✅ Keep the tab fixed to the clicked target while smooth-scrolling
+				var forcedId = null;
+				var forcedUntil = 0;
+
+				function setActiveById(id) {
+					links.forEach(function (a) {
+						var linkId = hrefToId(a.getAttribute('href') || '');
+						var on = linkId === id;
+						a.classList.toggle('active', on);
+						a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
+					});
+				}
+
+				function forceActive(id) {
+					forcedId = id;
+					forcedUntil = Date.now() + 15000;
+					setActiveById(id);
+				}
+
+				function maybeReleaseForce(probeY) {
+					if (!forcedId) return;
+					var el = document.getElementById(forcedId);
+					if (!el) {
+						forcedId = null;
+						forcedUntil = 0;
+						return;
+					}
+					var r = el.getBoundingClientRect();
+					if (r.top <= probeY && r.bottom > probeY) {
+						forcedId = null;
+						forcedUntil = 0;
+					}
+				}
+
+				function scrollToId(id, instant) {
+					var el = document.getElementById(id);
+					if (!el) return;
+					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
+				}
+
+				links.forEach(function (a) {
+					a.addEventListener('click', function (e) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						if (!id) return;
+
+						e.preventDefault();
+
+						lockedUntil = Date.now() + 600;
+						forceActive(id);
+
+						scrollToId(id, false);
+						clearSectionFromUrl();
+					});
+				});
+
+				var initial = (new URL(window.location.href)).searchParams.get('section');
+				if (initial && document.getElementById(initial)) {
+					document.documentElement.setAttribute('data-prejump', initial);
+
+					scrollToId(initial, true);
+					setActiveById(initial);
+					clearSectionFromUrl();
+
+					document.documentElement.removeAttribute('data-prejump');
+				}
+
+				var ticking = false;
+				function onScroll() {
+					if (ticking) return;
+					ticking = true;
+
+					requestAnimationFrame(function () {
+						ticking = false;
+
+						var probeY = window.innerHeight * 0.35;
+
+						maybeReleaseForce(probeY);
+						if (forcedId && Date.now() < forcedUntil) {
+							setActiveById(forcedId);
+							return;
+						}
+
+						var best = null;
+
+						for (var i = 0; i < sections.length; i++) {
+							var s = sections[i];
+							var r = s.getBoundingClientRect();
+							if (r.top <= probeY && r.bottom > probeY) {
+								best = s;
+								break;
+							}
+						}
+
+						if (!best) best = sections[0];
+
+						if (best && Date.now() >= lockedUntil) {
+							setActiveById(best.id);
+						}
+					});
+				}
+
+				window.addEventListener('scroll', onScroll, { passive: true });
+				window.addEventListener('resize', onScroll);
+				window.addEventListener('popstate', function () {
+					var id = (new URL(window.location.href)).searchParams.get('section');
+					if (id && document.getElementById(id)) {
+						scrollToId(id, true);
+						setActiveById(id);
+						clearSectionFromUrl();
+					}
+				});
+
+				onScroll();
+			})();
+		</script>
+
+	</body>
+</html>
