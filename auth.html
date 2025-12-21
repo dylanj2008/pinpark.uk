@@ -359,8 +359,10 @@
 
               showStatus("Signed in.");
               if (admin) {
-                window.location.href = "articles.html";
+                // 🔹 Admin email (e.g. pinpark@outlook.com) → admin articles page
+                window.location.href = "articles/admin";
               } else {
+                // 🔹 Normal account → main site
                 window.location.href = "index.html";
               }
             } else {
