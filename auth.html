@@ -1,380 +1,393 @@
 <!-- auth.html -->
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>PinPark – Account</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+  <head>
+    <title>PinPark – Account</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
 
-		<style>
-			body {
-				background: #f6f6f6;
-			}
+    <style>
+      body {
+        background: #f6f6f6;
+      }
 
-			/* Reuse sidebar/header style to match site */
-			#header {
-				position: fixed;
-				left: 0;
-				top: 0;
-				width: 250px;
-				height: 100%;
-			}
-			#main {
-				margin-left: 250px;
-			}
+      /* Reuse sidebar/header style to match site */
+      #header {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 100%;
+      }
+      #main {
+        margin-left: 250px;
+      }
 
-			/* Logo size same as other pages */
-			#logo .image img {
-				width: 75%;
-				height: auto;
-				transform: translateY(-10px);
-			}
-			#logo {
-				text-align: center;
-			}
-			#logo .image {
-				display: inline-block;
-			}
-			#logo .image img {
-				display: block;
-				margin: 0 auto;
-			}
+      /* Logo size same as other pages */
+      #logo .image img {
+        width: 75%;
+        height: auto;
+        transform: translateY(-10px);
+      }
+      #logo {
+        text-align: center;
+      }
+      #logo .image {
+        display: inline-block;
+      }
+      #logo .image img {
+        display: block;
+        margin: 0 auto;
+      }
 
-			/* Simple left nav (Back home) */
-			#nav {
-				margin-top: 20px;
-			}
-			#nav ul {
-				list-style: none;
-				margin: 0;
-				padding: 0;
-			}
-			#nav ul li a {
-				display: block;
-				padding: 0.6em 1.2em;
-				text-decoration: none;
-			}
+      /* Simple left nav (Back home) */
+      #nav {
+        margin-top: 20px;
+      }
+      #nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      #nav ul li a {
+        display: block;
+        padding: 0.6em 1.2em;
+        text-decoration: none;
+      }
 
-			/* Main auth layout */
-			.auth-wrapper {
-				min-height: 100vh;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: 30px 15px;
-			}
-			.auth-card {
-				background: #ffffff;
-				border-radius: 16px;
-				padding: 22px 24px 20px;
-				box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
-				max-width: 420px;
-				width: 100%;
-				box-sizing: border-box;
-			}
-			.auth-card h2 {
-				margin: 0 0 4px;
-				font-size: 1.4em;
-				text-align: left;
-			}
-			.auth-subtitle {
-				margin: 0 0 16px;
-				font-size: 0.9em;
-				color: #666;
-				text-align: left;
-			}
+      /* Main auth layout */
+      .auth-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 15px;
+      }
+      .auth-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 22px 24px 20px;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+        max-width: 420px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .auth-card h2 {
+        margin: 0 0 4px;
+        font-size: 1.4em;
+        text-align: left;
+      }
+      .auth-subtitle {
+        margin: 0 0 16px;
+        font-size: 0.9em;
+        color: #666;
+        text-align: left;
+      }
 
-			/* Toggle (Login / Sign up) */
-			.auth-toggle {
-				display: inline-flex;
-				border-radius: 999px;
-				background: #f2f2f2;
-				padding: 3px;
-				margin-bottom: 16px;
-				font-size: 0.86em;
-			}
-			.auth-toggle button {
-				border: none;
-				background: transparent;
-				padding: 6px 14px;
-				border-radius: 999px;
-				cursor: pointer;
-				color: #555;
-			}
-			.auth-toggle button.active {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-				color: #fff;
-			}
+      /* Toggle (Login / Sign up) */
+      .auth-toggle {
+        display: inline-flex;
+        border-radius: 999px;
+        background: #f2f2f2;
+        padding: 3px;
+        margin-bottom: 16px;
+        font-size: 0.86em;
+      }
+      .auth-toggle button {
+        border: none;
+        background: transparent;
+        padding: 6px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        color: #555;
+      }
+      .auth-toggle button.active {
+        background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+        color: #fff;
+      }
 
-			.auth-field {
-				margin-bottom: 10px;
-				text-align: left;
-			}
-			.auth-field label {
-				display: block;
-				font-size: 0.85em;
-				margin-bottom: 4px;
-			}
-			.auth-field input {
-				width: 100%;
-				padding: 7px 9px;
-				border-radius: 8px;
-				border: 1px solid #ddd;
-				box-sizing: border-box;
-				font-size: 0.95em;
-			}
+      .auth-field {
+        margin-bottom: 10px;
+        text-align: left;
+      }
+      .auth-field label {
+        display: block;
+        font-size: 0.85em;
+        margin-bottom: 4px;
+      }
+      .auth-field input {
+        width: 100%;
+        padding: 7px 9px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        font-size: 0.95em;
+      }
 
-			.auth-actions {
-				display: flex;
-				gap: 8px;
-				margin: 12px 0 8px;
-			}
-			.auth-actions button {
-				flex: 1;
-				border-radius: 12px;
-				border: none;
-				padding: 8px 0;
-				cursor: pointer;
-				font-size: 0.95em;
-			}
-			#btn-login {
-				background: #f1f1f1;
-				color: #333;
-			}
-			#btn-signup {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-				color: #fff;
-			}
+      .auth-actions {
+        display: flex;
+        gap: 8px;
+        margin: 12px 0 8px;
+      }
+      .auth-actions button {
+        flex: 1;
+        border-radius: 12px;
+        border: none;
+        padding: 8px 0;
+        cursor: pointer;
+        font-size: 0.95em;
+      }
+      #btn-login {
+        background: #f1f1f1;
+        color: #333;
+      }
+      #btn-signup {
+        background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+        color: #fff;
+      }
 
-			.auth-footer {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 0.8em;
-				margin-top: 4px;
-			}
-			#auth-status {
-				min-height: 1.2em;
-			}
-			.auth-footer a {
-				text-decoration: none;
-				border-bottom: 0;
-				cursor: pointer;
-			}
+      .auth-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8em;
+        margin-top: 4px;
+      }
+      #auth-status {
+        min-height: 1.2em;
+      }
+      .auth-footer a {
+        text-decoration: none;
+        border-bottom: 0;
+        cursor: pointer;
+      }
 
-			/* Small screen – collapse sidebar */
-			@media screen and (max-width: 980px) {
-				#header {
-					position: relative;
-					width: 100%;
-					height: auto;
-				}
-				#main {
-					margin-left: 0;
-				}
-				.auth-wrapper {
-					padding-top: 10px;
-				}
-			}
-		</style>
-	</head>
-	<body class="is-preload">
-		<!-- Header (same as others, simple) -->
-		<div id="header">
-			<div class="top">
-				<div id="logo">
-					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
-				</div>
+      /* Small screen – collapse sidebar */
+      @media screen and (max-width: 980px) {
+        #header {
+          position: relative;
+          width: 100%;
+          height: auto;
+        }
+        #main {
+          margin-left: 0;
+        }
+        .auth-wrapper {
+          padding-top: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body class="is-preload">
+    <!-- Header -->
+    <div id="header">
+      <div class="top">
+        <div id="logo">
+          <span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+        </div>
 
-				<nav id="nav">
-					<ul>
-						<li><a href="index.html"><span class="icon solid fa-home">Back to main site</span></a></li>
-					</ul>
-				</nav>
-			</div>
-			<div class="bottom"></div>
-		</div>
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html"><span class="icon solid fa-home">Back to main site</span></a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="bottom"></div>
+    </div>
 
-		<!-- Main auth content -->
-		<div id="main">
-			<div class="auth-wrapper">
-				<div class="auth-card">
-					<div class="auth-toggle">
-						<button id="toggle-login" class="active" type="button">Login</button>
-						<button id="toggle-signup" type="button">Sign up</button>
-					</div>
+    <!-- Main auth content -->
+    <div id="main">
+      <div class="auth-wrapper">
+        <div class="auth-card">
+          <div class="auth-toggle">
+            <button id="toggle-login" class="active" type="button">Login</button>
+            <button id="toggle-signup" type="button">Sign up</button>
+          </div>
 
-					<h2 id="auth-title">Sign in to PinPark</h2>
-					<p class="auth-subtitle" id="auth-subtitle">
-						Use the same email and password you use in the app.
-					</p>
+          <h2 id="auth-title">Sign in to PinPark</h2>
+          <p class="auth-subtitle" id="auth-subtitle">
+            Use the same email and password you use in the app.
+          </p>
 
-					<div class="auth-field">
-						<label for="auth-email">Email</label>
-						<input id="auth-email" type="email" autocomplete="email" />
-					</div>
+          <div class="auth-field">
+            <label for="auth-email">Email</label>
+            <input id="auth-email" type="email" autocomplete="email" />
+          </div>
 
-					<div class="auth-field">
-						<label for="auth-password">Password</label>
-						<input id="auth-password" type="password" autocomplete="current-password" />
-					</div>
+          <div class="auth-field">
+            <label for="auth-password">Password</label>
+            <input id="auth-password" type="password" autocomplete="current-password" />
+          </div>
 
-					<div class="auth-actions">
-						<button id="btn-login" type="button">Sign in</button>
-						<button id="btn-signup" type="button">Sign up</button>
-					</div>
+          <div class="auth-actions">
+            <button id="btn-login" type="button">Sign in</button>
+            <button id="btn-signup" type="button">Sign up</button>
+          </div>
 
-					<div class="auth-footer">
-						<span id="auth-status"></span>
-						<a href="index.html">Back</a>
-					</div>
-				</div>
-			</div>
-		</div>
+          <div class="auth-footer">
+            <span id="auth-status"></span>
+            <a href="index.html">Back</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<!-- Scripts -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/browser.min.js"></script>
-		<script src="assets/js/util.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/util.js"></script>
 
-		<!-- 🔐 Firebase Auth (shared with the app) -->
-		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import {
-				getAuth,
-				onAuthStateChanged,
-				createUserWithEmailAndPassword,
-				signInWithEmailAndPassword,
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    <!-- ✅ Toggle logic (NO Firebase, always runs) -->
+    <script>
+      (function () {
+        const titleEl    = document.getElementById("auth-title");
+        const subtitleEl = document.getElementById("auth-subtitle");
+        const toggleLogin  = document.getElementById("toggle-login");
+        const toggleSignup = document.getElementById("toggle-signup");
 
-			const firebaseConfig = {
-				// 🔑 IMPORTANT: paste the SAME config you use in the Flutter app
-				// apiKey: "...",
-				// authDomain: "...",
-				// projectId: "...",
-				// storageBucket: "...",
-				// messagingSenderId: "...",
-				// appId: "..."
-			};
+        function setMode(mode) {
+          const isSignup = mode === "signup";
 
-			const app  = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-			const db   = getFirestore(app);
+          toggleLogin.classList.toggle("active", !isSignup);
+          toggleSignup.classList.toggle("active", isSignup);
 
-			const titleEl    = document.getElementById("auth-title");
-			const subtitleEl = document.getElementById("auth-subtitle");
-			const emailInput = document.getElementById("auth-email");
-			const passInput  = document.getElementById("auth-password");
-			const btnLogin   = document.getElementById("btn-login");
-			const btnSignup  = document.getElementById("btn-signup");
-			const toggleLogin  = document.getElementById("toggle-login");
-			const toggleSignup = document.getElementById("toggle-signup");
-			const statusEl   = document.getElementById("auth-status");
+          if (isSignup) {
+            titleEl.textContent = "Create a PinPark account";
+            subtitleEl.textContent =
+              "You'll be able to use this account in both the app and on this website.";
+          } else {
+            titleEl.textContent = "Sign in to PinPark";
+            subtitleEl.textContent =
+              "Use the same email and password you use in the app.";
+          }
+        }
 
-			function showStatus(msg, isError = false) {
-				if (!statusEl) return;
-				statusEl.textContent = msg || "";
-				statusEl.style.color = isError ? "#c00" : "#555";
-			}
+        // Expose for the module if needed
+        window.__setAuthMode = setMode;
 
-			function setMode(mode) {
-				const isSignup = (mode === "signup");
+        // Initialise from ?mode=signup|login in URL
+        try {
+          const u = new URL(window.location.href);
+          const mode = u.searchParams.get("mode");
+          if (mode === "signup") {
+            setMode("signup");
+          } else {
+            setMode("login");
+          }
+        } catch (e) {
+          setMode("login");
+        }
 
-				toggleLogin.classList.toggle("active", !isSignup);
-				toggleSignup.classList.toggle("active", isSignup);
+        toggleLogin?.addEventListener("click", () => setMode("login"));
+        toggleSignup?.addEventListener("click", () => setMode("signup"));
+      })();
+    </script>
 
-				if (isSignup) {
-					titleEl.textContent = "Create a PinPark account";
-					subtitleEl.textContent = "You'll be able to use this account in both the app and on this website.";
-				} else {
-					titleEl.textContent = "Sign in to PinPark";
-					subtitleEl.textContent = "Use the same email and password you use in the app.";
-				}
-			}
+    <!-- 🔐 Firebase Auth (shared with the app) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc
+      } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-			// Read ?mode=login|signup from URL
-			(function initModeFromUrl() {
-				try {
-					const u = new URL(window.location.href);
-					const mode = u.searchParams.get("mode");
-					if (mode === "signup") {
-						setMode("signup");
-					} else {
-						setMode("login");
-					}
-				} catch (_) {
-					setMode("login");
-				}
-			})();
+      const statusEl   = document.getElementById("auth-status");
+      const emailInput = document.getElementById("auth-email");
+      const passInput  = document.getElementById("auth-password");
+      const btnLogin   = document.getElementById("btn-login");
+      const btnSignup  = document.getElementById("btn-signup");
 
-			toggleLogin?.addEventListener("click", () => setMode("login"));
-			toggleSignup?.addEventListener("click", () => setMode("signup"));
+      function showStatus(msg, isError = false) {
+        if (!statusEl) return;
+        statusEl.textContent = msg || "";
+        statusEl.style.color = isError ? "#c00" : "#555";
+      }
 
-			async function isAdminUser(user) {
-				if (!user) return false;
-				const snap = await getDoc(doc(db, "admins", user.uid));
-				return snap.exists();
-			}
+      const firebaseConfig = {
+        // 🔑 IMPORTANT: paste the SAME config you use in the Flutter app
+        // apiKey: "YOUR_API_KEY",
+        // authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        // projectId: "YOUR_PROJECT_ID",
+        // storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        // messagingSenderId: "YOUR_SENDER_ID",
+        // appId: "YOUR_APP_ID"
+      };
 
-			btnLogin?.addEventListener("click", async () => {
-				const email = emailInput.value.trim();
-				const pass  = passInput.value;
-				if (!email || !pass) {
-					showStatus("Please enter email and password", true);
-					return;
-				}
-				try {
-					showStatus("Signing in...");
-					const cred = await signInWithEmailAndPassword(auth, email, pass);
-					const user = cred.user;
-					const admin = await isAdminUser(user);
-					showStatus("Signed in.");
-					// 🔀 redirect based on role
-					if (admin) {
-						window.location.href = "articles.html";
-					} else {
-						window.location.href = "index.html";
-					}
-				} catch (err) {
-					console.error(err);
-					showStatus(err.message || "Sign in failed", true);
-				}
-			});
+      // ✅ If config is empty, don't try to initialise Firebase
+      if (!firebaseConfig.apiKey) {
+        console.warn("Firebase config missing in auth.html – auth disabled until you paste it.");
+        showStatus("Auth is not configured yet.", true);
+      } else {
+        const app  = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db   = getFirestore(app);
 
-			btnSignup?.addEventListener("click", async () => {
-				const email = emailInput.value.trim();
-				const pass  = passInput.value;
-				if (!email || !pass) {
-					showStatus("Please enter email and password", true);
-					return;
-				}
-				try {
-					showStatus("Creating account...");
-					const cred = await createUserWithEmailAndPassword(auth, email, pass);
-					console.log("New user UID:", cred.user.uid); // use once in Firestore 'admins' if it's you
-					showStatus("Account created. You can now sign in.");
-					// After sign-up, just send them to the main site
-					setTimeout(() => {
-						window.location.href = "index.html";
-					}, 700);
-				} catch (err) {
-					console.error(err);
-					showStatus(err.message || "Sign up failed", true);
-				}
-			});
+        async function isAdminUser(user) {
+          if (!user) return false;
+          const snap = await getDoc(doc(db, "admins", user.uid));
+          return snap.exists();
+        }
 
-			// Optional: you can listen to auth state here if you want
-			onAuthStateChanged(auth, (user) => {
-				if (user) {
-					console.log("Signed in as", user.email, "uid:", user.uid);
-				}
-			});
-		</script>
-	</body>
+        btnLogin?.addEventListener("click", async () => {
+          const email = emailInput.value.trim();
+          const pass  = passInput.value;
+          if (!email || !pass) {
+            showStatus("Please enter email and password", true);
+            return;
+          }
+          try {
+            showStatus("Signing in...");
+            const cred = await signInWithEmailAndPassword(auth, email, pass);
+            const user = cred.user;
+            const admin = await isAdminUser(user);
+            showStatus("Signed in.");
+            // redirect based on role
+            if (admin) {
+              window.location.href = "articles.html";
+            } else {
+              window.location.href = "index.html";
+            }
+          } catch (err) {
+            console.error(err);
+            showStatus(err.message || "Sign in failed", true);
+          }
+        });
+
+        btnSignup?.addEventListener("click", async () => {
+          const email = emailInput.value.trim();
+          const pass  = passInput.value;
+          if (!email || !pass) {
+            showStatus("Please enter email and password", true);
+            return;
+          }
+          try {
+            showStatus("Creating account...");
+            const cred = await createUserWithEmailAndPassword(auth, email, pass);
+            console.log("New user UID:", cred.user.uid);
+            showStatus("Account created. You can now sign in.");
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 700);
+          } catch (err) {
+            console.error(err);
+            showStatus(err.message || "Sign up failed", true);
+          }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            console.log("Signed in as", user.email, "uid:", user.uid);
+          }
+        });
+      }
+    </script>
+  </body>
 </html>
