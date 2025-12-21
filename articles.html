@@ -267,7 +267,7 @@
 
 				<nav id="nav">
 					<ul>
-						<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Current Article</span></a></li>
+						<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Selected Article</span></a></li>
 						<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
 					</ul>
 				</nav>
@@ -282,6 +282,25 @@
 			</div>
 		</div>
 
+		<!-- 🔐 Auth UI (optional; site still works without sign-in) -->
+		<div id="auth-ui" style="text-align:center; padding: 12px 0;">
+			<form id="auth-form" onsubmit="return false;" style="margin-bottom: 8px;">
+				<input id="auth-email" type="email" placeholder="Email" required style="max-width: 200px;">
+				<input id="auth-password" type="password" placeholder="Password" required style="max-width: 200px;">
+				<button id="btn-register" type="button">Sign up</button>
+				<button id="btn-login" type="button">Sign in</button>
+			</form>
+
+			<button id="btn-signout" type="button" style="display:none;">Sign out</button>
+
+			<!-- Only you (admin) will see this when signed in -->
+			<button id="btn-admin" type="button" style="display:none; margin-left: 8px;">
+				Admin mode
+			</button>
+
+			<div id="auth-status" style="font-size: 0.8em; margin-top: 4px;"></div>
+		</div>
+
 		<!-- Main -->
 		<div id="main">
 			<!-- ✅ Top strip only -->
@@ -294,7 +313,7 @@
 			<!-- ✅ Positioned like terms.html -->
 			<div class="pinpark-under-strip">
 				<img src="pinpark.png" alt="PinPark" />
-				<header class="articles-under-logo"><h2>Current Article</h2></header>
+				<header class="articles-under-logo"><h2>V1.0.0 In Development</h2></header>
 
 				<p class="articles-paragraph">
 					<!-- ✅ Put your current article content here -->
@@ -477,6 +496,139 @@
 
 				onScroll();
 			})();
+		</script>
+
+		<!-- 🔐 Firebase Auth + admin check -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import {
+				getAuth,
+				onAuthStateChanged,
+				createUserWithEmailAndPassword,
+				signInWithEmailAndPassword,
+				signOut
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				// 🔑 Paste your existing Firebase config here (same project as the app)
+				// apiKey: "...",
+				// authDomain: "...",
+				// projectId: "...",
+				// storageBucket: "...",
+				// messagingSenderId: "...",
+				// appId: "..."
+			};
+
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
+
+			const emailInput = document.getElementById("auth-email");
+			const passInput  = document.getElementById("auth-password");
+			const btnRegister = document.getElementById("btn-register");
+			const btnLogin    = document.getElementById("btn-login");
+			const btnSignOut  = document.getElementById("btn-signout");
+			const btnAdmin    = document.getElementById("btn-admin");
+			const statusEl    = document.getElementById("auth-status");
+
+			function showStatus(msg, isError = false) {
+				if (!statusEl) return;
+				statusEl.textContent = msg || "";
+				statusEl.style.color = isError ? "#c00" : "#555";
+			}
+
+			async function isAdminUser(user) {
+				if (!user) return false;
+				const snap = await getDoc(doc(db, "admins", user.uid));
+				return snap.exists();
+			}
+
+			function setUiSignedOut() {
+				if (btnSignOut) btnSignOut.style.display = "none";
+				if (btnAdmin) btnAdmin.style.display = "none";
+				if (btnLogin) btnLogin.style.display = "";
+				if (btnRegister) btnRegister.style.display = "";
+				document.documentElement.classList.remove("is-admin");
+				showStatus("Not signed in");
+			}
+
+			function setUiSignedIn(isAdmin, user) {
+				if (btnSignOut) btnSignOut.style.display = "";
+				if (btnLogin) btnLogin.style.display = "none";
+				if (btnRegister) btnRegister.style.display = "none";
+				if (btnAdmin) btnAdmin.style.display = isAdmin ? "" : "none";
+				document.documentElement.classList.toggle("is-admin", isAdmin);
+
+				const label = user?.email || "Signed in";
+				showStatus(isAdmin ? label + " (admin)" : label);
+			}
+
+			btnRegister?.addEventListener("click", async () => {
+				const email = emailInput.value.trim();
+				const pass  = passInput.value;
+				if (!email || !pass) return;
+
+				try {
+					showStatus("Creating account...");
+					const cred = await createUserWithEmailAndPassword(auth, email, pass);
+					showStatus("Account created and signed in.");
+					console.log("New user UID:", cred.user.uid); // 🔍 Use once to add yourself to admins
+				} catch (err) {
+					console.error(err);
+					showStatus(err.message || "Sign up failed", true);
+				}
+			});
+
+			btnLogin?.addEventListener("click", async () => {
+				const email = emailInput.value.trim();
+				const pass  = passInput.value;
+				if (!email || !pass) return;
+
+				try {
+					showStatus("Signing in...");
+					const cred = await signInWithEmailAndPassword(auth, email, pass);
+					showStatus("Signed in.");
+					console.log("User UID:", cred.user.uid);
+				} catch (err) {
+					console.error(err);
+					showStatus(err.message || "Sign in failed", true);
+				}
+			});
+
+			btnSignOut?.addEventListener("click", async () => {
+				try {
+					await signOut(auth);
+					showStatus("Signed out.");
+				} catch (err) {
+					console.error(err);
+					showStatus("Sign out failed", true);
+				}
+			});
+
+			btnAdmin?.addEventListener("click", () => {
+				// For now just a placeholder – later we can show an editor or redirect to admin.html
+				alert("Admin mode – only you should see this.");
+			});
+
+			onAuthStateChanged(auth, async (user) => {
+				if (!user) {
+					setUiSignedOut();
+					return;
+				}
+
+				try {
+					const admin = await isAdminUser(user);
+					setUiSignedIn(admin, user);
+				} catch (err) {
+					console.error(err);
+					setUiSignedIn(false, user);
+				}
+			});
 		</script>
 
 	</body>
