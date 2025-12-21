@@ -1,4 +1,4 @@
-<!-- index.html (updated) -->
+<!-- index.html (updated with sidebar Login / Sign up) -->
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -79,15 +79,9 @@
 				box-shadow: none !important;
 				padding: 0 !important;
 				margin: 0 !important;
-
-				/* ✅ same colour as V1.0.0 text */
 				color: inherit !important;
-
-				/* ✅ revert font (let main.css handle it) + raise 5px */
 				position: relative;
 				top: -5px;
-
-				/* ✅ make "Read more" 10% smaller */
 				font-size: 90% !important;
 			}
 			#home .button.scrolly:hover {
@@ -221,8 +215,6 @@
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
-
-				/* ✅ grow 2.5% over 100ms on hover (and reverse) */
 				transform: scale(1);
 				transition: transform 100ms ease;
 				display: inline-block;
@@ -245,8 +237,6 @@
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
-
-				/* ✅ grow 2.5% over 100ms on hover (and reverse) */
 				transform: scale(1);
 				transition: transform 100ms ease;
 			}
@@ -257,6 +247,82 @@
 			}
 			#contact form input[type="submit"]:active {
 				transform: scale(1.025) translateY(1px);
+			}
+
+			/* 🔐 Simple auth modal */
+			#auth-modal-backdrop {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.5);
+				display: none;
+				align-items: center;
+				justify-content: center;
+				z-index: 10000;
+			}
+			#auth-modal {
+				background: #fff;
+				border-radius: 12px;
+				padding: 20px 22px;
+				max-width: 360px;
+				width: 90%;
+				box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+				text-align: left;
+				font-size: 0.95em;
+			}
+			#auth-modal h3 {
+				margin-top: 0;
+				margin-bottom: 10px;
+			}
+			#auth-modal label {
+				display: block;
+				font-size: 0.85em;
+				margin-bottom: 4px;
+			}
+			#auth-modal input[type="email"],
+			#auth-modal input[type="password"] {
+				width: 100%;
+				margin-bottom: 10px;
+				padding: 6px 8px;
+				border-radius: 6px;
+				border: 1px solid #ddd;
+				box-sizing: border-box;
+			}
+			#auth-modal .auth-actions {
+				display: flex;
+				gap: 8px;
+				margin-top: 6px;
+				margin-bottom: 8px;
+			}
+			#auth-modal .auth-actions button {
+				flex: 1;
+				border-radius: 10px;
+				border: none;
+				padding: 7px 0;
+				cursor: pointer;
+			}
+			#auth-btn-login {
+				background: #f1f1f1;
+			}
+			#auth-btn-signup {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+				color: #fff;
+			}
+			#auth-modal .auth-footer {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 0.8em;
+			}
+			#auth-modal-close {
+				background: none;
+				border: none;
+				font-size: 0.9em;
+				cursor: pointer;
+				color: #555;
+			}
+			#auth-status {
+				font-size: 0.8em;
+				min-height: 1.2em;
 			}
 		</style>
 	</head>
@@ -274,11 +340,23 @@
 							<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
 							<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
 							<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
-							<li><a href="?section=donations" id="contact-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
+							<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
 						</ul>
 					</nav>
 				</div>
-				<div class="bottom"></div>
+
+				<!-- 🔐 Sidebar bottom: Login / Sign up / Admin -->
+				<div class="bottom">
+					<nav id="nav-auth">
+						<ul>
+							<li><a href="#" id="link-login"><span class="icon solid fa-sign-in-alt">Login</span></a></li>
+							<li><a href="#" id="link-signup"><span class="icon solid fa-user-plus">Sign up</span></a></li>
+							<li id="nav-admin-item" style="display:none;">
+								<a href="articles.html" id="link-admin"><span class="icon solid fa-user-cog">Admin</span></a>
+							</li>
+						</ul>
+					</nav>
+				</div>
 			</div>
 
 		<!-- Main -->
@@ -425,6 +503,28 @@
 				</ul>
 			</div>
 
+		<!-- 🔐 Auth modal -->
+		<div id="auth-modal-backdrop">
+			<div id="auth-modal">
+				<h3 id="auth-modal-title">Sign in</h3>
+				<label for="auth-email">Email</label>
+				<input id="auth-email" type="email" autocomplete="email" />
+
+				<label for="auth-password">Password</label>
+				<input id="auth-password" type="password" autocomplete="current-password" />
+
+				<div class="auth-actions">
+					<button id="auth-btn-login" type="button">Sign in</button>
+					<button id="auth-btn-signup" type="button">Sign up</button>
+				</div>
+
+				<div class="auth-footer">
+					<span id="auth-status"></span>
+					<button id="auth-modal-close" type="button">Close</button>
+				</div>
+			</div>
+		</div>
+
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
@@ -548,6 +648,7 @@
 
 					window.addEventListener('scroll', onScroll, { passive: true });
 					window.addEventListener('resize', onScroll);
+					window.addListener;
 					window.addEventListener('popstate', function () {
 						var id = (new URL(window.location.href)).searchParams.get('section');
 						if (id && document.getElementById(id)) {
@@ -560,6 +661,162 @@
 					onScroll();
 				})();
 			</script>
+
+		<!-- 🔐 Firebase Auth + admin gate -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import {
+				getAuth,
+				onAuthStateChanged,
+				createUserWithEmailAndPassword,
+				signInWithEmailAndPassword,
+				signOut
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				// 🔑 Paste your existing Firebase config here (same project as the app)
+				// apiKey: "...",
+				// authDomain: "...",
+				// projectId: "...",
+				// storageBucket: "...",
+				// messagingSenderId: "...",
+				// appId: "..."
+			};
+
+			const app = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
+
+			const backdrop   = document.getElementById("auth-modal-backdrop");
+			const modalTitle = document.getElementById("auth-modal-title");
+			const emailInput = document.getElementById("auth-email");
+			const passInput  = document.getElementById("auth-password");
+			const btnLogin   = document.getElementById("auth-btn-login");
+			const btnSignup  = document.getElementById("auth-btn-signup");
+			const btnClose   = document.getElementById("auth-modal-close");
+			const statusEl   = document.getElementById("auth-status");
+
+			const linkLogin  = document.getElementById("link-login");
+			const linkSignup = document.getElementById("link-signup");
+			const adminItem  = document.getElementById("nav-admin-item");
+
+			function showStatus(msg, isError = false) {
+				if (!statusEl) return;
+				statusEl.textContent = msg || "";
+				statusEl.style.color = isError ? "#c00" : "#555";
+			}
+
+			function openModal(mode) {
+				if (!backdrop) return;
+				backdrop.style.display = "flex";
+				showStatus("");
+				if (mode === "signup") {
+					modalTitle.textContent = "Sign up";
+				} else {
+					modalTitle.textContent = "Sign in";
+				}
+			}
+
+			function closeModal() {
+				if (!backdrop) return;
+				backdrop.style.display = "none";
+				showStatus("");
+			}
+
+			async function isAdminUser(user) {
+				if (!user) return false;
+				const snap = await getDoc(doc(db, "admins", user.uid));
+				return snap.exists();
+			}
+
+			function applySignedOutUi() {
+				if (adminItem) adminItem.style.display = "none";
+				showStatus("Not signed in");
+			}
+
+			function applySignedInUi(isAdmin, user) {
+				if (adminItem) adminItem.style.display = isAdmin ? "" : "none";
+				const label = user?.email || "Signed in";
+				showStatus(isAdmin ? label + " (admin)" : label);
+			}
+
+			// Open modal from sidebar links
+			linkLogin?.addEventListener("click", (e) => {
+				e.preventDefault();
+				openModal("login");
+			});
+			linkSignup?.addEventListener("click", (e) => {
+				e.preventDefault();
+				openModal("signup");
+			});
+			btnClose?.addEventListener("click", () => {
+				closeModal();
+			});
+			backdrop?.addEventListener("click", (e) => {
+				if (e.target === backdrop) closeModal();
+			});
+
+			// Auth actions
+			btnLogin?.addEventListener("click", async () => {
+				const email = emailInput.value.trim();
+				const pass  = passInput.value;
+				if (!email || !pass) {
+					showStatus("Please enter email and password", true);
+					return;
+				}
+				try {
+					showStatus("Signing in...");
+					const cred = await signInWithEmailAndPassword(auth, email, pass);
+					showStatus("Signed in.");
+					console.log("User UID:", cred.user.uid);
+					setTimeout(closeModal, 300);
+				} catch (err) {
+					console.error(err);
+					showStatus(err.message || "Sign in failed", true);
+				}
+			});
+
+			btnSignup?.addEventListener("click", async () => {
+				const email = emailInput.value.trim();
+				const pass  = passInput.value;
+				if (!email || !pass) {
+					showStatus("Please enter email and password", true);
+					return;
+				}
+				try {
+					showStatus("Creating account...");
+					const cred = await createUserWithEmailAndPassword(auth, email, pass);
+					showStatus("Account created.");
+					console.log("New user UID:", cred.user.uid); // use once to add yourself to admins
+					setTimeout(closeModal, 300);
+				} catch (err) {
+					console.error(err);
+					showStatus(err.message || "Sign up failed", true);
+				}
+			});
+
+			// Optional: sign out on some key combo or later via admin UI
+			// (you could add a "Sign out" link somewhere else if you like)
+
+			onAuthStateChanged(auth, async (user) => {
+				if (!user) {
+					applySignedOutUi();
+					return;
+				}
+				try {
+					const admin = await isAdminUser(user);
+					applySignedInUi(admin, user);
+				} catch (err) {
+					console.error(err);
+					applySignedInUi(false, user);
+				}
+			});
+		</script>
 
 	</body>
 </html>
