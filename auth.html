@@ -94,15 +94,14 @@
         margin-bottom: 16px;
         font-size: 0.86em;
       }
-.auth-toggle button {
-  border: none;
-  background: #e0e0e0; /* grey background for inactive tab */
-  padding: 6px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  color: #000;         /* black text for inactive tab */
-}
-
+      .auth-toggle button {
+        border: none;
+        background: #e0e0e0; /* grey background for inactive tab */
+        padding: 6px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        color: #000;         /* black text for inactive tab */
+      }
       .auth-toggle button.active {
         background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
         color: #fff;
@@ -300,11 +299,6 @@
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
       } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-      import {
-        getFirestore,
-        doc,
-        getDoc
-      } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
       const statusEl   = document.getElementById("auth-status");
       const emailInput = document.getElementById("auth-email");
@@ -333,12 +327,16 @@
       } else {
         const app  = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db   = getFirestore(app);
 
-  const adminEmails = [
-  "pinpark@outlook.com",
-].map(e => e.toLowerCase());
+        // 🔐 Simple email-based admin check
+        const adminEmails = [
+          "pinpark@outlook.com",
+        ].map(e => e.toLowerCase());
 
+        function isAdminUser(user) {
+          if (!user || !user.email) return false;
+          return adminEmails.includes(user.email.toLowerCase());
+        }
 
         btnPrimary?.addEventListener("click", async () => {
           const email = emailInput.value.trim();
@@ -349,24 +347,23 @@
             return;
           }
 
-          const mode = currentMode();
+          const mode = (window.__authMode === "signup") ? "signup" : "login";
 
           try {
             if (mode === "login") {
-              // 🔓 Sign in
               showStatus("Signing in...");
-              const cred  = await signInWithEmailAndPassword(auth, email, pass);
-              const user  = cred.user;
-              const admin = await isAdminUser(user);
-              showStatus("Signed in.");
+              const cred = await signInWithEmailAndPassword(auth, email, pass);
+              const user = cred.user;
 
+              const admin = isAdminUser(user);
+
+              showStatus("Signed in.");
               if (admin) {
                 window.location.href = "articles.html";
               } else {
                 window.location.href = "index.html";
               }
             } else {
-              // ✳️ Sign up
               showStatus("Creating account...");
               const cred = await createUserWithEmailAndPassword(auth, email, pass);
               console.log("New user UID:", cred.user.uid);
@@ -377,7 +374,7 @@
             }
           } catch (err) {
             console.error(err);
-            showStatus(err.message || (mode === "login" ? "Sign in failed" : "Sign up failed"), true);
+            showStatus(err.message || "Request failed", true);
           }
         });
 
