@@ -11,58 +11,27 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
-		<!-- ✅ Tab icon (same idea as main page) -->
+		<!-- ✅ Tab icon -->
 		<link rel="icon" type="image/png" href="pinparklogo.png" />
 
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- ✅ Keep same formatting/styling as main page -->
 		<style>
-			/* ✅ Make the blue cover part exactly 50px tall (padding was keeping it tall) */
+			/* ✅ Make the blue cover part exactly 60px tall */
 			#current.cover {
 				height: 60px !important;
 				min-height: 60px !important;
-				padding: 0 !important;          /* ✅ this is the key */
+				padding: 0 !important;
 			}
 			#current.cover > .container {
-				padding: 0 !important;          /* ✅ remove inner padding */
+				padding: 0 !important;
 				margin: 0 !important;
 			}
 			#current.cover header,
 			#current.cover h2,
 			#current.cover p {
-				margin: 0 !important;           /* ✅ stop margins adding height */
+				margin: 0 !important;
 				padding: 0 !important;
-			}
-
-			/* ✅ (NEW) Match policies.html positioning: center the title vertically inside the 60px strip */
-			#current.cover {
-				display: flex !important;
-				align-items: center !important;
-				justify-content: center !important;
-			}
-			#current.cover > .container {
-				width: 100%;
-				position: relative;
-				z-index: 1;
-			}
-			#current.cover header {
-				width: 100%;
-				text-align: center;
-				line-height: 1;
-			}
-			/* Slightly tighten the title so it doesn't feel low/high in a short strip */
-			#current.cover h2.alt {
-				line-height: 1 !important;
-				transform: translateY(1px);
-			}
-
-			/* ✅ (NEW) Match policies.html spacing: pull "Other Articles" up so it sits like policies sections */
-			#other.two {
-				padding-top: 2.6em !important;  /* reduce the big default gap */
-			}
-			#other.two header {
-				margin-bottom: 1.1em !important;
 			}
 
 			/* ✅ PinPark hero tint */
@@ -112,28 +81,10 @@
 					);
 			}
 
-			/* ✅ Keep same link-style button styling (in case you use it later) */
-			#current .button.scrolly {
-				background: transparent !important;
-				border: 0 !important;
-				box-shadow: none !important;
-				padding: 0 !important;
-				margin: 0 !important;
-
-				color: inherit !important;
-
+			/* ✅ keep your hero content above the tint */
+			#current.cover > .container {
 				position: relative;
-				top: -5px;
-
-				font-size: 90% !important;
-			}
-			#current .button.scrolly:hover {
-				background: transparent !important;
-				border: 0 !important;
-				box-shadow: none !important;
-				text-decoration: underline;
-				text-decoration-color: #fff;
-				text-underline-offset: 4px;
+				z-index: 1;
 			}
 
 			/* ✅ Make PinPark logo 25% smaller total */
@@ -175,6 +126,51 @@
 					color 0.1s ease,
 					opacity 0.1s ease,
 					border-color 0.1s ease;
+			}
+
+			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
+			#main .pinpark-under-strip {
+				margin-top: 120px !important;
+				text-align: center;
+			}
+			#main .pinpark-under-strip img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
+			}
+
+			/* ✅ Make "Current Article" the same distance from pinpark.png as in terms.html */
+			#main .pinpark-under-strip .articles-under-logo {
+				margin-top: 100px !important;
+				margin-bottom: 2em !important;
+			}
+			#main .pinpark-under-strip .articles-under-logo h2 {
+				margin-top: 0 !important;
+			}
+
+			/* ✅ Current Article paragraph: centered + 30px padding each side */
+			#main .pinpark-under-strip .articles-paragraph {
+				margin-top: 0 !important;
+				padding-left: 30px !important;
+				padding-right: 30px !important;
+				box-sizing: border-box;
+				text-align: center !important;
+			}
+
+			/* ✅ Other Articles: remove template container max-width + padding so it can touch edges */
+			#other .container {
+				max-width: none !important;
+				width: 100% !important;
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			}
+
+			/* ✅ Other Articles paragraph: 30px padding each side */
+			#other .other-paragraph {
+				padding-left: 30px !important;
+				padding-right: 30px !important;
+				box-sizing: border-box;
 			}
 
 			/* ✅ Back button: bottom-left, no bullet, no underline */
@@ -249,52 +245,74 @@
 			#footer a:hover {
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
+
+			/* ✅ PRESET SECTION (hide until we jump instantly into position) */
+			html[data-prejump] {
+				scroll-behavior: auto !important;
+			}
+			html[data-prejump] body {
+				visibility: hidden;
+			}
 		</style>
 	</head>
+
 	<body class="is-preload">
 
 		<!-- Header -->
-			<div id="header">
-				<div class="top">
-					<div id="logo">
-						<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
-					</div>
-
-					<nav id="nav">
-						<ul>
-							<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Current Article</span></a></li>
-							<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
-						</ul>
-					</nav>
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
 				</div>
 
-				<div class="bottom">
-					<nav id="nav-back">
-						<ul>
-							<li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
-						</ul>
-					</nav>
-				</div>
+				<nav id="nav">
+					<ul>
+						<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Current Article</span></a></li>
+						<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
+					</ul>
+				</nav>
 			</div>
+
+			<div class="bottom">
+				<nav id="nav-back">
+					<ul>
+						<li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
 
 		<!-- Main -->
-			<div id="main">
-				<section id="current" class="one dark cover">
-					<div class="container">
-						<header>
-							<h2 class="alt">Current Article</h2>
-							<p></p>
-						</header>
-					</div>
-				</section>
+		<div id="main">
+			<!-- ✅ Top strip only -->
+			<section id="current" class="one dark cover">
+				<div class="container">
+					<header></header>
+				</div>
+			</section>
 
-				<section id="other" class="two">
-					<div class="container">
-						<header><h2>Other Articles</h2></header>
-						<p><!-- Add your other articles here --></p>
-					</div>
-				</section>
+			<!-- ✅ Positioned like terms.html -->
+			<div class="pinpark-under-strip">
+				<img src="pinpark.png" alt="PinPark" />
+				<header class="articles-under-logo"><h2>Current Article</h2></header>
+
+				<p class="articles-paragraph">
+					<!-- ✅ Put your current article content here -->
+					Your current article will go here.
+				</p>
 			</div>
+
+			<section id="other" class="two">
+				<div class="container">
+					<header><h2>Other Articles</h2></header>
+
+					<p class="other-paragraph">
+						<!-- ✅ Add your other articles here -->
+						Add your other articles here.
+					</p>
+				</div>
+			</section>
+		</div>
 
 		<div id="footer">
 			<ul class="copyright">
@@ -342,7 +360,13 @@
 
 				if (!links.length || !sections.length) return;
 
+				// ✅ Keep "locked" styling timing
 				var lockedUntil = 0;
+
+				// ✅ Keep the tab fixed to the clicked target while smooth-scrolling
+				var forcedId = null;
+				var forcedUntil = 0;
+
 				function setActiveById(id) {
 					links.forEach(function (a) {
 						var linkId = hrefToId(a.getAttribute('href') || '');
@@ -352,10 +376,31 @@
 					});
 				}
 
-				function scrollToId(id) {
+				function forceActive(id) {
+					forcedId = id;
+					forcedUntil = Date.now() + 15000;
+					setActiveById(id);
+				}
+
+				function maybeReleaseForce(probeY) {
+					if (!forcedId) return;
+					var el = document.getElementById(forcedId);
+					if (!el) {
+						forcedId = null;
+						forcedUntil = 0;
+						return;
+					}
+					var r = el.getBoundingClientRect();
+					if (r.top <= probeY && r.bottom > probeY) {
+						forcedId = null;
+						forcedUntil = 0;
+					}
+				}
+
+				function scrollToId(id, instant) {
 					var el = document.getElementById(id);
 					if (!el) return;
-					el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
 				}
 
 				links.forEach(function (a) {
@@ -366,20 +411,22 @@
 						e.preventDefault();
 
 						lockedUntil = Date.now() + 600;
-						setActiveById(id);
+						forceActive(id);
 
-						scrollToId(id);
+						scrollToId(id, false);
 						clearSectionFromUrl();
 					});
 				});
 
 				var initial = (new URL(window.location.href)).searchParams.get('section');
 				if (initial && document.getElementById(initial)) {
-					requestAnimationFrame(function () {
-						scrollToId(initial);
-						setActiveById(initial);
-						clearSectionFromUrl();
-					});
+					document.documentElement.setAttribute('data-prejump', initial);
+
+					scrollToId(initial, true);
+					setActiveById(initial);
+					clearSectionFromUrl();
+
+					document.documentElement.removeAttribute('data-prejump');
 				}
 
 				var ticking = false;
@@ -391,6 +438,13 @@
 						ticking = false;
 
 						var probeY = window.innerHeight * 0.35;
+
+						maybeReleaseForce(probeY);
+						if (forcedId && Date.now() < forcedUntil) {
+							setActiveById(forcedId);
+							return;
+						}
+
 						var best = null;
 
 						for (var i = 0; i < sections.length; i++) {
@@ -415,7 +469,7 @@
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
 					if (id && document.getElementById(id)) {
-						scrollToId(id);
+						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
 					}
