@@ -325,13 +325,17 @@
 				min-height: 1.2em;
 			}
 
-			/* 🔐 Auth nav: inline, no underline, with "|" separators */
+			/* 🔐 Auth nav: centred, no underline, with "|" separators, colours like tabs */
+			#header .bottom {
+				text-align: center;
+			}
 			#nav-auth ul {
 				list-style: none !important;
 				margin: 0 !important;
-				padding: 0 0 15px 15px !important;
+				padding: 0 0 15px 0 !important;
 				display: inline-flex;
 				align-items: center;
+				justify-content: center;
 				flex-wrap: wrap;
 				font-size: 0.8em;
 			}
@@ -348,6 +352,11 @@
 				text-decoration: none !important;
 				border: none !important;
 				box-shadow: none !important;
+				color: rgba(255, 255, 255, 0.55) !important; /* same as unselected tab */
+				transition: color 0.1s ease;
+			}
+			#nav-auth a:hover {
+				color: #ffffff !important; /* same as selected tab */
 			}
 		</style>
 	</head>
