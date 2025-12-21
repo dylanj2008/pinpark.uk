@@ -1,4 +1,4 @@
-<!-- index.html (updated with sidebar Login / Sign up) -->
+<!-- index.html -->
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -249,82 +249,6 @@
 				transform: scale(1.025) translateY(1px);
 			}
 
-			/* 🔐 Simple auth modal */
-			#auth-modal-backdrop {
-				position: fixed;
-				inset: 0;
-				background: rgba(0, 0, 0, 0.5);
-				display: none;
-				align-items: center;
-				justify-content: center;
-				z-index: 10000;
-			}
-			#auth-modal {
-				background: #fff;
-				border-radius: 12px;
-				padding: 20px 22px;
-				max-width: 360px;
-				width: 90%;
-				box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
-				text-align: left;
-				font-size: 0.95em;
-			}
-			#auth-modal h3 {
-				margin-top: 0;
-				margin-bottom: 10px;
-			}
-			#auth-modal label {
-				display: block;
-				font-size: 0.85em;
-				margin-bottom: 4px;
-			}
-			#auth-modal input[type="email"],
-			#auth-modal input[type="password"] {
-				width: 100%;
-				margin-bottom: 10px;
-				padding: 6px 8px;
-				border-radius: 6px;
-				border: 1px solid #ddd;
-				box-sizing: border-box;
-			}
-			#auth-modal .auth-actions {
-				display: flex;
-				gap: 8px;
-				margin-top: 6px;
-				margin-bottom: 8px;
-			}
-			#auth-modal .auth-actions button {
-				flex: 1;
-				border-radius: 10px;
-				border: none;
-				padding: 7px 0;
-				cursor: pointer;
-			}
-			#auth-btn-login {
-				background: #f1f1f1;
-			}
-			#auth-btn-signup {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-				color: #fff;
-			}
-			#auth-modal .auth-footer {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 0.8em;
-			}
-			#auth-modal-close {
-				background: none;
-				border: none;
-				font-size: 0.9em;
-				cursor: pointer;
-				color: #555;
-			}
-			#auth-status {
-				font-size: 0.8em;
-				min-height: 1.2em;
-			}
-
 			/* 🔐 Auth nav: centred, no underline, with "|" separators, colours like tabs */
 			#header .bottom {
 				text-align: center;
@@ -362,492 +286,316 @@
 	</head>
 	<body class="is-preload">
 		<!-- Header -->
-			<div id="header">
-				<div class="top">
-					<div id="logo">
-						<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
-					</div>
-
-					<nav id="nav">
-						<ul>
-							<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
-							<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
-							<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
-							<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
-							<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
-						</ul>
-					</nav>
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
 				</div>
 
-				<!-- 🔐 Sidebar bottom: Login / Sign up / Admin -->
-				<div class="bottom">
-					<nav id="nav-auth">
-						<ul>
-							<li><a href="#" id="link-login">Login</a></li>
-							<li><a href="#" id="link-signup">Sign up</a></li>
-							<li id="nav-admin-item" style="display:none;">
-								<a href="articles.html" id="link-admin">Admin</a>
-							</li>
-						</ul>
-					</nav>
-				</div>
+				<nav id="nav">
+					<ul>
+						<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+						<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
+						<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
+						<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
+						<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
+					</ul>
+				</nav>
 			</div>
 
-		<!-- Main -->
-			<div id="main">
-				<section id="home" class="one dark cover">
-					<div class="container">
-						<header>
-							<h2 class="alt">V1.0.0 In Development</h2>
-							<p></p>
-						</header>
-						<footer>
-							<a href="articles.html" class="button scrolly">Read more</a>
-						</footer>
-					</div>
-				</section>
-
-				<section id="about" class="two">
-					<div class="container">
-						<header>
-							<h2>What we're about</h2>
-						</header>
-
-						<p>PinPark is independently designed with a focus on reliability, transparency, and long 
-							term support in mind. We have carefully designed our interface to ensure a fast, effortless 
-							parking experience, and make travelling less stressful and more enjoyable.
-						</p>
-
-						<div class="row">
-							<div class="col-4 col-12-mobile">
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-									<header>
-										<h3>Ipsum Feugiat</h3>
-									</header>
-								</article>
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-									<header>
-										<h3>Rhoncus Semper</h3>
-									</header>
-								</article>
-							</div>
-							<div class="col-4 col-12-mobile">
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-									<header>
-										<h3>Magna Nullam</h3>
-									</header>
-								</article>
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-									<header>
-										<h3>Natoque Vitae</h3>
-									</header>
-								</article>
-							</div>
-							<div class="col-4 col-12-mobile">
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-									<header>
-										<h3>Dolor Penatibus</h3>
-									</header>
-								</article>
-								<article class="item">
-									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-									<header>
-										<h3>Orci Convallis</h3>
-									</header>
-								</article>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section id="features" class="three">
-					<div class="container">
-						<header>
-							<h2>Features</h2>
-						</header>
-
-						<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
-
-						<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
-						ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
-						laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
-						parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
-						dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
-						ornare iaculis.</p>
-					</div>
-				</section>
-
-				<section id="contact" class="four">
-					<div class="container">
-						<header>
-							<h2>Contact</h2>
-						</header>
-
-						<p>PinPark is continuously evolving. If you have found an issue, have feedback,
-							or want to get in touch for any other reason, feel free to send a message. 
-							we'd love to hear from you!
-						</p>
-
-						<form method="post" action="#">
-							<div class="row">
-								<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-								<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
-								<div class="col-12">
-									<textarea name="message" placeholder="Message"></textarea>
-								</div>
-								<div class="col-12">
-									<input type="submit" value="Send Message" />
-								</div>
-							</div>
-						</form>
-					</div>
-				</section>
-
-				<section id="donations" class="four">
-					<div class="container">
-						<header>
-							<h2>Donations</h2>
-						</header>
-
-						<p>PinPark is independently developed and will be continuously improved.
-						   If you think you will find our app useful, you can choose to contribute
-						   here. All donations will help us cover infrastructure costs, and allow
-						   more time to be spent improving and refining current features and performance.
-						   Thank you in advance for any donations.
-						</p>
-
-						<ul class="actions">
-							<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
-						</ul>
-					</div>
-				</section>
-			</div>
-
-		<!-- Footer -->
-			<div id="footer">
-				<ul class="copyright">
-					<li>&copy; 2025 PinPark. All rights reserved</li>
-					<li><a href="policies.html">Terms</a></li>
-					<li><a href="policies.html#other">Privacy</a></li>
-				</ul>
-			</div>
-
-		<!-- 🔐 Auth modal -->
-		<div id="auth-modal-backdrop">
-			<div id="auth-modal">
-				<h3 id="auth-modal-title">Sign in</h3>
-				<label for="auth-email">Email</label>
-				<input id="auth-email" type="email" autocomplete="email" />
-
-				<label for="auth-password">Password</label>
-				<input id="auth-password" type="password" autocomplete="current-password" />
-
-				<div class="auth-actions">
-					<button id="auth-btn-login" type="button">Sign in</button>
-					<button id="auth-btn-signup" type="button">Sign up</button>
-				</div>
-
-				<div class="auth-footer">
-					<span id="auth-status"></span>
-					<button id="auth-modal-close" type="button">Close</button>
-				</div>
+			<!-- 🔐 Sidebar bottom: Login / Sign up / Admin -->
+			<div class="bottom">
+				<nav id="nav-auth">
+					<ul>
+						<!-- now go to dedicated auth screen -->
+						<li><a href="auth.html?mode=login" id="link-login">Login</a></li>
+						<li><a href="auth.html?mode=signup" id="link-signup">Sign up</a></li>
+						<li id="nav-admin-item" style="display:none;">
+							<a href="articles.html" id="link-admin">Admin</a>
+						</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 
+		<!-- Main -->
+		<div id="main">
+			<section id="home" class="one dark cover">
+				<div class="container">
+					<header>
+						<h2 class="alt">V1.0.0 In Development</h2>
+						<p></p>
+					</header>
+					<footer>
+						<a href="articles.html" class="button scrolly">Read more</a>
+					</footer>
+				</div>
+			</section>
+
+			<section id="about" class="two">
+				<div class="container">
+					<header>
+						<h2>What we're about</h2>
+					</header>
+
+					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
+						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
+						parking experience, and make travelling less stressful and more enjoyable.
+					</p>
+
+					<div class="row">
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+								<header>
+									<h3>Ipsum Feugiat</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
+								<header>
+									<h3>Rhoncus Semper</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+								<header>
+									<h3>Magna Nullam</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
+								<header>
+									<h3>Natoque Vitae</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
+								<header>
+									<h3>Dolor Penatibus</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+								<header>
+									<h3>Orci Convallis</h3>
+								</header>
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="features" class="three">
+				<div class="container">
+					<header>
+						<h2>Features</h2>
+					</header>
+
+					<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
+
+					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+					ornare iaculis.</p>
+				</div>
+			</section>
+
+			<section id="contact" class="four">
+				<div class="container">
+					<header>
+						<h2>Contact</h2>
+					</header>
+
+					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
+						or want to get in touch for any other reason, feel free to send a message. 
+						we'd love to hear from you!
+					</p>
+
+					<form method="post" action="#">
+						<div class="row">
+							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-12">
+								<textarea name="message" placeholder="Message"></textarea>
+							</div>
+							<div class="col-12">
+								<input type="submit" value="Send Message" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section id="donations" class="four">
+				<div class="container">
+					<header>
+						<h2>Donations</h2>
+					</header>
+
+					<p>PinPark is independently developed and will be continuously improved.
+					   If you think you will find our app useful, you can choose to contribute
+					   here. All donations will help us cover infrastructure costs, and allow
+					   more time to be spent improving and refining current features and performance.
+					   Thank you in advance for any donations.
+					</p>
+
+					<ul class="actions">
+						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
+					</ul>
+				</div>
+			</section>
+		</div>
+
+		<!-- Footer -->
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; 2025 PinPark. All rights reserved</li>
+				<li><a href="policies.html">Terms</a></li>
+				<li><a href="policies.html#other">Privacy</a></li>
+			</ul>
+		</div>
+
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
 
-			<script>
-				(function () {
-					var nav = document.querySelector('#nav');
-					if (!nav) return;
+		<script>
+			(function () {
+				var nav = document.querySelector('#nav');
+				if (!nav) return;
 
-					function hrefToId(href) {
-						try {
-							var u = new URL(href, window.location.href);
-							return u.searchParams.get('section');
-						} catch (_) {
-							return null;
-						}
+				function hrefToId(href) {
+					try {
+						var u = new URL(href, window.location.href);
+						return u.searchParams.get('section');
+					} catch (_) {
+						return null;
 					}
+				}
 
-					function clearSectionFromUrl() {
-						try {
-							var u = new URL(window.location.href);
-							if (!u.searchParams.has('section')) return;
-							u.searchParams.delete('section');
-							history.replaceState(null, '', u.toString());
-						} catch (_) {}
-					}
+				function clearSectionFromUrl() {
+					try {
+						var u = new URL(window.location.href);
+						if (!u.searchParams.has('section')) return;
+						u.searchParams.delete('section');
+						history.replaceState(null, '', u.toString());
+					} catch (_) {}
+				}
 
-					var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
-					var sections = links
-						.map(function (a) {
-							var id = hrefToId(a.getAttribute('href') || '');
-							return id ? document.getElementById(id) : null;
-						})
-						.filter(Boolean);
+				var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
+				var sections = links
+					.map(function (a) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						return id ? document.getElementById(id) : null;
+					})
+					.filter(Boolean);
 
-					if (!links.length || !sections.length) return;
+				if (!links.length || !sections.length) return;
 
-					var lockedUntil = 0;
-					function setActiveById(id) {
-						links.forEach(function (a) {
-							var linkId = hrefToId(a.getAttribute('href') || '');
-							var on = linkId === id;
-							a.classList.toggle('active', on);
-							a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
-						});
-					}
-
-					// ✅ Add "instant" option so initial load doesn't smooth-scroll
-					function scrollToId(id, instant) {
-						var el = document.getElementById(id);
-						if (!el) return;
-						el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
-					}
-
+				var lockedUntil = 0;
+				function setActiveById(id) {
 					links.forEach(function (a) {
-						a.addEventListener('click', function (e) {
-							var id = hrefToId(a.getAttribute('href') || '');
-							if (!id) return;
-
-							e.preventDefault();
-
-							lockedUntil = Date.now() + 600;
-							setActiveById(id);
-
-							scrollToId(id, false);
-							clearSectionFromUrl();
-						});
+						var linkId = hrefToId(a.getAttribute('href') || '');
+						var on = linkId === id;
+						a.classList.toggle('active', on);
+						a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
 					});
+				}
 
-					var initial = (new URL(window.location.href)).searchParams.get('section');
-					if (initial && document.getElementById(initial)) {
-						requestAnimationFrame(function () {
-							// ✅ Initial load jumps instantly (no scroll animation)
-							scrollToId(initial, true);
-							setActiveById(initial);
-							clearSectionFromUrl();
-						});
-					}
+				// ✅ Add "instant" option so initial load doesn't smooth-scroll
+				function scrollToId(id, instant) {
+					var el = document.getElementById(id);
+					if (!el) return;
+					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
+				}
 
-					var ticking = false;
-					function onScroll() {
-						if (ticking) return;
-						ticking = true;
+				links.forEach(function (a) {
+					a.addEventListener('click', function (e) {
+						var id = hrefToId(a.getAttribute('href') || '');
+						if (!id) return;
 
-						requestAnimationFrame(function () {
-							ticking = false;
+						e.preventDefault();
 
-							var probeY = window.innerHeight * 0.35;
-							var best = null;
+						lockedUntil = Date.now() + 600;
+						setActiveById(id);
 
-							for (var i = 0; i < sections.length; i++) {
-								var s = sections[i];
-								var r = s.getBoundingClientRect();
-								if (r.top <= probeY && r.bottom > probeY) {
-									best = s;
-									break;
+						scrollToId(id, false);
+						clearSectionFromUrl();
+					});
+				});
+
+				var initial = (new URL(window.location.href)).searchParams.get('section');
+				if (initial && document.getElementById(initial)) {
+					requestAnimationFrame(function () {
+						// ✅ Initial load jumps instantly (no scroll animation)
+						scrollToId(initial, true);
+						setActiveById(initial);
+						clearSectionFromUrl();
+					});
+				}
+
+				var ticking = false;
+				function onScroll() {
+					if (ticking) return;
+					ticking = true;
+
+					requestAnimationFrame(function () {
+						ticking = false;
+
+						var probeY = window.innerHeight * 0.35;
+						var best = null;
+
+						for (var i = 0; i < sections.length; i++) {
+							var s = sections[i];
+							var r = s.getBoundingClientRect();
+							if (r.top <= probeY && r.bottom > probeY) {
+								best = s;
+								break;
+							}
+						}
+
+						if (!best) {
+							var bestDist = Infinity;
+							for (var j = 0; j < sections.length; j++) {
+								var rr = sections[j].getBoundingClientRect();
+								var d = Math.abs(rr.top - probeY);
+								if (d < bestDist) {
+									bestDist = d;
+									best = sections[j];
 								}
 							}
+						}
 
-							if (!best) {
-								var bestDist = Infinity;
-								for (var j = 0; j < sections.length; j++) {
-									var rr = sections[j].getBoundingClientRect();
-									var d = Math.abs(rr.top - probeY);
-									if (d < bestDist) {
-										bestDist = d;
-										best = sections[j];
-									}
-								}
-							}
-
-							if (best && Date.now() >= lockedUntil) {
-								setActiveById(best.id);
-							}
-						});
-					}
-
-					window.addEventListener('scroll', onScroll, { passive: true });
-					window.addEventListener('resize', onScroll);
-					window.addListener;
-					window.addEventListener('popstate', function () {
-						var id = (new URL(window.location.href)).searchParams.get('section');
-						if (id && document.getElementById(id)) {
-							// ✅ Back/forward jumps instantly too
-							scrollToId(id, true);
-							setActiveById(id);
-							clearSectionFromUrl();
+						if (best && Date.now() >= lockedUntil) {
+							setActiveById(best.id);
 						}
 					});
-					onScroll();
-				})();
-			</script>
-
-		<!-- 🔐 Firebase Auth + admin gate -->
-		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import {
-				getAuth,
-				onAuthStateChanged,
-				createUserWithEmailAndPassword,
-				signInWithEmailAndPassword,
-				signOut
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-			const firebaseConfig = {
-				// 🔑 Paste your existing Firebase config here (same project as the app)
-				// apiKey: "...",
-				// authDomain: "...",
-				// projectId: "...",
-				// storageBucket: "...",
-				// messagingSenderId: "...",
-				// appId: "..."
-			};
-
-			const app = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-			const db   = getFirestore(app);
-
-			const backdrop   = document.getElementById("auth-modal-backdrop");
-			const modalTitle = document.getElementById("auth-modal-title");
-			const emailInput = document.getElementById("auth-email");
-			const passInput  = document.getElementById("auth-password");
-			const btnLogin   = document.getElementById("auth-btn-login");
-			const btnSignup  = document.getElementById("auth-btn-signup");
-			const btnClose   = document.getElementById("auth-modal-close");
-			const statusEl   = document.getElementById("auth-status");
-
-			const linkLogin  = document.getElementById("link-login");
-			const linkSignup = document.getElementById("link-signup");
-			const adminItem  = document.getElementById("nav-admin-item");
-
-			function showStatus(msg, isError = false) {
-				if (!statusEl) return;
-				statusEl.textContent = msg || "";
-				statusEl.style.color = isError ? "#c00" : "#555";
-			}
-
-			function openModal(mode) {
-				if (!backdrop) return;
-				backdrop.style.display = "flex";
-				showStatus("");
-				if (mode === "signup") {
-					modalTitle.textContent = "Sign up";
-				} else {
-					modalTitle.textContent = "Sign in";
 				}
-			}
 
-			function closeModal() {
-				if (!backdrop) return;
-				backdrop.style.display = "none";
-				showStatus("");
-			}
-
-			async function isAdminUser(user) {
-				if (!user) return false;
-				const snap = await getDoc(doc(db, "admins", user.uid));
-				return snap.exists();
-			}
-
-			function applySignedOutUi() {
-				if (adminItem) adminItem.style.display = "none";
-				showStatus("Not signed in");
-			}
-
-			function applySignedInUi(isAdmin, user) {
-				if (adminItem) adminItem.style.display = isAdmin ? "" : "none";
-				const label = user?.email || "Signed in";
-				showStatus(isAdmin ? label + " (admin)" : label);
-			}
-
-			// Open modal from sidebar links
-			linkLogin?.addEventListener("click", (e) => {
-				e.preventDefault();
-				openModal("login");
-			});
-			linkSignup?.addEventListener("click", (e) => {
-				e.preventDefault();
-				openModal("signup");
-			});
-			btnClose?.addEventListener("click", () => {
-				closeModal();
-			});
-			backdrop?.addEventListener("click", (e) => {
-				if (e.target === backdrop) closeModal();
-			});
-
-			// Auth actions
-			btnLogin?.addEventListener("click", async () => {
-				const email = emailInput.value.trim();
-				const pass  = passInput.value;
-				if (!email || !pass) {
-					showStatus("Please enter email and password", true);
-					return;
-				}
-				try {
-					showStatus("Signing in...");
-					const cred = await signInWithEmailAndPassword(auth, email, pass);
-					showStatus("Signed in.");
-					console.log("User UID:", cred.user.uid);
-					setTimeout(closeModal, 300);
-				} catch (err) {
-					console.error(err);
-					showStatus(err.message || "Sign in failed", true);
-				}
-			});
-
-			btnSignup?.addEventListener("click", async () => {
-				const email = emailInput.value.trim();
-				const pass  = passInput.value;
-				if (!email || !pass) {
-					showStatus("Please enter email and password", true);
-					return;
-				}
-				try {
-					showStatus("Creating account...");
-					const cred = await createUserWithEmailAndPassword(auth, email, pass);
-					showStatus("Account created.");
-					console.log("New user UID:", cred.user.uid); // use once to add yourself to admins
-					setTimeout(closeModal, 300);
-				} catch (err) {
-					console.error(err);
-					showStatus(err.message || "Sign up failed", true);
-				}
-			});
-
-			onAuthStateChanged(auth, async (user) => {
-				if (!user) {
-					applySignedOutUi();
-					return;
-				}
-				try {
-					const admin = await isAdminUser(user);
-					applySignedInUi(admin, user);
-				} catch (err) {
-					console.error(err);
-					applySignedInUi(false, user);
-				}
-			});
+				window.addEventListener('scroll', onScroll, { passive: true });
+				window.addEventListener('resize', onScroll);
+				window.addEventListener('popstate', function () {
+					var id = (new URL(window.location.href)).searchParams.get('section');
+					if (id && document.getElementById(id)) {
+						// ✅ Back/forward jumps instantly too
+						scrollToId(id, true);
+						setActiveById(id);
+						clearSectionFromUrl();
+					}
+				});
+				onScroll();
+			})();
 		</script>
-
 	</body>
 </html>
