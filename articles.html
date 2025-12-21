@@ -35,6 +35,36 @@
 				padding: 0 !important;
 			}
 
+			/* ✅ (NEW) Match policies.html positioning: center the title vertically inside the 60px strip */
+			#current.cover {
+				display: flex !important;
+				align-items: center !important;
+				justify-content: center !important;
+			}
+			#current.cover > .container {
+				width: 100%;
+				position: relative;
+				z-index: 1;
+			}
+			#current.cover header {
+				width: 100%;
+				text-align: center;
+				line-height: 1;
+			}
+			/* Slightly tighten the title so it doesn't feel low/high in a short strip */
+			#current.cover h2.alt {
+				line-height: 1 !important;
+				transform: translateY(1px);
+			}
+
+			/* ✅ (NEW) Match policies.html spacing: pull "Other Articles" up so it sits like policies sections */
+			#other.two {
+				padding-top: 2.6em !important;  /* reduce the big default gap */
+			}
+			#other.two header {
+				margin-bottom: 1.1em !important;
+			}
+
 			/* ✅ PinPark hero tint */
 			#current.cover:before,
 			#current:before {
@@ -80,12 +110,6 @@
 						rgba(0, 138, 205, 0.75) 0%,
 						rgba(0, 138, 205, 0.75) 100%
 					);
-			}
-
-			/* ✅ keep your hero content above the tint */
-			#current.cover > .container {
-				position: relative;
-				z-index: 1;
 			}
 
 			/* ✅ Keep same link-style button styling (in case you use it later) */
