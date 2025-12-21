@@ -324,6 +324,31 @@
 				font-size: 0.8em;
 				min-height: 1.2em;
 			}
+
+			/* 🔐 Auth nav: inline, no underline, with "|" separators */
+			#nav-auth ul {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 0 15px 15px !important;
+				display: inline-flex;
+				align-items: center;
+				flex-wrap: wrap;
+				font-size: 0.8em;
+			}
+			#nav-auth ul li {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			#nav-auth ul li + li::before {
+				content: "|";
+				margin: 0 6px;
+				opacity: 0.75;
+			}
+			#nav-auth a {
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+			}
 		</style>
 	</head>
 	<body class="is-preload">
@@ -349,10 +374,10 @@
 				<div class="bottom">
 					<nav id="nav-auth">
 						<ul>
-							<li><a href="#" id="link-login"><span class="icon solid fa-sign-in-alt">Login</span></a></li>
-							<li><a href="#" id="link-signup"><span class="icon solid fa-user-plus">Sign up</span></a></li>
+							<li><a href="#" id="link-login">Login</a></li>
+							<li><a href="#" id="link-signup">Sign up</a></li>
 							<li id="nav-admin-item" style="display:none;">
-								<a href="articles.html" id="link-admin"><span class="icon solid fa-user-cog">Admin</span></a>
+								<a href="articles.html" id="link-admin">Admin</a>
 							</li>
 						</ul>
 					</nav>
@@ -799,9 +824,6 @@
 					showStatus(err.message || "Sign up failed", true);
 				}
 			});
-
-			// Optional: sign out on some key combo or later via admin UI
-			// (you could add a "Sign out" link somewhere else if you like)
 
 			onAuthStateChanged(auth, async (user) => {
 				if (!user) {
