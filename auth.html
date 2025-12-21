@@ -94,14 +94,15 @@
         margin-bottom: 16px;
         font-size: 0.86em;
       }
-      .auth-toggle button {
-        border: none;
-        background: transparent;
-        padding: 6px 14px;
-        border-radius: 999px;
-        cursor: pointer;
-        color: #555;
-      }
+.auth-toggle button {
+  border: none;
+  background: #e0e0e0; /* grey background for inactive tab */
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #000;         /* black text for inactive tab */
+}
+
       .auth-toggle button.active {
         background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
         color: #fff;
@@ -334,15 +335,10 @@
         const auth = getAuth(app);
         const db   = getFirestore(app);
 
-        async function isAdminUser(user) {
-          if (!user) return false;
-          const snap = await getDoc(doc(db, "admins", user.uid));
-          return snap.exists();
-        }
+  const adminEmails = [
+  "pinpark@outlook.com",
+].map(e => e.toLowerCase());
 
-        function currentMode() {
-          return window.__authMode === "signup" ? "signup" : "login";
-        }
 
         btnPrimary?.addEventListener("click", async () => {
           const email = emailInput.value.trim();
