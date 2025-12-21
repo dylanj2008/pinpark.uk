@@ -126,23 +126,21 @@
       }
 
       .auth-actions {
-        display: flex;
-        gap: 8px;
         margin: 12px 0 8px;
       }
-      .auth-actions button {
-        flex: 1;
+      #btn-primary {
+        width: 100%;
         border-radius: 12px;
         border: none;
-        padding: 8px 0;
+        padding: 9px 0;
         cursor: pointer;
         font-size: 0.95em;
-      }
-      #btn-login {
         background: #f1f1f1;
         color: #333;
+        transition: background 120ms ease, color 120ms ease;
       }
-      #btn-signup {
+      /* When in signup mode we’ll add .mode-signup to the button */
+      #btn-primary.mode-signup {
         background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
         color: #fff;
       }
@@ -221,8 +219,7 @@
           </div>
 
           <div class="auth-actions">
-            <button id="btn-login" type="button">Sign in</button>
-            <button id="btn-signup" type="button">Sign up</button>
+            <button id="btn-primary" type="button">Sign in</button>
           </div>
 
           <div class="auth-footer">
@@ -238,16 +235,20 @@
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/util.js"></script>
 
-    <!-- ✅ Toggle logic (NO Firebase, always runs) -->
+    <!-- ✅ Toggle logic (no Firebase, always runs) -->
     <script>
       (function () {
-        const titleEl    = document.getElementById("auth-title");
-        const subtitleEl = document.getElementById("auth-subtitle");
+        const titleEl      = document.getElementById("auth-title");
+        const subtitleEl   = document.getElementById("auth-subtitle");
         const toggleLogin  = document.getElementById("toggle-login");
         const toggleSignup = document.getElementById("toggle-signup");
+        const primaryBtn   = document.getElementById("btn-primary");
 
         function setMode(mode) {
           const isSignup = mode === "signup";
+
+          // store mode globally so the Firebase script can read it
+          window.__authMode = mode;
 
           toggleLogin.classList.toggle("active", !isSignup);
           toggleSignup.classList.toggle("active", isSignup);
@@ -256,15 +257,20 @@
             titleEl.textContent = "Create a PinPark account";
             subtitleEl.textContent =
               "You'll be able to use this account in both the app and on this website.";
+            if (primaryBtn) {
+              primaryBtn.textContent = "Sign up";
+              primaryBtn.classList.add("mode-signup");
+            }
           } else {
             titleEl.textContent = "Sign in to PinPark";
             subtitleEl.textContent =
               "Use the same email and password you use in the app.";
+            if (primaryBtn) {
+              primaryBtn.textContent = "Sign in";
+              primaryBtn.classList.remove("mode-signup");
+            }
           }
         }
-
-        // Expose for the module if needed
-        window.__setAuthMode = setMode;
 
         // Initialise from ?mode=signup|login in URL
         try {
@@ -302,8 +308,7 @@
       const statusEl   = document.getElementById("auth-status");
       const emailInput = document.getElementById("auth-email");
       const passInput  = document.getElementById("auth-password");
-      const btnLogin   = document.getElementById("btn-login");
-      const btnSignup  = document.getElementById("btn-signup");
+      const btnPrimary = document.getElementById("btn-primary");
 
       function showStatus(msg, isError = false) {
         if (!statusEl) return;
@@ -312,16 +317,15 @@
       }
 
       const firebaseConfig = {
-  apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-  authDomain: "pinpark-1fcb3.firebaseapp.com",
-  projectId: "pinpark-1fcb3",
-  storageBucket: "pinpark-1fcb3.firebasestorage.app",
-  messagingSenderId: "677372487037",
-  appId: "1:677372487037:web:5dcd5e788874aca5851814",
-  measurementId: "G-LJN7NRFFX4"
-};
+        apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+        authDomain: "pinpark-1fcb3.firebaseapp.com",
+        projectId: "pinpark-1fcb3",
+        storageBucket: "pinpark-1fcb3.firebasestorage.app",
+        messagingSenderId: "677372487037",
+        appId: "1:677372487037:web:5dcd5e788874aca5851814",
+        measurementId: "G-LJN7NRFFX4"
+      };
 
-      // ✅ If config is empty, don't try to initialise Firebase
       if (!firebaseConfig.apiKey) {
         console.warn("Firebase config missing in auth.html – auth disabled until you paste it.");
         showStatus("Auth is not configured yet.", true);
@@ -336,49 +340,48 @@
           return snap.exists();
         }
 
-        btnLogin?.addEventListener("click", async () => {
+        function currentMode() {
+          return window.__authMode === "signup" ? "signup" : "login";
+        }
+
+        btnPrimary?.addEventListener("click", async () => {
           const email = emailInput.value.trim();
           const pass  = passInput.value;
+
           if (!email || !pass) {
             showStatus("Please enter email and password", true);
             return;
           }
+
+          const mode = currentMode();
+
           try {
-            showStatus("Signing in...");
-            const cred = await signInWithEmailAndPassword(auth, email, pass);
-            const user = cred.user;
-            const admin = await isAdminUser(user);
-            showStatus("Signed in.");
-            // redirect based on role
-            if (admin) {
-              window.location.href = "articles.html";
+            if (mode === "login") {
+              // 🔓 Sign in
+              showStatus("Signing in...");
+              const cred  = await signInWithEmailAndPassword(auth, email, pass);
+              const user  = cred.user;
+              const admin = await isAdminUser(user);
+              showStatus("Signed in.");
+
+              if (admin) {
+                window.location.href = "articles.html";
+              } else {
+                window.location.href = "index.html";
+              }
             } else {
-              window.location.href = "index.html";
+              // ✳️ Sign up
+              showStatus("Creating account...");
+              const cred = await createUserWithEmailAndPassword(auth, email, pass);
+              console.log("New user UID:", cred.user.uid);
+              showStatus("Account created. You can now sign in.");
+              setTimeout(() => {
+                window.location.href = "index.html";
+              }, 700);
             }
           } catch (err) {
             console.error(err);
-            showStatus(err.message || "Sign in failed", true);
-          }
-        });
-
-        btnSignup?.addEventListener("click", async () => {
-          const email = emailInput.value.trim();
-          const pass  = passInput.value;
-          if (!email || !pass) {
-            showStatus("Please enter email and password", true);
-            return;
-          }
-          try {
-            showStatus("Creating account...");
-            const cred = await createUserWithEmailAndPassword(auth, email, pass);
-            console.log("New user UID:", cred.user.uid);
-            showStatus("Account created. You can now sign in.");
-            setTimeout(() => {
-              window.location.href = "index.html";
-            }, 700);
-          } catch (err) {
-            console.error(err);
-            showStatus(err.message || "Sign up failed", true);
+            showStatus(err.message || (mode === "login" ? "Sign in failed" : "Sign up failed"), true);
           }
         });
 
