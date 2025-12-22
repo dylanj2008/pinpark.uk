@@ -837,11 +837,11 @@
 			})();
 		</script>
 
-		<!-- 🔐 Admin guard + ✅ Publish logic -->
+		<!-- 🔐 Admin guard + ✅ Publish + Edit logic -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import { getFirestore, doc, getDoc, collection, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -856,6 +856,18 @@
 			const app  = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
 			const db   = getFirestore(app);
+
+			let currentArticleId = null;
+			let nextSectionIndex = 1000; // for edit-created sections
+
+			function getQueryParam(name) {
+				try {
+					const u = new URL(window.location.href);
+					return u.searchParams.get(name);
+				} catch (_) {
+					return null;
+				}
+			}
 
 			async function checkAdmin(user) {
 				if (!user) return false;
@@ -875,6 +887,15 @@
 					.map(p => p.trim())
 					.filter(Boolean)
 					.map(p => p.replace(/\n/g, "<br>"));
+			}
+
+			function escapeHtml(str) {
+				return (str || "")
+					.replace(/&/g, "&amp;")
+					.replace(/</g, "&lt;")
+					.replace(/>/g, "&gt;")
+					.replace(/"/g, "&quot;")
+					.replace(/'/g, "&#039;");
 			}
 
 			function buildArticlePayload() {
@@ -939,13 +960,204 @@
 				};
 			}
 
-			function escapeHtml(str) {
-				return (str || "")
-					.replace(/&/g, "&amp;")
-					.replace(/</g, "&lt;")
-					.replace(/>/g, "&gt;")
-					.replace(/"/g, "&quot;")
-					.replace(/'/g, "&#039;");
+			function refreshPreviewFromForm() {
+				const payload = buildArticlePayload();
+
+				const mockTitle = document.getElementById("mock-title");
+				const mockContent = document.getElementById("mock-content");
+				const mockTags = document.getElementById("mock-tags");
+
+				if (mockTitle) {
+					mockTitle.textContent = payload.title || "Your Article Title";
+				}
+
+				if (mockContent) {
+					if (payload.renderedHtml && payload.renderedHtml.trim()) {
+						mockContent.innerHTML = payload.renderedHtml;
+					} else {
+						mockContent.innerHTML =
+							"<p>This is a preview of your article layout. When you publish, your content will flow here with your selected hero image above.</p>" +
+							"<p>You can use paragraphs, line breaks, and headings (later) to structure updates, release notes, roadmaps, and announcements.</p>";
+					}
+				}
+
+				if (mockTags) {
+					if (payload.tags && payload.tags.length) {
+						mockTags.innerHTML = payload.tags.map(t =>
+							`<span class="tag-pill">${escapeHtml(t)}</span>`
+						).join("");
+					} else {
+						mockTags.innerHTML =
+							'<span class="tag-pill">update</span><span class="tag-pill">release</span><span class="tag-pill">roadmap</span>';
+					}
+				}
+			}
+
+			function paragraphHtmlToTextarea(html) {
+				if (!html) return "";
+				let s = String(html);
+				s = s.replace(/<br\s*\/?>/gi, "\n");
+				// strip any remaining tags
+				s = s.replace(/<[^>]*>/g, "");
+				return s;
+			}
+
+			function createSectionBlock(subheadingText, bodyText) {
+				const sectionsContainer = document.getElementById("sections-container");
+				if (!sectionsContainer) return;
+
+				const wrapper = document.createElement("div");
+				wrapper.className = "pp-section";
+				wrapper.style.marginTop = "20px";
+
+				const hWrap = document.createElement("div");
+				hWrap.className = "col-12";
+				hWrap.style.marginBottom = "20px";
+
+				const tWrap = document.createElement("div");
+				tWrap.className = "col-12";
+
+				const idx = nextSectionIndex++;
+				const hInput = document.createElement("input");
+				hInput.type = "text";
+				hInput.name = "subheading_" + idx;
+				hInput.placeholder = "Subheading";
+				hInput.value = subheadingText || "";
+
+				const tArea = document.createElement("textarea");
+				tArea.name = "section_" + idx;
+				tArea.placeholder = "Write your paragraph here...";
+				tArea.rows = 6;
+				tArea.value = bodyText || "";
+
+				hWrap.appendChild(hInput);
+				tWrap.appendChild(tArea);
+				wrapper.appendChild(hWrap);
+				wrapper.appendChild(tWrap);
+				sectionsContainer.appendChild(wrapper);
+
+				hInput.addEventListener("input", refreshPreviewFromForm);
+				tArea.addEventListener("input", refreshPreviewFromForm);
+			}
+
+			async function loadExistingArticle(articleId) {
+				try {
+					const ref = doc(db, "articles", articleId);
+					const snap = await getDoc(ref);
+					if (!snap.exists()) {
+						console.warn("Article not found for edit:", articleId);
+						return;
+					}
+
+					const data = snap.data() || {};
+
+					const titleInput = document.querySelector('input[name="title"]');
+					const mainSubheadingInput = document.querySelector('input[name="subheading_main"]');
+					const contentInput = document.querySelector('textarea[name="content"]');
+					const tagsInput = document.querySelector('input[name="tags"]');
+					const heroHidden = document.getElementById("heroImageDataUrl");
+					const heroDrop = document.getElementById("hero-drop");
+					const mockHero = document.getElementById("mock-hero");
+					const sectionsContainer = document.getElementById("sections-container");
+
+					if (titleInput) {
+						titleInput.value = data.title || "";
+						// kick existing hero-title sync
+						titleInput.dispatchEvent(new Event("input", { bubbles: true }));
+					}
+
+					if (tagsInput && Array.isArray(data.tags)) {
+						tagsInput.value = data.tags.join(", ");
+					}
+
+					if (heroHidden) {
+						const hero = data.heroImageDataUrl || "";
+						heroHidden.value = hero;
+						if (hero && heroDrop) {
+							heroDrop.style.backgroundImage = `url('${hero}')`;
+						}
+						if (hero && mockHero) {
+							mockHero.style.backgroundImage = `url('${hero}')`;
+						}
+					}
+
+					// Rebuild content + sections from blocks if available
+					const blocks = Array.isArray(data.blocks) ? data.blocks : null;
+
+					let mainSubheading = "";
+					let mainParagraphs = [];
+					const sectionGroups = [];
+
+					if (blocks && blocks.length) {
+						let i = 0;
+
+						if (blocks[0].type === "subheading") {
+							mainSubheading = blocks[0].text || "";
+							i = 1;
+						}
+
+						while (i < blocks.length && blocks[i].type === "paragraph") {
+							mainParagraphs.push(paragraphHtmlToTextarea(blocks[i].html));
+							i++;
+						}
+
+						while (i < blocks.length) {
+							if (blocks[i].type !== "subheading") {
+								// unexpected, treat as extra main paragraph
+								if (blocks[i].type === "paragraph") {
+									mainParagraphs.push(paragraphHtmlToTextarea(blocks[i].html));
+								}
+								i++;
+								continue;
+							}
+
+							const heading = blocks[i].text || "";
+							i++;
+							const paras = [];
+
+							while (i < blocks.length && blocks[i].type === "paragraph") {
+								paras.push(paragraphHtmlToTextarea(blocks[i].html));
+								i++;
+							}
+
+							sectionGroups.push({ subheading: heading, paragraphs: paras });
+						}
+					} else {
+						// Fallback for older docs that only had renderedHtml
+						const rendered = data.renderedHtml || "";
+						const tmp = document.createElement("div");
+						tmp.innerHTML = rendered;
+						const ps = Array.from(tmp.querySelectorAll("p"));
+						const paras = ps.map(p => (p.textContent || "").trim()).filter(Boolean);
+						mainParagraphs = paras;
+						mainSubheading = "";
+					}
+
+					if (mainSubheadingInput) {
+						mainSubheadingInput.value = mainSubheading;
+					}
+
+					if (contentInput) {
+						contentInput.value = mainParagraphs.join("\n\n");
+					}
+
+					if (sectionsContainer) {
+						sectionsContainer.innerHTML = "";
+						sectionGroups.forEach(group => {
+							const bodyText = group.paragraphs.join("\n\n");
+							createSectionBlock(group.subheading, bodyText);
+						});
+					}
+
+					// Finally refresh the preview to match
+					refreshPreviewFromForm();
+
+					// If you want, you can also change the heading to "Edit Article"
+					const heading = document.querySelector(".articles-under-logo h2");
+					if (heading) heading.textContent = "Edit Article";
+				} catch (e) {
+					console.error("Failed to load existing article for edit:", e);
+				}
 			}
 
 			async function publishArticle() {
@@ -967,19 +1179,48 @@
 						return;
 					}
 
-					// ✅ Save to Firestore
-					const ref = await addDoc(collection(db, "articles"), {
-						title: payload.title,
-						heroImageDataUrl: payload.heroImageDataUrl, // NOTE: consider Storage later
-						tags: payload.tags,
-						blocks: payload.blocks,
-						renderedHtml: payload.renderedHtml,
-						status: "published",
-						publishedAt: serverTimestamp(),
-						createdAt: serverTimestamp()
-					});
+					if (currentArticleId) {
+						// ✏️ EDIT MODE: update existing doc
+						const ref = doc(db, "articles", currentArticleId);
+						const existingSnap = await getDoc(ref);
+						const updateData = {
+							title: payload.title,
+							heroImageDataUrl: payload.heroImageDataUrl,
+							tags: payload.tags,
+							blocks: payload.blocks,
+							renderedHtml: payload.renderedHtml,
+							status: "published"
+						};
 
-					// ✅ Go back to admin list (or you can redirect to a view page using ref.id later)
+						if (existingSnap.exists()) {
+							const existing = existingSnap.data() || {};
+							if (!existing.publishedAt) {
+								updateData.publishedAt = serverTimestamp();
+							}
+							// keep existing createdAt if present
+							if (!existing.createdAt) {
+								updateData.createdAt = serverTimestamp();
+							}
+						} else {
+							updateData.publishedAt = serverTimestamp();
+							updateData.createdAt = serverTimestamp();
+						}
+
+						await updateDoc(ref, updateData);
+					} else {
+						// 🆕 CREATE MODE: new document
+						await addDoc(collection(db, "articles"), {
+							title: payload.title,
+							heroImageDataUrl: payload.heroImageDataUrl,
+							tags: payload.tags,
+							blocks: payload.blocks,
+							renderedHtml: payload.renderedHtml,
+							status: "published",
+							publishedAt: serverTimestamp(),
+							createdAt: serverTimestamp()
+						});
+					}
+
 					window.location.href = "articles_admin.html?section=current";
 				} catch (e) {
 					console.error("Publish failed:", e);
@@ -998,6 +1239,26 @@
 
 				// ✅ Admin confirmed -> reveal page
 				document.documentElement.style.visibility = "visible";
+
+				// Wire up preview to main fields as well (works for both create + edit)
+				const titleInput = document.querySelector('input[name="title"]');
+				const mainSubheadingInput = document.querySelector('input[name="subheading_main"]');
+				const contentInput = document.querySelector('textarea[name="content"]');
+				const tagsInput = document.querySelector('input[name="tags"]');
+
+				titleInput && titleInput.addEventListener("input", refreshPreviewFromForm);
+				mainSubheadingInput && mainSubheadingInput.addEventListener("input", refreshPreviewFromForm);
+				contentInput && contentInput.addEventListener("input", refreshPreviewFromForm);
+				tagsInput && tagsInput.addEventListener("input", refreshPreviewFromForm);
+
+				// Check if we're editing an existing article
+				currentArticleId = getQueryParam("articleId");
+				if (currentArticleId) {
+					await loadExistingArticle(currentArticleId);
+				} else {
+					// initial preview for fresh create
+					refreshPreviewFromForm();
+				}
 
 				// ✅ hook up publish button now that we're verified
 				const publishBtn = document.getElementById("publish-btn");
