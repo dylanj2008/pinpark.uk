@@ -254,6 +254,121 @@
 				border-color: rgba(0, 138, 205, 0.45);
 			}
 
+			/* ✅ Article mockup card (preview) */
+			.article-mock {
+				max-width: 900px;
+				margin: 50px auto 0;
+				padding: 0 30px;
+				box-sizing: border-box;
+				text-align: left;
+			}
+			.article-mock .mock-card {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 14px;
+				box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+				overflow: hidden;
+				background: #fff;
+			}
+			.article-mock .mock-hero {
+				height: 220px;
+				position: relative;
+				overflow: hidden;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			/* Default hero tint if no image */
+			.article-mock .mock-hero::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				);
+			}
+			.article-mock .mock-hero::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+			.article-mock .mock-hero .mock-hero-inner {
+				position: relative;
+				z-index: 1;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				padding: 22px 22px 18px;
+				box-sizing: border-box;
+			}
+			.article-mock .mock-hero-title {
+				color: #fff;
+				font-size: 1.6em;
+				line-height: 1.15;
+				margin: 0;
+				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
+				word-break: break-word;
+			}
+			.article-mock .mock-hero-subtitle {
+				color: rgba(255,255,255,0.90);
+				margin: 8px 0 0 0;
+				text-shadow: 0 4px 14px rgba(0,0,0,0.18);
+			}
+			.article-mock .mock-body {
+				padding: 22px 22px 20px;
+			}
+			.article-mock .mock-meta {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+				align-items: center;
+				margin: 0 0 14px 0;
+				color: rgba(0,0,0,0.55);
+				font-size: 0.9em;
+			}
+			.article-mock .mock-tags {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin-top: 10px;
+			}
+			.article-mock .tag-pill {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 999px;
+				padding: 6px 10px;
+				font-size: 0.85em;
+				background: rgba(0,0,0,0.03);
+				color: rgba(0,0,0,0.7);
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
@@ -440,6 +555,39 @@
 						</div>
 					</form>
 				</div>
+
+				<!-- ✅ MOCKUP PREVIEW (how it will look as an actual article) -->
+				<div class="article-mock">
+					<div class="mock-card">
+						<div id="mock-hero" class="mock-hero">
+							<div class="mock-hero-inner">
+								<h1 class="mock-hero-title" id="mock-title">Your Article Title</h1>
+								<p class="mock-hero-subtitle" id="mock-subtitle">Your subtitle will appear here (optional)</p>
+							</div>
+						</div>
+
+						<div class="mock-body">
+							<div class="mock-meta">
+								<span id="mock-date">Published: 22 Dec 2025</span>
+								<span>•</span>
+								<span>PinPark</span>
+							</div>
+
+							<div id="mock-content">
+								<p>This is a preview of your article layout. When you publish, your content will flow here with your selected hero image above.</p>
+								<p>You can use paragraphs, line breaks, and headings (later) to structure updates, release notes, roadmaps, and announcements.</p>
+							</div>
+
+							<div class="mock-tags" id="mock-tags">
+								<span class="tag-pill">update</span>
+								<span class="tag-pill">release</span>
+								<span class="tag-pill">roadmap</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ✅ END MOCKUP PREVIEW -->
+
 			</div>
 		</div>
 
@@ -464,10 +612,68 @@
 				var titleEl = document.getElementById("hero-title");
 				var titleInput = document.querySelector('input[name="title"]');
 
+				// ✅ mockup bindings
+				var mockHero = document.getElementById("mock-hero");
+				var mockTitle = document.getElementById("mock-title");
+				var mockSubtitle = document.getElementById("mock-subtitle");
+				var subtitleInput = document.querySelector('input[name="subtitle"]');
+				var contentInput = document.querySelector('textarea[name="content"]');
+				var tagsInput = document.querySelector('input[name="tags"]');
+				var mockContent = document.getElementById("mock-content");
+				var mockTags = document.getElementById("mock-tags");
+
 				if (!drop || !fileInput || !hidden || !titleEl || !titleInput) return;
 
 				function syncTitle() {
-					titleEl.textContent = (titleInput.value || "").trim();
+					var t = (titleInput.value || "").trim();
+					titleEl.textContent = t;
+					if (mockTitle) mockTitle.textContent = t || "Your Article Title";
+				}
+
+				function syncSubtitle() {
+					if (!mockSubtitle || !subtitleInput) return;
+					var s = (subtitleInput.value || "").trim();
+					mockSubtitle.textContent = s || "Your subtitle will appear here (optional)";
+				}
+
+				function syncContent() {
+					if (!mockContent || !contentInput) return;
+					var raw = (contentInput.value || "").trim();
+					if (!raw) {
+						mockContent.innerHTML =
+							"<p>This is a preview of your article layout. When you publish, your content will flow here with your selected hero image above.</p>" +
+							"<p>You can use paragraphs, line breaks, and headings (later) to structure updates, release notes, roadmaps, and announcements.</p>";
+						return;
+					}
+					// basic preview: split into paragraphs by blank lines
+					var paras = raw.split(/\n\s*\n/g).map(function (p) {
+						return p.trim();
+					}).filter(Boolean);
+
+					mockContent.innerHTML = paras.map(function (p) {
+						// keep single newlines as <br>
+						return "<p>" + p.replace(/\n/g, "<br>") + "</p>";
+					}).join("");
+				}
+
+				function syncTags() {
+					if (!mockTags || !tagsInput) return;
+					var raw = (tagsInput.value || "").trim();
+					var tags = raw
+						.split(",")
+						.map(function (t) { return t.trim(); })
+						.filter(Boolean)
+						.slice(0, 8);
+
+					if (!tags.length) {
+						mockTags.innerHTML =
+							'<span class="tag-pill">update</span><span class="tag-pill">release</span><span class="tag-pill">roadmap</span>';
+						return;
+					}
+
+					mockTags.innerHTML = tags.map(function (t) {
+						return '<span class="tag-pill">' + t + '</span>';
+					}).join("");
 				}
 
 				function setHeroFile(file) {
@@ -478,6 +684,11 @@
 						var dataUrl = reader.result;
 						drop.style.backgroundImage = "url('" + dataUrl + "')";
 						hidden.value = dataUrl; // later: upload to Storage and save URL instead
+
+						// ✅ also update mock hero background
+						if (mockHero) {
+							mockHero.style.backgroundImage = "url('" + dataUrl + "')";
+						}
 					};
 					reader.readAsDataURL(file);
 				}
@@ -485,6 +696,14 @@
 				// Title always drives the hero text
 				titleInput.addEventListener("input", syncTitle);
 				syncTitle();
+
+				// ✅ mockup live updates
+				subtitleInput && subtitleInput.addEventListener("input", syncSubtitle);
+				contentInput && contentInput.addEventListener("input", syncContent);
+				tagsInput && tagsInput.addEventListener("input", syncTags);
+				syncSubtitle();
+				syncContent();
+				syncTags();
 
 				drop.addEventListener("click", function () {
 					fileInput.click();
