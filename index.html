@@ -644,20 +644,50 @@
 			}
 
 			onAuthStateChanged(auth, async (user) => {
-				if (!user) {
-					setVisible(liLogin, true);
-					setVisible(liSignup, true);
-					setVisible(liLogout, false);
-					setVisible(liAdmin, false);
-					return;
-				}
+  if (!user) {
+    // Signed out → show Login + Sign up, hide Admin + Logout
+    setVisible(liLogin, true);
+    setVisible(liSignup, true);
+    setVisible(liLogout, false);
+    setVisible(liAdmin, false);
+    return;
+  }
 
-				const admin = await isAdminUser(user);
-				setVisible(liLogin, false);
-				setVisible(liSignup, false);
-				setVisible(liLogout, true);
-				setVisible(liAdmin, admin);
-			});
+  // Signed in → check if this user is an admin
+  const admin = await isAdminUser(user);
+
+  // 🔁 If admin, redirect to the admin version of this page (if one exists)
+  if (admin) {
+    const path = window.location.pathname;
+    let file = path.split("/").pop();
+
+    // Handle root "/" case where there's no explicit filename
+    if (!file) {
+      file = "index.html";
+    }
+
+    // Map normal pages → admin equivalents
+    const adminMap = {
+      "index.html": "index_admin.html",
+      "articles.html": "articles_admin.html",
+      // add more mappings here if you make more admin pages
+      // "policies.html": "policies_admin.html",
+    };
+
+    const target = adminMap[file];
+    if (target && !path.endsWith(target)) {
+      window.location.href = target;
+      return; // stop, we're navigating away
+    }
+  }
+
+  // If we didn't redirect, just update the nav state as usual
+  setVisible(liLogin, false);
+  setVisible(liSignup, false);
+  setVisible(liLogout, true);
+  setVisible(liAdmin, admin);
+});
+
 
 			logoutLink?.addEventListener("click", async (e) => {
 				e.preventDefault();
