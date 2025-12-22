@@ -270,7 +270,7 @@
 				background: #fff;
 			}
 			.latest-article .hero {
-				height: 330px;              /* was 220px – now 50% taller */
+				height: 330px;              /* desktop height */
 				position: relative;
 				overflow: hidden;
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
@@ -403,6 +403,14 @@
 			#latest-article-mount.latest-article .hero {
 				height: 330px !important;
 			}
+
+			/* 📱 Mobile: hero 25% shorter (330px → 247.5px) */
+			@media screen and (max-width: 736px) {
+				.latest-article .hero,
+				#latest-article-mount.latest-article .hero {
+					height: calc(330px * 0.75) !important;
+				}
+			}
 		</style>
 	</head>
 
@@ -449,7 +457,7 @@
 				</header>
 
 				<p class="articles-paragraph" id="current-article-fallback">
-					Your current article will go here.
+					Failed to load current article
 				</p>
 
 				<!-- ✅ Latest article card mounts here -->
@@ -461,7 +469,7 @@
 					<header><h2>Other Articles</h2></header>
 
 					<p class="other-paragraph">
-						Add your other articles here.
+						No other articles to display
 					</p>
 				</div>
 			</section>
