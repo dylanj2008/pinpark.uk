@@ -328,18 +328,8 @@
         const app  = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // 🔐 Simple email-based admin check
-        const adminEmails = [
-          "pinpark@outlook.com",
-        ].map(e => e.toLowerCase());
-
-        function isAdminUser(user) {
-          if (!user || !user.email) return false;
-          return adminEmails.includes(user.email.toLowerCase());
-        }
-
         btnPrimary?.addEventListener("click", async () => {
-          const email = emailInput.value.trim();
+          const email = (emailInput.value || "").trim();
           const pass  = passInput.value;
 
           if (!email || !pass) {
@@ -354,21 +344,23 @@
               showStatus("Signing in...");
               const cred = await signInWithEmailAndPassword(auth, email, pass);
               const user = cred.user;
+              console.log("Signed in user:", user.email, "uid:", user.uid);
 
-              const admin = isAdminUser(user);
+              // 🔐 Treat the typed email as admin check
+              const isAdmin = email.toLowerCase() === "pinpark@outlook.com";
+
+              console.log("isAdmin?", isAdmin ? "YES" : "NO");
 
               showStatus("Signed in.");
-              if (admin) {
-                // 🔹 Admin email (e.g. pinpark@outlook.com) → admin articles page
+              if (isAdmin) {
                 window.location.href = "articles_admin.html";
               } else {
-                // 🔹 Normal account → main site
                 window.location.href = "index.html";
               }
             } else {
               showStatus("Creating account...");
               const cred = await createUserWithEmailAndPassword(auth, email, pass);
-              console.log("New user UID:", cred.user.uid);
+              console.log("New user UID:", cred.user.uid, "email:", cred.user.email);
               showStatus("Account created. You can now sign in.");
               setTimeout(() => {
                 window.location.href = "index.html";
@@ -382,7 +374,7 @@
 
         onAuthStateChanged(auth, (user) => {
           if (user) {
-            console.log("Signed in as", user.email, "uid:", user.uid);
+            console.log("Already signed in as", user.email, "uid:", user.uid);
           }
         });
       }
