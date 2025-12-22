@@ -391,6 +391,21 @@
 				margin-right: 0 !important;
 				box-sizing: border-box;
 			}
+
+			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding) */
+			#latest-article-mount.latest-article {
+				max-width: none !important;          /* remove the 900px limit */
+				width: 100% !important;
+				padding: 0 5px !important;          /* ✅ 5px left + 5px right */
+				box-sizing: border-box !important;
+				margin: -50px 0 0 !important;       /* keep the same vertical positioning */
+			}
+
+			#latest-article-mount.latest-article .card {
+				width: 100% !important;
+				margin: 0 !important;
+				box-sizing: border-box !important;
+			}
 		</style>
 	</head>
 
