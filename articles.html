@@ -253,6 +253,116 @@
 			html[data-prejump] body {
 				visibility: hidden;
 			}
+
+			/* ✅ Latest article card (matches your mockup style) */
+			.latest-article {
+				max-width: 900px;
+				margin: 30px auto 0;
+				padding: 0 30px;
+				box-sizing: border-box;
+				text-align: left;
+			}
+			.latest-article .card {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 14px;
+				box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+				overflow: hidden;
+				background: #fff;
+			}
+			.latest-article .hero {
+				height: 220px;
+				position: relative;
+				overflow: hidden;
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.latest-article .hero::before,
+			.latest-article .hero::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+			}
+			.latest-article .hero::before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				);
+			}
+			.latest-article .hero::after {
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+			.latest-article .hero-inner {
+				position: relative;
+				z-index: 1;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 22px;
+				box-sizing: border-box;
+				text-align: center;
+			}
+			.latest-article .hero-title {
+				color: #fff;
+				font-size: 1.6em;
+				line-height: 1.15;
+				margin: 0;
+				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
+				word-break: break-word;
+				max-width: 92%;
+			}
+			.latest-article .body {
+				padding: 22px 22px 20px;
+			}
+			.latest-article .meta {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+				align-items: center;
+				margin: 0 0 14px 0;
+				color: rgba(0,0,0,0.55);
+				font-size: 0.9em;
+			}
+			.latest-article .tags {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin-top: 10px;
+			}
+			.latest-article .tag-pill {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 999px;
+				padding: 6px 10px;
+				font-size: 0.85em;
+				background: rgba(0,0,0,0.03);
+				color: rgba(0,0,0,0.7);
+			}
 		</style>
 	</head>
 
@@ -294,12 +404,15 @@
 			<!-- ✅ Positioned like terms.html -->
 			<div class="pinpark-under-strip">
 				<img src="pinpark.png" alt="PinPark" />
-				<header class="articles-under-logo"><h2>V1.0.0 In Development</h2></header>
+				<header class="articles-under-logo"><h2 id="current-article-title">V1.0.0 In Development</h2></header>
 
-				<p class="articles-paragraph">
+				<p class="articles-paragraph" id="current-article-fallback">
 					<!-- ✅ Put your current article content here -->
 					Your current article will go here.
 				</p>
+
+				<!-- ✅ NEW: Latest article mount (renders the card here) -->
+				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
 			<section id="other" class="two">
@@ -326,6 +439,121 @@
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+
+		<!-- ✅ NEW: Load latest published article from Firestore -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import { getFirestore, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
+
+			const app = initializeApp(firebaseConfig);
+			const db  = getFirestore(app);
+
+			function formatDate(ts) {
+				try {
+					// Firestore Timestamp -> Date
+					const d = ts && typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
+					if (!d || isNaN(d.getTime())) return "";
+					// e.g. "22 Dec 2025"
+					return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+				} catch (_) {
+					return "";
+				}
+			}
+
+			function renderArticleCard(article) {
+				const mount = document.getElementById("latest-article-mount");
+				if (!mount) return;
+
+				const title = (article.title || "").trim() || "Untitled";
+				const hero  = article.heroImageDataUrl || null;
+				const html  = (article.renderedHtml || "").trim();
+
+				const tags = Array.isArray(article.tags) ? article.tags : [];
+
+				mount.innerHTML = `
+					<div class="card">
+						<div class="hero" id="latest-hero">
+							<div class="hero-inner">
+								<h1 class="hero-title">${title}</h1>
+							</div>
+						</div>
+						<div class="body">
+							<div class="meta">
+								<span>Published: ${formatDate(article.publishedAt) || ""}</span>
+								<span>•</span>
+								<span>PinPark</span>
+							</div>
+							<div class="content" id="latest-content">
+								${html || "<p></p>"}
+							</div>
+							<div class="tags">
+								${tags.slice(0, 12).map(t => `<span class="tag-pill">${t}</span>`).join("")}
+							</div>
+						</div>
+					</div>
+				`;
+
+				if (hero) {
+					const heroEl = document.getElementById("latest-hero");
+					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
+				}
+
+				// ✅ also set the page heading to match the latest article
+				const h2 = document.getElementById("current-article-title");
+				if (h2) h2.textContent = title;
+
+				// ✅ hide the old placeholder paragraph once we have a real article
+				const fallback = document.getElementById("current-article-fallback");
+				if (fallback) fallback.style.display = "none";
+			}
+
+			async function loadLatestPublished() {
+				try {
+					const col = collection(db, "articles");
+
+					// preferred (publishedAt)
+					let q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("publishedAt", "desc"),
+						limit(1)
+					);
+
+					let snap;
+					try {
+						snap = await getDocs(q);
+					} catch (e) {
+						// fallback (createdAt) if publishedAt ordering/index causes issues
+						q = query(
+							col,
+							where("status", "==", "published"),
+							orderBy("createdAt", "desc"),
+							limit(1)
+						);
+						snap = await getDocs(q);
+					}
+
+					if (snap.empty) return;
+
+					const doc0 = snap.docs[0];
+					renderArticleCard({ id: doc0.id, ...doc0.data() });
+				} catch (e) {
+					console.error("Failed to load latest article:", e);
+				}
+			}
+
+			loadLatestPublished();
+		</script>
 
 		<script>
 			(function () {
