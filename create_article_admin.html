@@ -1012,7 +1012,23 @@
 				const sectionsContainer = document.getElementById("sections-container");
 
 				const title = (titleInput?.value || "").trim();
-				const heroImageDataUrl = (heroHidden?.value || "").trim() || null;
+
+				// 🔹 Get hero image from hidden input
+				let heroImageDataUrl = (heroHidden?.value || "").trim() || null;
+
+				// 🔹 If it's a big base64 data URL, block publish instead of letting Firestore error
+				if (
+					heroImageDataUrl &&
+					heroImageDataUrl.startsWith("data:image/") &&
+					heroImageDataUrl.length > 900000 // ~0.9MB, under Firestore's per-field limit
+				) {
+					alert(
+						"Your hero image is too large to save into the article.\n\n" +
+						"Please use a smaller or lower-resolution image and try again."
+					);
+					throw new Error("Hero image too large for Firestore field.");
+				}
+
 				const mainSubheading = (mainSubheadingInput?.value || "").trim();
 				const mainRaw = (contentInput?.value || "").trim();
 
