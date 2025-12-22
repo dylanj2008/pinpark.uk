@@ -337,11 +337,6 @@
 				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
 				word-break: break-word;
 			}
-			.article-mock .mock-hero-subtitle {
-				color: rgba(255,255,255,0.90);
-				margin: 8px 0 0 0;
-				text-shadow: 0 4px 14px rgba(0,0,0,0.18);
-			}
 			.article-mock .mock-body {
 				padding: 22px 22px 20px;
 			}
@@ -500,9 +495,7 @@
 								<input type="text" name="title" placeholder="Title" />
 							</div>
 
-							<div class="col-12">
-								<input type="text" name="subtitle" placeholder="Subtitle (optional)" />
-							</div>
+							<!-- ✅ subtitle entry removed -->
 
 							<div class="col-12">
 								<input type="text" name="coverImage" placeholder="Cover image URL (optional)" />
@@ -562,7 +555,6 @@
 						<div id="mock-hero" class="mock-hero">
 							<div class="mock-hero-inner">
 								<h1 class="mock-hero-title" id="mock-title">Your Article Title</h1>
-								<p class="mock-hero-subtitle" id="mock-subtitle">Your subtitle will appear here (optional)</p>
 							</div>
 						</div>
 
@@ -615,8 +607,6 @@
 				// ✅ mockup bindings
 				var mockHero = document.getElementById("mock-hero");
 				var mockTitle = document.getElementById("mock-title");
-				var mockSubtitle = document.getElementById("mock-subtitle");
-				var subtitleInput = document.querySelector('input[name="subtitle"]');
 				var contentInput = document.querySelector('textarea[name="content"]');
 				var tagsInput = document.querySelector('input[name="tags"]');
 				var mockContent = document.getElementById("mock-content");
@@ -628,12 +618,6 @@
 					var t = (titleInput.value || "").trim();
 					titleEl.textContent = t;
 					if (mockTitle) mockTitle.textContent = t || "Your Article Title";
-				}
-
-				function syncSubtitle() {
-					if (!mockSubtitle || !subtitleInput) return;
-					var s = (subtitleInput.value || "").trim();
-					mockSubtitle.textContent = s || "Your subtitle will appear here (optional)";
 				}
 
 				function syncContent() {
@@ -693,15 +677,13 @@
 					reader.readAsDataURL(file);
 				}
 
-				// Title always drives the hero text
+				// ✅ Title always drives the hero text AND mockup title live
 				titleInput.addEventListener("input", syncTitle);
 				syncTitle();
 
 				// ✅ mockup live updates
-				subtitleInput && subtitleInput.addEventListener("input", syncSubtitle);
 				contentInput && contentInput.addEventListener("input", syncContent);
 				tagsInput && tagsInput.addEventListener("input", syncTags);
-				syncSubtitle();
 				syncContent();
 				syncTags();
 
