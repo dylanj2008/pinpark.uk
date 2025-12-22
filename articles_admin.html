@@ -17,43 +17,24 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 
 		<style>
-			/* ✅ Make the "top strip" become the HERO box (resized) */
+			/* ✅ Make the blue cover part exactly 60px tall */
 			#current.cover {
-				height: 360px !important;
-				min-height: 360px !important;
+				height: 60px !important;
+				min-height: 60px !important;
 				padding: 0 !important;
-				position: relative;
-				overflow: hidden;
-
-				/* ✅ Hero background (JS can set background-image) */
-				background-size: cover;
-				background-position: center;
-				background-repeat: no-repeat;
 			}
-
-			/* ✅ Responsive hero height */
-			@media screen and (max-width: 736px) {
-				#current.cover {
-					height: 300px !important;
-					min-height: 300px !important;
-				}
-			}
-
 			#current.cover > .container {
-				position: relative;
-				z-index: 1;
-				height: 100%;
-				padding: 0 30px !important;
+				padding: 0 !important;
 				margin: 0 !important;
-
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				box-sizing: border-box;
+			}
+			#current.cover header,
+			#current.cover h2,
+			#current.cover p {
+				margin: 0 !important;
+				padding: 0 !important;
 			}
 
-			/* ✅ PinPark hero tint – EXACT same as index.html (#home) */
+			/* ✅ PinPark hero tint */
 			#current.cover:before,
 			#current:before {
 				background: linear-gradient(
@@ -64,6 +45,7 @@
 				) !important;
 			}
 
+			/* ✅ PinPark hero tint overlay */
 			#current.cover {
 				position: relative;
 				overflow: hidden;
@@ -99,38 +81,13 @@
 					);
 			}
 
-			/* (Hero title style is kept, but we now use the title below the hero) */
-			.current-hero-content {
-				margin: 0 !important;
-				padding: 0 !important;
-				max-width: 980px;
+			/* ✅ keep your hero content above the tint */
+			#current.cover > .container {
+				position: relative;
+				z-index: 1;
 			}
 
-			.current-hero-title {
-				color: #fff !important;
-				margin: 0 !important;
-				padding: 0 !important;
-				font-size: 2.0em;
-				line-height: 1.1;
-				text-shadow: 0 6px 18px rgba(0,0,0,0.25);
-				word-break: break-word;
-			}
-
-			@media screen and (max-width: 736px) {
-				.current-hero-title {
-					font-size: 1.55em;
-				}
-			}
-
-			/* ✅ Published text style (used below hero, in header row) */
-			.current-hero-meta {
-				margin: 12px 0 16px 0 !important;
-				color: rgba(0,0,0,0.55) !important;
-				font-size: 0.95em;
-				text-shadow: none;
-			}
-
-			/* ✅ Make PinPark logo 25% smaller total (sidebar) */
+			/* ✅ Make PinPark logo 25% smaller total */
 			#logo .image img {
 				width: 75%;
 				height: auto;
@@ -171,38 +128,29 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Content under hero */
-			#main .article-under-hero {
-				margin-top: 45px !important;
+			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
+			#main .pinpark-under-strip {
+				margin-top: 120px !important;
 				text-align: center;
 			}
-
-			/* ✅ New: title + published on the same row, same Y-axis */
-			.article-under-hero-header {
-				max-width: 900px;
-				margin: 0 auto 16px;
-				padding: 0 30px;
-				box-sizing: border-box;
-				display: flex;
-				align-items: center;  /* same vertical line */
-				justify-content: space-between;
-				gap: 16px;
-				text-align: left;
-			}
-			.article-under-hero-header .current-hero-title {
-				margin: 0;
-				padding: 0;
-				color: #000 !important;       /* override hero white */
-				text-shadow: none !important; /* clean text in content area */
-				font-size: 2.0em;
-				line-height: 1.1;
-			}
-			.article-under-hero-header .current-hero-meta {
-				margin: 0 !important;
+			#main .pinpark-under-strip img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
 			}
 
-			/* ✅ Current Article paragraph/card area: centered + 30px padding each side */
-			#main .article-under-hero .articles-paragraph {
+			/* ✅ Make "Latest Article" the same distance from pinpark.png as in terms.html */
+			#main .pinpark-under-strip .articles-under-logo {
+				margin-top: 100px !important;
+				margin-bottom: 2em !important;
+			}
+			#main .pinpark-under-strip .articles-under-logo h2 {
+				margin-top: 0 !important;
+			}
+
+			/* ✅ Current Article paragraph: centered + 30px padding each side */
+			#main .pinpark-under-strip .articles-paragraph {
 				margin-top: 0 !important;
 				padding-left: 30px !important;
 				padding-right: 30px !important;
@@ -305,6 +253,116 @@
 			html[data-prejump] body {
 				visibility: hidden;
 			}
+
+			/* ✅ Latest article card (matches your mockup style) */
+			.latest-article {
+				max-width: 900px;
+				margin: 30px auto 0;
+				padding: 0 30px;
+				box-sizing: border-box;
+				text-align: left;
+			}
+			.latest-article .card {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 14px;
+				box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+				overflow: hidden;
+				background: #fff;
+			}
+			.latest-article .hero {
+				height: 220px;
+				position: relative;
+				overflow: hidden;
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			}
+			.latest-article .hero::before,
+			.latest-article .hero::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+			}
+			.latest-article .hero::before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				);
+			}
+			.latest-article .hero::after {
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+			.latest-article .hero-inner {
+				position: relative;
+				z-index: 1;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 22px;
+				box-sizing: border-box;
+				text-align: center;
+			}
+			.latest-article .hero-title {
+				color: #fff;
+				font-size: 1.6em;
+				line-height: 1.15;
+				margin: 0;
+				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
+				word-break: break-word;
+				max-width: 92%;
+			}
+			.latest-article .body {
+				padding: 22px 22px 20px;
+			}
+			.latest-article .meta {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+				align-items: center;
+				margin: 0 0 14px 0;
+				color: rgba(0,0,0,0.55);
+				font-size: 0.9em;
+			}
+			.latest-article .tags {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				margin-top: 10px;
+			}
+			.latest-article .tag-pill {
+				border: 1px solid rgba(0,0,0,0.10);
+				border-radius: 999px;
+				padding: 6px 10px;
+				font-size: 0.85em;
+				background: rgba(0,0,0,0.03);
+				color: rgba(0,0,0,0.7);
+			}
 		</style>
 	</head>
 
@@ -337,26 +395,26 @@
 
 		<!-- Main -->
 		<div id="main">
-			<!-- ✅ Top strip is now the HERO (image + tint only) -->
+			<!-- ✅ Top strip only -->
 			<section id="current" class="one dark cover">
 				<div class="container">
-					<header class="current-hero-content">
-						<!-- hero text removed; title now sits below in the section header -->
-					</header>
+					<header></header>
 				</div>
 			</section>
 
-			<!-- ✅ Title + Published text + article content under the hero -->
-			<div class="article-under-hero">
-				<!-- Title + meta on the same Y-axis -->
-				<div class="article-under-hero-header">
-					<h1 class="current-hero-title" id="current-article-title"></h1>
-					<p class="current-hero-meta" id="current-article-meta"></p>
-				</div>
+			<!-- ✅ Positioned like terms.html -->
+			<div class="pinpark-under-strip">
+				<img src="pinpark.png" alt="PinPark" />
+				<header class="articles-under-logo">
+					<h2 id="current-article-title">Latest Article</h2>
+				</header>
 
-				<div class="articles-paragraph" id="current-article-body">
+				<p class="articles-paragraph" id="current-article-fallback">
 					Your current article will go here.
-				</div>
+				</p>
+
+				<!-- ✅ Latest article card mounts here -->
+				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
 			<section id="other" class="two">
@@ -364,7 +422,6 @@
 					<header><h2>Other Articles</h2></header>
 
 					<p class="other-paragraph">
-						<!-- ✅ Add your other articles here -->
 						Add your other articles here.
 					</p>
 				</div>
@@ -374,7 +431,6 @@
 				<div class="container">
 					<header><h2>Create</h2></header>
 
-					<!-- 🔹 Blue "Create post" button -->
 					<ul class="actions" style="margin-top: 0.7em;">
 						<li>
 							<a
@@ -411,6 +467,158 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
+		<!-- 🔐 Admin guard + load latest published article (same card style as articles.html) -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc,
+				collection,
+				query,
+				where,
+				orderBy,
+				limit,
+				getDocs
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
+
+			const app  = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
+
+			async function checkAdmin(user) {
+				if (!user) return false;
+				try {
+					const snap = await getDoc(doc(db, "admins", user.uid));
+					return snap.exists();
+				} catch (e) {
+					console.error("Admin check failed:", e);
+					return false;
+				}
+			}
+
+			function formatDate(ts) {
+				try {
+					const d = ts && typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
+					if (!d || isNaN(d.getTime())) return "";
+					return d.toLocaleDateString("en-GB", {
+						day: "2-digit",
+						month: "short",
+						year: "numeric"
+					});
+				} catch (_) {
+					return "";
+				}
+			}
+
+			function renderArticleCard(article) {
+				const mount = document.getElementById("latest-article-mount");
+				if (!mount) return;
+
+				const title = (article.title || "").trim() || "Untitled";
+				const hero  = article.heroImageDataUrl || null;
+				const html  = (article.renderedHtml || "").trim();
+				const tags  = Array.isArray(article.tags) ? article.tags : [];
+
+				mount.innerHTML = `
+					<div class="card">
+						<div class="hero" id="latest-hero">
+							<div class="hero-inner">
+								<h1 class="hero-title">${title}</h1>
+							</div>
+						</div>
+						<div class="body">
+							<div class="meta">
+								<span>Published: ${formatDate(article.publishedAt) || ""}</span>
+								<span>•</span>
+								<span>PinPark</span>
+							</div>
+							<div class="content" id="latest-content">
+								${html || "<p></p>"}
+							</div>
+							<div class="tags">
+								${tags.slice(0, 12).map(t => `<span class="tag-pill">${t}</span>`).join("")}
+							</div>
+						</div>
+					</div>
+				`;
+
+				if (hero) {
+					const heroEl = document.getElementById("latest-hero");
+					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
+				}
+
+				// update page heading
+				const h2 = document.getElementById("current-article-title");
+				if (h2) h2.textContent = title;
+
+				// hide placeholder
+				const fallback = document.getElementById("current-article-fallback");
+				if (fallback) fallback.style.display = "none";
+			}
+
+			async function loadLatestPublished() {
+				const col = collection(db, "articles");
+
+				let q = query(
+					col,
+					where("status", "==", "published"),
+					orderBy("publishedAt", "desc"),
+					limit(1)
+				);
+
+				let snap;
+				try {
+					snap = await getDocs(q);
+				} catch (e) {
+					// fallback index (createdAt) if needed
+					q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("createdAt", "desc"),
+						limit(1)
+					);
+					snap = await getDocs(q);
+				}
+
+				if (snap.empty) return;
+
+				const d = snap.docs[0];
+				renderArticleCard({ id: d.id, ...d.data() });
+			}
+
+			onAuthStateChanged(auth, async (user) => {
+				if (!user) {
+					window.location.href = "auth.html?mode=login";
+					return;
+				}
+
+				const isAdmin = await checkAdmin(user);
+				if (!isAdmin) {
+					window.location.href = "index.html";
+					return;
+				}
+
+				try {
+					await loadLatestPublished();
+				} catch (e) {
+					console.error("Failed to load latest article:", e);
+				}
+			});
+		</script>
+
+		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -444,10 +652,7 @@
 
 				if (!links.length || !sections.length) return;
 
-				// ✅ Keep "locked" styling timing
 				var lockedUntil = 0;
-
-				// ✅ Keep the tab fixed to the clicked target while smooth-scrolling
 				var forcedId = null;
 				var forcedUntil = 0;
 
@@ -561,188 +766,6 @@
 
 				onScroll();
 			})();
-		</script>
-
-		<!-- 🔐 Admin guard + ✅ Load latest article -->
-		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc,
-				collection,
-				query,
-				where,
-				orderBy,
-				limit,
-				getDocs
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-			const firebaseConfig = {
-				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-				authDomain: "pinpark-1fcb3.firebaseapp.com",
-				projectId: "pinpark-1fcb3",
-				storageBucket: "pinpark-1fcb3.firebasestorage.app",
-				messagingSenderId: "677372487037",
-				appId: "1:677372487037:web:5dcd5e788874aca5851814",
-				measurementId: "G-LJN7NRFFX4"
-			};
-
-			const app  = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-			const db   = getFirestore(app);
-
-			async function checkAdmin(user) {
-				if (!user) return false;
-				const snap = await getDoc(doc(db, "admins", user.uid));
-				return snap.exists();
-			}
-
-			function formatDate(ts) {
-				try {
-					if (!ts) return "";
-					const d = typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
-					return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-				} catch (_) {
-					return "";
-				}
-			}
-
-			function setHeroBackground(article) {
-				const hero = document.getElementById("current");
-				if (!hero) return;
-
-				// Reset first
-				hero.style.backgroundImage = "";
-				hero.style.background = "";
-
-				if (!article) {
-					// nice fallback (your tint overlays still apply)
-					hero.style.background = "linear-gradient(135deg, #00ADEE 0%, #008ACD 100%)";
-					return;
-				}
-
-				if (article.heroImageDataUrl) {
-					hero.style.backgroundImage = `url('${article.heroImageDataUrl}')`;
-				} else {
-					hero.style.background = "linear-gradient(135deg, #00ADEE 0%, #008ACD 100%)";
-				}
-			}
-
-			function renderCurrentArticle(article) {
-				const titleEl = document.getElementById("current-article-title");
-				const metaEl  = document.getElementById("current-article-meta");
-				const bodyEl  = document.getElementById("current-article-body");
-
-				if (!titleEl || !bodyEl) return;
-
-				setHeroBackground(article);
-
-				if (!article) {
-					titleEl.textContent = "No articles yet";
-					if (metaEl) metaEl.textContent = "";
-					bodyEl.innerHTML = "No published articles found.";
-					return;
-				}
-
-				titleEl.textContent = article.title || "";
-				if (metaEl) {
-					const dateText = formatDate(article.publishedAt);
-					metaEl.textContent = dateText ? `Published: ${dateText} • PinPark` : "PinPark";
-				}
-
-				// Article content card under the header row
-				bodyEl.innerHTML = `
-					<div style="
-						max-width: 900px;
-						margin: 0 auto;
-						text-align: left;
-					">
-						<div style="
-							border: 1px solid rgba(0,0,0,0.10);
-							border-radius: 14px;
-							box-shadow: 0 10px 22px rgba(0,0,0,0.06);
-							overflow: hidden;
-							background: #fff;
-						">
-							<div style="padding: 22px 22px 20px;">
-								<div>
-									${article.renderedHtml || ""}
-								</div>
-
-								<div style="
-									display: flex;
-									gap: 8px;
-									flex-wrap: wrap;
-									margin-top: 14px;
-								">
-									${(Array.isArray(article.tags) ? article.tags : []).slice(0, 12).map(t => `
-										<span style="
-											border: 1px solid rgba(0,0,0,0.10);
-											border-radius: 999px;
-											padding: 6px 10px;
-											font-size: 0.85em;
-											background: rgba(0,0,0,0.03);
-											color: rgba(0,0,0,0.7);
-										">${t}</span>
-									`).join("")}
-								</div>
-							</div>
-						</div>
-					</div>
-				`;
-			}
-
-			async function loadLatestPublishedArticle() {
-				// newest published
-				const q = query(
-					collection(db, "articles"),
-					where("status", "==", "published"),
-					orderBy("publishedAt", "desc"),
-					limit(1)
-				);
-
-				const snap = await getDocs(q);
-				if (snap.empty) return null;
-
-				const d = snap.docs[0];
-				return { id: d.id, ...d.data() };
-			}
-
-			onAuthStateChanged(auth, async (user) => {
-				// Not signed in → send to login
-				if (!user) {
-					window.location.href = "auth.html?mode=login";
-					return;
-				}
-
-				// Signed in but not admin → send to main site
-				const isAdmin = await checkAdmin(user);
-				if (!isAdmin) {
-					window.location.href = "index.html";
-					return;
-				}
-
-				// ✅ Load and render current (latest) article
-				try {
-					const latest = await loadLatestPublishedArticle();
-					renderCurrentArticle(latest);
-				} catch (e) {
-					console.error("Failed to load latest article:", e);
-
-					/* ✅ Show the real error on the page */
-					const titleEl = document.getElementById("current-article-title");
-					const metaEl  = document.getElementById("current-article-meta");
-					const bodyEl  = document.getElementById("current-article-body");
-					if (titleEl) titleEl.textContent = "Failed to load article";
-					if (metaEl) metaEl.textContent = "";
-					if (bodyEl) bodyEl.innerHTML = (e && e.message) ? e.message : String(e);
-
-					// keep hero looking intentional on error
-					setHeroBackground(null);
-				}
-			});
 		</script>
 
 	</body>
