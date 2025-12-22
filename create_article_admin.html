@@ -227,19 +227,19 @@
 			.add-section-btn {
 				width: 100%;
 				display: block;
-				border: 1px solid rgba(0,0,0,0.12);
+				border: 1px solid rgba(255,255,255,0);
 				border-radius: 14px;
-				background: rgba(0,0,0,0.03);
-				color: rgba(0,0,0,0.65);
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+				color: #fff;
 				font-size: 1.6em;
 				line-height: 1;
 				padding: 16px 0;
 				cursor: pointer;
 				user-select: none;
-				box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+				box-shadow: 0 8px 16px rgba(0,0,0,0.08);
 			}
 			.add-section-btn:hover {
-				background: rgba(0,0,0,0.05);
+				filter: brightness(0.98);
 			}
 
 			/* ✅ Article mockup card (preview) */
@@ -485,8 +485,10 @@
 								<input type="text" name="title" placeholder="Title" />
 							</div>
 
-							<!-- ✅ subtitle entry removed -->
-							<!-- ✅ cover image URL entry removed -->
+							<!-- ✅ NEW: optional subheading before first paragraph -->
+							<div class="col-12">
+								<input type="text" name="subheading_main" placeholder="Subheading (optional)" />
+							</div>
 
 							<div class="col-12">
 								<textarea name="content" placeholder="Write your article here..." rows="10"></textarea>
@@ -603,6 +605,9 @@
 				var sectionsContainer = document.getElementById("sections-container");
 				var addSectionBtn = document.getElementById("add-section");
 
+				// ✅ main optional subheading
+				var mainSubheadingInput = document.querySelector('input[name="subheading_main"]');
+
 				// ✅ mockup bindings
 				var mockHero = document.getElementById("mock-hero");
 				var mockTitle = document.getElementById("mock-title");
@@ -624,6 +629,12 @@
 
 					var blocks = [];
 
+					// ✅ optional subheading before first paragraph
+					if (mainSubheadingInput) {
+						var h0 = (mainSubheadingInput.value || "").trim();
+						if (h0) blocks.push("<h3 style=\"margin: 0 0 20px 0; color: #666;\">" + h0 + "</h3>");
+					}
+
 					// main content textarea first
 					if (contentInput) {
 						var rawMain = (contentInput.value || "").trim();
@@ -644,7 +655,7 @@
 							var heading = (h && h.value || "").trim();
 							var body = (t && t.value || "").trim();
 
-							if (heading) blocks.push("<h3 style=\"margin: 0 0 10px 0; color: #666;\">" + heading + "</h3>");
+							if (heading) blocks.push("<h3 style=\"margin: 0 0 20px 0; color: #666;\">" + heading + "</h3>");
 
 							if (body) {
 								body.split(/\n\s*\n/g).map(function (p) { return p.trim(); }).filter(Boolean)
@@ -729,6 +740,7 @@
 					// match existing spacing/layout
 					var hWrap = document.createElement("div");
 					hWrap.className = "col-12";
+					hWrap.style.marginBottom = "20px"; // ✅ 20px gap between subheading and paragraph
 					hWrap.appendChild(h);
 
 					var tWrap = document.createElement("div");
@@ -751,6 +763,7 @@
 				syncTitle();
 
 				// ✅ mockup live updates
+				mainSubheadingInput && mainSubheadingInput.addEventListener("input", syncContent);
 				contentInput && contentInput.addEventListener("input", syncContent);
 				tagsInput && tagsInput.addEventListener("input", syncTags);
 				syncContent();
