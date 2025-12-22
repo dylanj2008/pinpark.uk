@@ -133,7 +133,7 @@
 
 			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
 			#main .pinpark-under-strip {
-				margin-top: 120px !important;
+				margin-top: 80px !important;
 				text-align: center;
 			}
 			#main .pinpark-under-strip img {
@@ -144,11 +144,11 @@
 			}
 
 			#main .pinpark-under-strip .articles-under-logo {
-				margin-top: 100px !important;
-				margin-bottom: 2em !important;
+				margin-top: 0 !important;
+				margin-bottom: 80px !important;
 			}
 			#main .pinpark-under-strip .articles-under-logo h2 {
-				margin-top: 0 !important;
+				margin: 0 !important;
 			}
 
 			/* ✅ Form area: match paragraph padding style */
@@ -368,7 +368,6 @@
 			<!-- ✅ Positioned like terms.html -->
 			<div class="pinpark-under-strip">
 
-				<!-- ✅ moved up: title above hero -->
 				<header class="articles-under-logo"><h2>Create Article</h2></header>
 
 				<div id="hero-drop" class="hero-drop" role="button" tabindex="0" aria-label="Upload hero image">
@@ -382,8 +381,7 @@
 					<form method="post" action="#" style="margin: 0;">
 						<div class="row">
 
-							<!-- ✅ moved up: Title directly under hero -->
-							<div class="col-12">
+							<div class="col-12" style="margin-top: 20px;">
 								<input type="text" name="title" placeholder="Title" />
 							</div>
 
