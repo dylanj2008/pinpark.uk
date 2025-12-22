@@ -710,7 +710,12 @@
 					renderCurrentArticle(latest);
 				} catch (e) {
 					console.error("Failed to load latest article:", e);
-					renderCurrentArticle(null);
+
+					/* ✅ CHANGE: show the real error on the page (instead of pretending there are no articles) */
+					const titleEl = document.getElementById("current-article-title");
+					const bodyEl  = document.getElementById("current-article-body");
+					if (titleEl) titleEl.textContent = "Failed to load article";
+					if (bodyEl) bodyEl.innerHTML = (e && e.message) ? e.message : String(e);
 				}
 			});
 		</script>
