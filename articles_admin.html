@@ -393,13 +393,14 @@
 				box-sizing: border-box;
 			}
 
-			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding) */
+			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
+			       and sit 20px below the top bar */
 			#latest-article-mount.latest-article {
 				max-width: none !important;
 				width: 100% !important;
-				padding: 0 20px !important;          /* ✅ 20px left + 20px right */
+				padding: 0 20px !important;      /* 20px left + 20px right */
 				box-sizing: border-box !important;
-				margin: -50px 0 0 !important;       /* keep the same vertical positioning */
+				margin: 20px 0 0 !important;     /* ✅ now 20px below the top bar */
 			}
 
 			#latest-article-mount.latest-article .card {
