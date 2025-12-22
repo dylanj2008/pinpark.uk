@@ -53,7 +53,7 @@
 				box-sizing: border-box;
 			}
 
-			/* ✅ PinPark hero tint */
+			/* ✅ PinPark hero tint – EXACT same as index.html (#home) */
 			#current.cover:before,
 			#current:before {
 				background: linear-gradient(
@@ -64,7 +64,11 @@
 				) !important;
 			}
 
-			/* ✅ PinPark hero tint overlay */
+			#current.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
 			#current.cover::after {
 				content: "";
 				position: absolute;
@@ -95,19 +99,11 @@
 					);
 			}
 
-			/* ✅ Hero content (logo + title) */
+			/* ✅ Hero content (title) */
 			.current-hero-content {
 				margin: 0 !important;
 				padding: 0 !important;
 				max-width: 980px;
-			}
-
-			.current-hero-logo {
-				display: inline-block;
-				width: min(240px, 70vw);
-				height: auto;
-				margin-bottom: 18px;
-				filter: drop-shadow(0 10px 18px rgba(0,0,0,0.18));
 			}
 
 			.current-hero-title {
@@ -126,11 +122,12 @@
 				}
 			}
 
+			/* ✅ Published text now lives *below* the hero, so use dark text */
 			.current-hero-meta {
-				margin: 12px 0 0 0 !important;
-				color: rgba(255,255,255,0.78) !important;
+				margin: 12px 0 16px 0 !important;
+				color: rgba(0,0,0,0.55) !important;
 				font-size: 0.95em;
-				text-shadow: 0 4px 12px rgba(0,0,0,0.22);
+				text-shadow: none;
 			}
 
 			/* ✅ Make PinPark logo 25% smaller total (sidebar) */
@@ -320,15 +317,15 @@
 			<section id="current" class="one dark cover">
 				<div class="container">
 					<header class="current-hero-content">
-						<!-- ✅ Logo removed, title now naturally sits in the middle of the hero box -->
 						<h1 class="current-hero-title" id="current-article-title"></h1>
-						<p class="current-hero-meta" id="current-article-meta"></p>
 					</header>
 				</div>
 			</section>
 
-			<!-- ✅ Article content under the hero -->
+			<!-- ✅ Published text + article content under the hero -->
 			<div class="article-under-hero">
+				<p class="current-hero-meta" id="current-article-meta"></p>
+
 				<div class="articles-paragraph" id="current-article-body">
 					Your current article will go here.
 				</div>

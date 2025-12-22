@@ -1,4 +1,4 @@
-<!-- articles_admin.html -->
+<!-- index.html -->
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -10,52 +10,18 @@
 		<title>PinPark</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-
-		<!-- ✅ Tab icon -->
-		<link rel="icon" type="image/png" href="pinparklogo.png" />
-
 		<link rel="stylesheet" href="assets/css/main.css" />
 
+		<!-- ✅ Make the hero (top/intro cover) 100px shorter -->
 		<style>
-			/* ✅ Make the "top strip" become the HERO box (resized) */
-			#current.cover {
-				height: 360px !important;
-				min-height: 360px !important;
-				padding: 0 !important;
-				position: relative;
-				overflow: hidden;
-
-				/* ✅ Hero background (JS can set background-image) */
-				background-size: cover;
-				background-position: center;
-				background-repeat: no-repeat;
+			#home.cover {
+				height: calc(100vh - 275px) !important;
+				min-height: calc(100vh - 275px) !important;
 			}
 
-			/* ✅ Responsive hero height */
-			@media screen and (max-width: 736px) {
-				#current.cover {
-					height: 300px !important;
-					min-height: 300px !important;
-				}
-			}
-
-			#current.cover > .container {
-				position: relative;
-				z-index: 1;
-				height: 100%;
-				padding: 0 30px !important;
-				margin: 0 !important;
-
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				text-align: center;
-				box-sizing: border-box;
-			}
-
-			/* ✅ PinPark hero tint – EXACT same as index.html (#home) */
-			#current.cover:before,
-			#current:before {
+			/* ✅ PinPark hero tint */
+			#home.cover:before,
+			#home:before {
 				background: linear-gradient(
 					135deg,
 					rgba(0, 173, 238, 0.78) 0%,
@@ -64,12 +30,12 @@
 				) !important;
 			}
 
-			#current.cover {
+			#home.cover {
 				position: relative;
 				overflow: hidden;
 			}
 
-			#current.cover::after {
+			#home.cover::after {
 				content: "";
 				position: absolute;
 				inset: 0;
@@ -99,45 +65,37 @@
 					);
 			}
 
-			/* ✅ Hero content (title) */
-			.current-hero-content {
-				margin: 0 !important;
+			#home.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			#home .button.scrolly {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
 				padding: 0 !important;
-				max-width: 980px;
-			}
-
-			.current-hero-title {
-				color: #fff !important;
 				margin: 0 !important;
-				padding: 0 !important;
-				font-size: 2.0em;
-				line-height: 1.1;
-				text-shadow: 0 6px 18px rgba(0,0,0,0.25);
-				word-break: break-word;
+				color: inherit !important;
+				position: relative;
+				top: -5px;
+				font-size: 90% !important;
+			}
+			#home .button.scrolly:hover {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				text-decoration: underline;
+				text-decoration-color: currentColor;
+				text-underline-offset: 4px;
 			}
 
-			@media screen and (max-width: 736px) {
-				.current-hero-title {
-					font-size: 1.55em;
-				}
-			}
-
-			/* ✅ Published text now lives *below* the hero, so use dark text */
-			.current-hero-meta {
-				margin: 12px 0 16px 0 !important;
-				color: rgba(0,0,0,0.55) !important;
-				font-size: 0.95em;
-				text-shadow: none;
-			}
-
-			/* ✅ Make PinPark logo 25% smaller total (sidebar) */
+			/* ✅ PinPark logo */
 			#logo .image img {
 				width: 75%;
 				height: auto;
 				transform: translateY(-10px);
 			}
-
-			/* ✅ Center the PinPark logo horizontally in the sidebar column */
 			#logo {
 				text-align: center;
 			}
@@ -149,7 +107,7 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Ensure left nav icons visibly highlight when active */
+			/* ✅ Nav highlight */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
 				color: #fff !important;
@@ -158,8 +116,6 @@
 			#nav ul li a.active-locked {
 				color: #fff !important;
 			}
-
-			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
 			#nav ul li a,
 			#nav ul li a:before,
 			#nav ul li a:after,
@@ -171,80 +127,7 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Content under hero (replaces the old "under strip" positioning) */
-			#main .article-under-hero {
-				margin-top: 45px !important;
-				text-align: center;
-			}
-
-			/* ✅ Current Article paragraph/card area: centered + 30px padding each side */
-			#main .article-under-hero .articles-paragraph {
-				margin-top: 0 !important;
-				padding-left: 30px !important;
-				padding-right: 30px !important;
-				box-sizing: border-box;
-				text-align: center !important;
-			}
-
-			/* ✅ Other Articles: remove template container max-width + padding so it can touch edges */
-			#other .container {
-				max-width: none !important;
-				width: 100% !important;
-				padding-left: 0 !important;
-				padding-right: 0 !important;
-			}
-
-			/* ✅ Other Articles paragraph: 30px padding each side */
-			#other .other-paragraph {
-				padding-left: 30px !important;
-				padding-right: 30px !important;
-				box-sizing: border-box;
-			}
-
-			/* ✅ Back button: bottom-left, no bullet, no underline */
-			#header .bottom {
-				text-align: left !important;
-				padding-left: 15px !important;
-				padding-bottom: 15px !important;
-			}
-			#nav-back ul,
-			#nav-back ul li {
-				list-style: none !important;
-				margin: 0 !important;
-				padding: 0 !important;
-			}
-
-			#back-link {
-				text-decoration: none !important;
-				border-bottom: 0 !important;
-				box-shadow: none !important;
-				font-size: 0.8em !important;
-			}
-
-			#back-link .icon:before {
-				margin-right: 5px !important;
-				font-size: 1em !important;
-			}
-
-			#nav-back ul li a,
-			#nav-back ul li a span.icon:before {
-				color: rgba(255, 255, 255, 0.55) !important;
-			}
-			#nav-back ul li a:hover,
-			#nav-back ul li a:hover span.icon:before {
-				color: #fff !important;
-				text-decoration: none !important;
-				border-bottom: 0 !important;
-			}
-
-			#nav-back ul li a:before,
-			#nav-back ul li a:after {
-				background: transparent !important;
-				box-shadow: none !important;
-				opacity: 0 !important;
-			}
-
-			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			/* ✅ Footer */
 			#footer,
 			#footer::after {
 				background: none !important;
@@ -261,7 +144,36 @@
 			}
 			#footer .copyright {
 				margin: 0 !important;
+				position: relative;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
+			#footer .copyright li:first-child {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				margin: 0 !important;
+			}
+			#footer .copyright li:nth-child(2) {
+				margin-left: auto;
+				padding-left: 0 !important;
+				border-left: 0 !important;
+			}
+			#footer .copyright li:nth-child(3) {
+				margin-left: 12px;
+			}
+			#footer .copyright li:nth-child(2) a,
+			#footer .copyright li:nth-child(3) a {
+				font-size: 12px !important;
+			}
+			#footer .copyright li:nth-child(2),
+			#footer .copyright li:nth-child(3) {
+				position: relative;
+				left: -7px;
+			}
+
 			#footer,
 			#footer * {
 				color: #000 !important;
@@ -274,18 +186,97 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ PRESET SECTION (hide until we jump instantly into position) */
-			html[data-prejump] {
-				scroll-behavior: auto !important;
+			/* ✅ Donations button */
+			#donations .actions {
+				margin-left: 0 !important;
+				padding-left: 0 !important;
+				text-align: center !important;
+				list-style: none !important;
 			}
-			html[data-prejump] body {
-				visibility: hidden;
+			#donations .actions li {
+				list-style: none !important;
+				padding-left: 0 !important;
+				margin-left: 0 !important;
+			}
+			#donations .actions .button {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
+				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				color: #fff !important;
+				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: scale(1);
+				transition: transform 100ms ease;
+				display: inline-block;
+			}
+			#donations .actions .button:hover {
+				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
+				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+				transform: scale(1.025);
+			}
+			#donations .actions .button:active {
+				transform: scale(1.025) translateY(1px);
+			}
+
+			/* ✅ Contact button */
+			#contact form input[type="submit"] {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
+				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				color: #fff !important;
+				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: scale(1);
+				transition: transform 100ms ease;
+			}
+			#contact form input[type="submit"]:hover {
+				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
+				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+				transform: scale(1.025);
+			}
+			#contact form input[type="submit"]:active {
+				transform: scale(1.025) translateY(1px);
+			}
+
+			/* 🔐 Auth nav */
+			#header .bottom {
+				text-align: center;
+			}
+			#nav-auth ul {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 0 15px 0 !important;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				font-size: 0.8em;
+			}
+			#nav-auth ul li {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			/* 🔹 separators between items, but NOT before Logout */
+			#nav-auth ul li + li:not(#nav-logout-item)::before {
+				content: "|";
+				margin: 0 6px;
+				opacity: 0.75;
+			}
+			#nav-auth a {
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+				color: rgba(255, 255, 255, 0.55) !important;
+				transition: color 0.1s ease;
+			}
+			#nav-auth a:hover {
+				color: #ffffff !important;
 			}
 		</style>
 	</head>
-
 	<body class="is-preload">
-
 		<!-- Header -->
 		<div id="header">
 			<div class="top">
@@ -295,17 +286,31 @@
 
 				<nav id="nav">
 					<ul>
-						<li><a href="?section=current" id="current-link"><span class="icon solid fa-file-alt">Latest Article</span></a></li>
-						<li><a href="?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
-						<li><a href="?section=create" id="create-link"><span class="icon solid fa-pen">Create</span></a></li>
+						<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+						<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
+						<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
+						<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
+						<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
 					</ul>
 				</nav>
 			</div>
 
+			<!-- 🔐 Sidebar bottom: auth controls -->
 			<div class="bottom">
-				<nav id="nav-back">
+				<nav id="nav-auth">
 					<ul>
-						<li><a href="index_admin.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+						<li id="nav-login-item">
+							<a href="auth.html?mode=login" id="link-login">Login</a>
+						</li>
+						<li id="nav-signup-item">
+							<a href="auth.html?mode=signup" id="link-signup">Sign up</a>
+						</li>
+						<li id="nav-admin-item" style="display:none;">
+							<a href="articles_admin.html" id="link-admin">Admin</a>
+						</li>
+						<li id="nav-logout-item" style="display:none;">
+							<a href="#" id="link-logout">Logout</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -313,69 +318,149 @@
 
 		<!-- Main -->
 		<div id="main">
-			<!-- ✅ Top strip is now the HERO -->
-			<section id="current" class="one dark cover">
+			<section id="home" class="one dark cover">
 				<div class="container">
-					<header class="current-hero-content">
-						<h1 class="current-hero-title" id="current-article-title"></h1>
+					<header>
+						<h2 class="alt">V1.0.0 In Development</h2>
+						<p></p>
 					</header>
+					<footer>
+						<a href="articles.html" class="button scrolly">Read more</a>
+					</footer>
 				</div>
 			</section>
 
-			<!-- ✅ Published text + article content under the hero -->
-			<div class="article-under-hero">
-				<p class="current-hero-meta" id="current-article-meta"></p>
-
-				<div class="articles-paragraph" id="current-article-body">
-					Your current article will go here.
-				</div>
-			</div>
-
-			<section id="other" class="two">
+			<section id="about" class="two">
 				<div class="container">
-					<header><h2>Other Articles</h2></header>
+					<header>
+						<h2>What we're about</h2>
+					</header>
 
-					<p class="other-paragraph">
-						<!-- ✅ Add your other articles here -->
-						Add your other articles here.
+					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
+						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
+						parking experience, and make travelling less stressful and more enjoyable.
 					</p>
+
+					<div class="row">
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+								<header>
+									<h3>Ipsum Feugiat</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
+								<header>
+									<h3>Rhoncus Semper</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+								<header>
+									<h3>Magna Nullam</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
+								<header>
+									<h3>Natoque Vitae</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
+								<header>
+									<h3>Dolor Penatibus</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+								<header>
+									<h3>Orci Convallis</h3>
+								</header>
+							</article>
+						</div>
+					</div>
 				</div>
 			</section>
 
-			<section id="create" class="two">
+			<section id="features" class="three">
 				<div class="container">
-					<header><h2>Create</h2></header>
+					<header>
+						<h2>Features</h2>
+					</header>
 
-					<!-- 🔹 Blue "Create post" button -->
-					<ul class="actions" style="margin-top: 0.7em;">
-						<li>
-							<a
-								href="create_article_admin.html"
-								class="button"
-								style="
-									background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-									border-radius: 14px;
-									color: #fff;
-									border: 1px solid rgba(255,255,255,0);
-									box-shadow: 0 5px 11px rgba(0,0,0,0.07);
-									text-transform: none;
-									letter-spacing: inherit;
-								"
-							>
-								Create post
-							</a>
-						</li>
+					<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
+
+					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+					ornare iaculis.</p>
+				</div>
+			</section>
+
+			<section id="contact" class="four">
+				<div class="container">
+					<header>
+						<h2>Contact</h2>
+					</header>
+
+					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
+						or want to get in touch for any other reason, feel free to send a message. 
+						we'd love to hear from you!
+					</p>
+
+					<form method="post" action="#">
+						<div class="row">
+							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-12">
+								<textarea name="message" placeholder="Message"></textarea>
+							</div>
+							<div class="col-12">
+								<input type="submit" value="Send Message" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section id="donations" class="four">
+				<div class="container">
+					<header>
+						<h2>Donations</h2>
+					</header>
+
+					<p>PinPark is independently developed and will be continuously improved.
+					   If you think you will find our app useful, you can choose to contribute
+					   here. All donations will help us cover infrastructure costs, and allow
+					   more time to be spent improving and refining current features and performance.
+					   Thank you in advance for any donations.
+					</p>
+
+					<ul class="actions">
+						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
 					</ul>
 				</div>
 			</section>
 		</div>
 
+		<!-- Footer -->
 		<div id="footer">
 			<ul class="copyright">
 				<li>&copy; 2025 PinPark. All rights reserved</li>
+				<li><a href="policies.html">Terms</a></li>
+				<li><a href="policies.html#other">Privacy</a></li>
 			</ul>
 		</div>
 
+		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/jquery.scrollex.min.js"></script>
@@ -416,13 +501,7 @@
 
 				if (!links.length || !sections.length) return;
 
-				// ✅ Keep "locked" styling timing
 				var lockedUntil = 0;
-
-				// ✅ Keep the tab fixed to the clicked target while smooth-scrolling
-				var forcedId = null;
-				var forcedUntil = 0;
-
 				function setActiveById(id) {
 					links.forEach(function (a) {
 						var linkId = hrefToId(a.getAttribute('href') || '');
@@ -430,27 +509,6 @@
 						a.classList.toggle('active', on);
 						a.classList.toggle('active-locked', on && Date.now() < lockedUntil);
 					});
-				}
-
-				function forceActive(id) {
-					forcedId = id;
-					forcedUntil = Date.now() + 15000;
-					setActiveById(id);
-				}
-
-				function maybeReleaseForce(probeY) {
-					if (!forcedId) return;
-					var el = document.getElementById(forcedId);
-					if (!el) {
-						forcedId = null;
-						forcedUntil = 0;
-						return;
-					}
-					var r = el.getBoundingClientRect();
-					if (r.top <= probeY && r.bottom > probeY) {
-						forcedId = null;
-						forcedUntil = 0;
-					}
 				}
 
 				function scrollToId(id, instant) {
@@ -467,7 +525,7 @@
 						e.preventDefault();
 
 						lockedUntil = Date.now() + 600;
-						forceActive(id);
+						setActiveById(id);
 
 						scrollToId(id, false);
 						clearSectionFromUrl();
@@ -476,13 +534,11 @@
 
 				var initial = (new URL(window.location.href)).searchParams.get('section');
 				if (initial && document.getElementById(initial)) {
-					document.documentElement.setAttribute('data-prejump', initial);
-
-					scrollToId(initial, true);
-					setActiveById(initial);
-					clearSectionFromUrl();
-
-					document.documentElement.removeAttribute('data-prejump');
+					requestAnimationFrame(function () {
+						scrollToId(initial, true);
+						setActiveById(initial);
+						clearSectionFromUrl();
+					});
 				}
 
 				var ticking = false;
@@ -494,13 +550,6 @@
 						ticking = false;
 
 						var probeY = window.innerHeight * 0.35;
-
-						maybeReleaseForce(probeY);
-						if (forcedId && Date.now() < forcedUntil) {
-							setActiveById(forcedId);
-							return;
-						}
-
 						var best = null;
 
 						for (var i = 0; i < sections.length; i++) {
@@ -512,7 +561,17 @@
 							}
 						}
 
-						if (!best) best = sections[0];
+						if (!best) {
+							var bestDist = Infinity;
+							for (var j = 0; j < sections.length; j++) {
+								var rr = sections[j].getBoundingClientRect();
+								var d = Math.abs(rr.top - probeY);
+								if (d < bestDist) {
+									bestDist = d;
+									best = sections[j];
+								}
+							}
+						}
 
 						if (best && Date.now() >= lockedUntil) {
 							setActiveById(best.id);
@@ -530,192 +589,118 @@
 						clearSectionFromUrl();
 					}
 				});
-
 				onScroll();
 			})();
 		</script>
 
-		<!-- 🔐 Admin guard + ✅ Load latest article -->
 		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc,
-				collection,
-				query,
-				where,
-				orderBy,
-				limit,
-				getDocs
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-			const firebaseConfig = {
-				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-				authDomain: "pinpark-1fcb3.firebaseapp.com",
-				projectId: "pinpark-1fcb3",
-				storageBucket: "pinpark-1fcb3.firebasestorage.app",
-				messagingSenderId: "677372487037",
-				appId: "1:677372487037:web:5dcd5e788874aca5851814",
-				measurementId: "G-LJN7NRFFX4"
-			};
+  const firebaseConfig = {
+    apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+    authDomain: "pinpark-1fcb3.firebaseapp.com",
+    projectId: "pinpark-1fcb3",
+    storageBucket: "pinpark-1fcb3.firebasestorage.app",
+    messagingSenderId: "677372487037",
+    appId: "1:677372487037:web:5dcd5e788874aca5851814",
+    measurementId: "G-LJN7NRFFX4"
+  };
 
-			const app  = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-			const db   = getFirestore(app);
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
 
-			async function checkAdmin(user) {
-				if (!user) return false;
-				const snap = await getDoc(doc(db, "admins", user.uid));
-				return snap.exists();
-			}
+  const liLogin    = document.getElementById("nav-login-item");
+  const liSignup   = document.getElementById("nav-signup-item");
+  const liAdmin    = document.getElementById("nav-admin-item");
+  const liLogout   = document.getElementById("nav-logout-item");
+  const logoutLink = document.getElementById("link-logout");
 
-			function formatDate(ts) {
-				try {
-					if (!ts) return "";
-					const d = typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
-					return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-				} catch (_) {
-					return "";
-				}
-			}
+  function setVisible(el, show) {
+    if (!el) return;
+    el.style.display = show ? "" : "none";
+  }
 
-			function setHeroBackground(article) {
-				const hero = document.getElementById("current");
-				if (!hero) return;
+  async function isAdminUser(user) {
+    if (!user) return false;
+    try {
+      const snap = await getDoc(doc(db, "admins", user.uid));
+      return snap.exists();
+    } catch (e) {
+      console.error("Admin check failed:", e);
+      return false;
+    }
+  }
 
-				// Reset first
-				hero.style.backgroundImage = "";
-				hero.style.background = "";
+  // Map normal pages -> admin equivalents
+  const adminMap = {
+    "index.html": "index_admin.html",
+    "articles.html": "articles_admin.html",
+    // add more as you create them:
+    // "policies.html": "policies_admin.html",
+  };
 
-				if (!article) {
-					// nice fallback (your tint overlays still apply)
-					hero.style.background = "linear-gradient(135deg, #00ADEE 0%, #008ACD 100%)";
-					return;
-				}
+  // Optional reverse map (admin -> normal) if you want to block non-admins from admin pages
+  const normalMap = Object.fromEntries(Object.entries(adminMap).map(([k, v]) => [v, k]));
 
-				if (article.heroImageDataUrl) {
-					hero.style.backgroundImage = `url('${article.heroImageDataUrl}')`;
-				} else {
-					hero.style.background = "linear-gradient(135deg, #00ADEE 0%, #008ACD 100%)";
-				}
-			}
+  function currentFile() {
+    // Handles "/" (no filename) -> treat as index.html
+    let file = window.location.pathname.split("/").pop();
+    if (!file) file = "index.html";
+    return file;
+  }
 
-			function renderCurrentArticle(article) {
-				const titleEl = document.getElementById("current-article-title");
-				const metaEl  = document.getElementById("current-article-meta");
-				const bodyEl  = document.getElementById("current-article-body");
+  onAuthStateChanged(auth, async (user) => {
+    const file = currentFile();
 
-				if (!titleEl || !bodyEl) return;
+    if (!user) {
+      // Signed out -> show Login + Sign up, hide Admin + Logout
+      setVisible(liLogin, true);
+      setVisible(liSignup, true);
+      setVisible(liLogout, false);
+      setVisible(liAdmin, false);
 
-				setHeroBackground(article);
+      // (Optional) if someone tries to open an admin page while signed out, kick them to normal
+      if (normalMap[file]) {
+        window.location.replace(normalMap[file]);
+      }
+      return;
+    }
 
-				if (!article) {
-					titleEl.textContent = "No articles yet";
-					if (metaEl) metaEl.textContent = "";
-					bodyEl.innerHTML = "No published articles found.";
-					return;
-				}
+    const admin = await isAdminUser(user);
 
-				titleEl.textContent = article.title || "";
-				if (metaEl) {
-					const dateText = formatDate(article.publishedAt);
-					metaEl.textContent = dateText ? `Published: ${dateText} • PinPark` : "PinPark";
-				}
+    // If admin and on a normal page with an admin equivalent -> redirect
+    const adminTarget = adminMap[file];
+    if (admin && adminTarget && file !== adminTarget) {
+      window.location.replace(adminTarget); // replace avoids back-button loops
+      return;
+    }
 
-				// Article content card (hero moved to top section)
-				bodyEl.innerHTML = `
-					<div style="
-						max-width: 900px;
-						margin: 0 auto;
-						text-align: left;
-					">
-						<div style="
-							border: 1px solid rgba(0,0,0,0.10);
-							border-radius: 14px;
-							box-shadow: 0 10px 22px rgba(0,0,0,0.06);
-							overflow: hidden;
-							background: #fff;
-						">
-							<div style="padding: 22px 22px 20px;">
-								<div>
-									${article.renderedHtml || ""}
-								</div>
+    // (Optional) If NOT admin and they are on an admin page -> kick them out
+    const normalTarget = normalMap[file];
+    if (!admin && normalTarget) {
+      window.location.replace(normalTarget);
+      return;
+    }
 
-								<div style="
-									display: flex;
-									gap: 8px;
-									flex-wrap: wrap;
-									margin-top: 14px;
-								">
-									${(Array.isArray(article.tags) ? article.tags : []).slice(0, 12).map(t => `
-										<span style="
-											border: 1px solid rgba(0,0,0,0.10);
-											border-radius: 999px;
-											padding: 6px 10px;
-											font-size: 0.85em;
-											background: rgba(0,0,0,0.03);
-											color: rgba(0,0,0,0.7);
-										">${t}</span>
-									`).join("")}
-								</div>
-							</div>
-						</div>
-					</div>
-				`;
-			}
+    // If we didn't redirect, just update the nav
+    setVisible(liLogin, false);
+    setVisible(liSignup, false);
+    setVisible(liLogout, true);
+    setVisible(liAdmin, admin);
+  });
 
-			async function loadLatestPublishedArticle() {
-				// newest published
-				const q = query(
-					collection(db, "articles"),
-					where("status", "==", "published"),
-					orderBy("publishedAt", "desc"),
-					limit(1)
-				);
-
-				const snap = await getDocs(q);
-				if (snap.empty) return null;
-
-				const d = snap.docs[0];
-				return { id: d.id, ...d.data() };
-			}
-
-			onAuthStateChanged(auth, async (user) => {
-				// Not signed in → send to login
-				if (!user) {
-					window.location.href = "auth.html?mode=login";
-					return;
-				}
-
-				// Signed in but not admin → send to main site
-				const isAdmin = await checkAdmin(user);
-				if (!isAdmin) {
-					window.location.href = "index.html";
-					return;
-				}
-
-				// ✅ Load and render current (latest) article
-				try {
-					const latest = await loadLatestPublishedArticle();
-					renderCurrentArticle(latest);
-				} catch (e) {
-					console.error("Failed to load latest article:", e);
-
-					/* ✅ Show the real error on the page */
-					const titleEl = document.getElementById("current-article-title");
-					const metaEl  = document.getElementById("current-article-meta");
-					const bodyEl  = document.getElementById("current-article-body");
-					if (titleEl) titleEl.textContent = "Failed to load article";
-					if (metaEl) metaEl.textContent = "";
-					if (bodyEl) bodyEl.innerHTML = (e && e.message) ? e.message : String(e);
-
-					// keep hero looking intentional on error
-					setHeroBackground(null);
-				}
-			});
-		</script>
-
+  logoutLink?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+      window.location.replace("index.html");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  });
+</script>
 	</body>
 </html>
