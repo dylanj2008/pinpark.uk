@@ -1,0 +1,348 @@
+<!-- edit_articles_admin.html -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Edit Articles – PinPark</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <link rel="icon" type="image/png" href="pinparklogo.png" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+      #header .bottom {
+        text-align: left !important;
+        padding-left: 15px !important;
+        padding-bottom: 15px !important;
+      }
+      #nav-back ul,
+      #nav-back ul li {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      #back-link {
+        text-decoration: none !important;
+        border-bottom: 0 !important;
+        box-shadow: none !important;
+        font-size: 0.8em !important;
+      }
+      #back-link .icon:before {
+        margin-right: 5px !important;
+        font-size: 1em !important;
+      }
+      #nav-back ul li a,
+      #nav-back ul li a span.icon:before {
+        color: rgba(255, 255, 255, 0.55) !important;
+      }
+      #nav-back ul li a:hover,
+      #nav-back ul li a:hover span.icon:before {
+        color: #fff !important;
+        text-decoration: none !important;
+        border-bottom: 0 !important;
+      }
+      #nav-back ul li a:before,
+      #nav-back ul li a:after {
+        background: transparent !important;
+        box-shadow: none !important;
+        opacity: 0 !important;
+      }
+
+      /* Simple main layout */
+      #main {
+        padding-top: 40px;
+      }
+
+      .edit-list-container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 30px 60px;
+      }
+
+      .edit-list-header {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .edit-list-header h2 {
+        margin: 0;
+      }
+
+      /* Cards list */
+      .article-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .article-item {
+        margin-bottom: 14px;
+      }
+
+      .article-card-link {
+        display: block;
+        text-decoration: none;
+        border-radius: 14px;
+        background: #fff;
+        border: 1px solid rgba(0,0,0,0.10);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        padding: 14px 16px;
+        transition:
+          transform 0.08s ease-out,
+          box-shadow 0.08s ease-out,
+          border-color 0.08s ease-out;
+      }
+
+      .article-card-link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+        border-color: rgba(0,138,205,0.45);
+      }
+
+      .article-card-title {
+        font-size: 1.05em;
+        margin: 0 0 4px 0;
+        color: #000;
+      }
+
+      .article-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.85em;
+        color: rgba(0,0,0,0.6);
+        align-items: center;
+      }
+
+      .article-chip {
+        padding: 4px 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(0,0,0,0.12);
+        font-size: 0.8em;
+        background: rgba(0,0,0,0.03);
+      }
+
+      .article-chip.published {
+        border-color: rgba(0, 173, 238, 0.7);
+        background: rgba(0, 173, 238, 0.08);
+        color: #008ACD;
+      }
+
+      .article-chip.draft {
+        border-color: rgba(0,0,0,0.18);
+        background: rgba(0,0,0,0.03);
+      }
+
+      .article-empty {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.95em;
+        color: rgba(0,0,0,0.65);
+      }
+
+      /* Footer back to normal light style */
+      #footer,
+      #footer::after {
+        background: none !important;
+        content: none !important;
+      }
+      #footer {
+        position: static !important;
+        overflow: visible !important;
+        height: 70px;
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #footer .copyright {
+        margin: 0 !important;
+      }
+      #footer,
+      #footer * {
+        color: #000 !important;
+      }
+      #footer a {
+        color: #000 !important;
+        border-bottom-color: rgba(0, 0, 0, 0.35) !important;
+      }
+      #footer a:hover {
+        border-bottom-color: rgba(0, 0, 0, 0.7) !important;
+      }
+    </style>
+  </head>
+
+  <body class="is-preload">
+    <!-- Header (re-use admin header look) -->
+    <div id="header">
+      <div class="top">
+        <div id="logo">
+          <span class="image"><img src="pinparkadmin.png" alt="PinPark" style="width:75%;height:auto;transform:translateY(-10px);" /></span>
+        </div>
+      </div>
+
+      <div class="bottom">
+        <nav id="nav-back">
+          <ul>
+            <li><a href="articles_admin.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div id="main">
+      <section class="two">
+        <div class="edit-list-container">
+          <div class="edit-list-header">
+            <h2>Edit posts</h2>
+            <p>Select a post to open it in the editor.</p>
+          </div>
+
+          <ul id="articles-list" class="article-list"></ul>
+          <div id="articles-empty" class="article-empty" style="display:none;">
+            You don’t have any articles yet.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="footer">
+      <ul class="copyright">
+        <li>&copy; 2025 PinPark. All rights reserved</li>
+      </ul>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- 🔐 Admin guard + load list of articles -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        collection,
+        query,
+        orderBy,
+        getDocs
+      } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+        authDomain: "pinpark-1fcb3.firebaseapp.com",
+        projectId: "pinpark-1fcb3",
+        storageBucket: "pinpark-1fcb3.firebasestorage.app",
+        messagingSenderId: "677372487037",
+        appId: "1:677372487037:web:5dcd5e788874aca5851814",
+        measurementId: "G-LJN7NRFFX4"
+      };
+
+      const app  = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db   = getFirestore(app);
+
+      async function checkAdmin(user) {
+        if (!user) return false;
+        try {
+          const snap = await getDoc(doc(db, "admins", user.uid));
+          return snap.exists();
+        } catch (e) {
+          console.error("Admin check failed:", e);
+          return false;
+        }
+      }
+
+      function formatDate(ts) {
+        try {
+          const d = ts && typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
+          if (!d || isNaN(d.getTime())) return "";
+          return d.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+          });
+        } catch (_) {
+          return "";
+        }
+      }
+
+      async function loadArticles() {
+        const listEl = document.getElementById("articles-list");
+        const emptyEl = document.getElementById("articles-empty");
+        if (!listEl) return;
+
+        listEl.innerHTML = "";
+        emptyEl.style.display = "none";
+
+        try {
+          const col = collection(db, "articles");
+
+          // Order newest first by createdAt if present; if not, this will still work
+          const q = query(col, orderBy("createdAt", "desc"));
+          const snap = await getDocs(q);
+
+          if (snap.empty) {
+            emptyEl.style.display = "block";
+            return;
+          }
+
+          snap.forEach((docSnap) => {
+            const data = docSnap.data() || {};
+            const id = docSnap.id;
+            const title = (data.title || "").trim() || "Untitled";
+            const status = (data.status || "draft").toLowerCase();
+            const createdAt = data.createdAt || data.publishedAt || null;
+
+            const li = document.createElement("li");
+            li.className = "article-item";
+
+            const href = "create_article_admin.html?articleId=" + encodeURIComponent(id);
+
+            li.innerHTML = `
+              <a class="article-card-link" href="${href}">
+                <h3 class="article-card-title">${title}</h3>
+                <div class="article-card-meta">
+                  <span>${formatDate(createdAt) || "No date"}</span>
+                  <span>•</span>
+                  <span class="article-chip ${status === "published" ? "published" : "draft"}">
+                    ${status === "published" ? "Published" : "Draft"}
+                  </span>
+                  <span>•</span>
+                  <span>ID: ${id}</span>
+                </div>
+              </a>
+            `;
+
+            listEl.appendChild(li);
+          });
+        } catch (e) {
+          console.error("Failed to load articles list:", e);
+          emptyEl.style.display = "block";
+          emptyEl.textContent = "Failed to load articles.";
+        }
+      }
+
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "auth.html?mode=login";
+          return;
+        }
+
+        const isAdmin = await checkAdmin(user);
+        if (!isAdmin) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        await loadArticles();
+      });
+    </script>
+  </body>
+</html>
