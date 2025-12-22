@@ -128,9 +128,9 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
+			/* ✅ Position page content like admin/terms.html (strip + heading + card) */
 			#main .pinpark-under-strip {
-				margin-top: 120px !important;
+				margin-top: 20px !important; /* was 120px */
 				text-align: center;
 			}
 			#main .pinpark-under-strip img {
@@ -140,9 +140,9 @@
 				display: inline-block;
 			}
 
-			/* ✅ Make "Current Article" the same distance from pinpark.png as in terms.html */
+			/* ✅ Make "Current Article" the same distance from strip as admin */
 			#main .pinpark-under-strip .articles-under-logo {
-				margin-top: 100px !important;
+				margin-top: 40px !important;    /* was 100px */
 				margin-bottom: 2em !important;
 			}
 			#main .pinpark-under-strip .articles-under-logo h2 {
@@ -254,10 +254,10 @@
 				visibility: hidden;
 			}
 
-			/* ✅ Latest article card (matches your mockup style) */
+			/* ✅ Latest article card (same layout as admin version) */
 			.latest-article {
 				max-width: 900px;
-				margin: 30px auto 0;
+				margin: -50px auto 0;      /* pulled up under strip, like admin */
 				padding: 0 30px;
 				box-sizing: border-box;
 				text-align: left;
@@ -270,7 +270,7 @@
 				background: #fff;
 			}
 			.latest-article .hero {
-				height: 220px;
+				height: 330px;              /* was 220px – now 50% taller */
 				position: relative;
 				overflow: hidden;
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
@@ -363,6 +363,46 @@
 				background: rgba(0,0,0,0.03);
 				color: rgba(0,0,0,0.7);
 			}
+
+			/* ✅ NEW: make the article 10px narrower than the borders on each side */
+			#latest-article-mount.latest-article {
+				padding-left: 40px !important;  /* was 30px */
+				padding-right: 40px !important; /* was 30px */
+			}
+
+			/* ✅ FORCE: white article card 5px from each side */
+			#latest-article-mount.latest-article {
+				padding-left: 20px !important;
+				padding-right: 20px !important;
+			}
+
+			#latest-article-mount.latest-article .card {
+				width: 100% !important;
+				margin-left: 0 !important;
+				margin-right: 0 !important;
+				box-sizing: border-box !important;
+			}
+
+			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
+			       and sit 20px below the top bar */
+			#latest-article-mount.latest-article {
+				max-width: none !important;
+				width: 100% !important;
+				padding: 0 20px !important;      /* 20px left + 20px right */
+				box-sizing: border-box !important;
+				margin: -50px 0 0 !important;    /* keeping your original vertical offset */
+			}
+
+			#latest-article-mount.latest-article .card {
+				width: 100% !important;
+				margin: 0 !important;
+				box-sizing: border-box !important;
+			}
+
+			/* 🔥 FINAL OVERRIDE: force hero height to 330px in card */
+			#latest-article-mount.latest-article .hero {
+				height: 330px !important;
+			}
 		</style>
 	</head>
 
@@ -401,17 +441,18 @@
 				</div>
 			</section>
 
-			<!-- ✅ Positioned like terms.html -->
+			<!-- ✅ Positioned like admin version -->
 			<div class="pinpark-under-strip">
-				<img src="pinpark.png" alt="PinPark" />
-				<header class="articles-under-logo"><h2 id="current-article-title">V1.0.0 In Development</h2></header>
+				<header class="articles-under-logo">
+					<!-- hidden heading, spacing only – title comes from the card hero -->
+					<h2 id="current-article-title" style="visibility: hidden;">Selected Article</h2>
+				</header>
 
 				<p class="articles-paragraph" id="current-article-fallback">
-					<!-- ✅ Put your current article content here -->
 					Your current article will go here.
 				</p>
 
-				<!-- ✅ NEW: Latest article mount (renders the card here) -->
+				<!-- ✅ Latest article card mounts here -->
 				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
@@ -420,7 +461,6 @@
 					<header><h2>Other Articles</h2></header>
 
 					<p class="other-paragraph">
-						<!-- ✅ Add your other articles here -->
 						Add your other articles here.
 					</p>
 				</div>
@@ -440,7 +480,7 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- ✅ NEW: Load latest published article from Firestore -->
+		<!-- ✅ Load latest published article from Firestore -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getFirestore, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -460,11 +500,13 @@
 
 			function formatDate(ts) {
 				try {
-					// Firestore Timestamp -> Date
 					const d = ts && typeof ts.toDate === "function" ? ts.toDate() : new Date(ts);
 					if (!d || isNaN(d.getTime())) return "";
-					// e.g. "22 Dec 2025"
-					return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+					return d.toLocaleDateString("en-GB", {
+						day: "2-digit",
+						month: "short",
+						year: "numeric"
+					});
 				} catch (_) {
 					return "";
 				}
@@ -477,8 +519,7 @@
 				const title = (article.title || "").trim() || "Untitled";
 				const hero  = article.heroImageDataUrl || null;
 				const html  = (article.renderedHtml || "").trim();
-
-				const tags = Array.isArray(article.tags) ? article.tags : [];
+				const tags  = Array.isArray(article.tags) ? article.tags : [];
 
 				mount.innerHTML = `
 					<div class="card">
@@ -489,7 +530,7 @@
 						</div>
 						<div class="body">
 							<div class="meta">
-								<span>Published: ${formatDate(article.publishedAt) || ""}</span>
+								<span>${formatDate(article.publishedAt) || ""}</span>
 								<span>•</span>
 								<span>PinPark</span>
 							</div>
@@ -508,11 +549,11 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
-				// ✅ also set the page heading to match the latest article
+				// ✅ also set the (hidden) page heading to match the latest article
 				const h2 = document.getElementById("current-article-title");
 				if (h2) h2.textContent = title;
 
-				// ✅ hide the old placeholder paragraph once we have a real article
+				// ✅ hide the placeholder once we have a real article
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 			}
@@ -555,6 +596,7 @@
 			loadLatestPublished();
 		</script>
 
+		<!-- ✅ Section nav (same behaviour as before) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -588,10 +630,7 @@
 
 				if (!links.length || !sections.length) return;
 
-				// ✅ Keep "locked" styling timing
 				var lockedUntil = 0;
-
-				// ✅ Keep the tab fixed to the clicked target while smooth-scrolling
 				var forcedId = null;
 				var forcedUntil = 0;
 
@@ -702,52 +741,6 @@
 						clearSectionFromUrl();
 					}
 				});
-
-				onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // Signed out → show Login + Sign up, hide Admin + Logout
-    setVisible(liLogin, true);
-    setVisible(liSignup, true);
-    setVisible(liLogout, false);
-    setVisible(liAdmin, false);
-    return;
-  }
-
-  // Signed in → check if this user is an admin
-  const admin = await isAdminUser(user);
-
-  // 🔁 If admin, redirect to the admin version of this page (if one exists)
-  if (admin) {
-    const path = window.location.pathname;
-    let file = path.split("/").pop();
-
-    // Handle root "/" case where there's no explicit filename
-    if (!file) {
-      file = "index.html";
-    }
-
-    // Map normal pages → admin equivalents
-    const adminMap = {
-      "index.html": "index_admin.html",
-      "articles.html": "articles_admin.html",
-      // add more mappings here if you make more admin pages
-      // "policies.html": "policies_admin.html",
-    };
-
-    const target = adminMap[file];
-    if (target && !path.endsWith(target)) {
-      window.location.href = target;
-      return; // stop, we're navigating away
-    }
-  }
-
-  // If we didn't redirect, just update the nav state as usual
-  setVisible(liLogin, false);
-  setVisible(liSignup, false);
-  setVisible(liLogout, true);
-  setVisible(liAdmin, admin);
-});
-
 
 				onScroll();
 			})();
