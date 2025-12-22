@@ -257,7 +257,7 @@
 			/* ✅ Latest article card (matches your mockup style) */
 			.latest-article {
 				max-width: 900px;
-				margin: -50px auto 0; /* stays the same */
+				margin: -50px auto 0; /* pulled up under strip */
 				padding: 0 30px;
 				box-sizing: border-box;
 				text-align: left;
@@ -390,17 +390,17 @@
 				width: 100% !important;
 				margin-left: 0 !important;
 				margin-right: 0 !important;
-				box-sizing: border-box;
+				box-sizing: border-box !important;
 			}
 
 			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
-			       and sit 20px below the top bar */
+			       and sit 20px below the top bar, with 20px bottom gap to the next section */
 			#latest-article-mount.latest-article {
 				max-width: none !important;
 				width: 100% !important;
 				padding: 0 20px !important;      /* 20px left + 20px right */
 				box-sizing: border-box !important;
-				margin: -50px 0 0 !important;    /* keeping your original vertical offset */
+				margin: -50px 0 20px !important; /* 20px gap below article */
 			}
 
 			#latest-article-mount.latest-article .card {
@@ -412,6 +412,22 @@
 			/* 🔥 FINAL OVERRIDE: force hero height to 330px in admin card */
 			#latest-article-mount.latest-article .hero {
 				height: 330px !important;
+			}
+
+			/* 📱 Mobile tweaks (same as public articles page) */
+			@media screen and (max-width: 736px) {
+				/* hero 25% shorter (330px → 247.5px) */
+				.latest-article .hero,
+				#latest-article-mount.latest-article .hero {
+					height: calc(330px * 0.75) !important;
+				}
+
+				/* 👉 article box 10px wider each side (smaller horizontal padding)
+				   and keep 20px gap below the article */
+				#latest-article-mount.latest-article {
+					padding: 0 5px !important;
+					margin: -50px 0 20px !important;
+				}
 			}
 		</style>
 	</head>
@@ -499,7 +515,7 @@
 							</a>
 						</li>
 
-						<!-- ✅ NEW: Edit posts button -->
+						<!-- ✅ Edit posts button -->
 						<li>
 							<a
 								href="edit_articles_admin.html"
@@ -535,7 +551,7 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- 🔐 Admin guard + load latest published article (same card style as articles.html) -->
+		<!-- 🔐 Admin guard + load latest published article -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -627,7 +643,6 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
-				// ✅ Only title is inside the hero card; just hide placeholder text
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 			}
@@ -682,7 +697,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
+		<!-- ✅ Section nav (same behaviour as other pages) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
