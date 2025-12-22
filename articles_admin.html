@@ -269,6 +269,15 @@
 				overflow: hidden;
 				background: #fff;
 			}
+
+			/* ✅ NEW: make the ARTICLE BOX (the white card) 10px narrower on each side */
+			.latest-article .card {
+				width: calc(100% - 20px) !important; /* 10px left + 10px right */
+				margin-left: auto !important;
+				margin-right: auto !important;
+				box-sizing: border-box;
+			}
+
 			.latest-article .hero {
 				height: 220px;
 				position: relative;
