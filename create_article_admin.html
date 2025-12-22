@@ -217,6 +217,31 @@
 				border-color: rgba(0, 138, 205, 0.45);
 			}
 
+			/* ✅ Add-section button (full width, "+" label) */
+			.add-section-wrap {
+				max-width: 900px;
+				margin: 14px auto 0;
+				padding: 0 30px;
+				box-sizing: border-box;
+			}
+			.add-section-btn {
+				width: 100%;
+				display: block;
+				border: 1px solid rgba(0,0,0,0.12);
+				border-radius: 14px;
+				background: rgba(0,0,0,0.03);
+				color: rgba(0,0,0,0.65);
+				font-size: 1.6em;
+				line-height: 1;
+				padding: 16px 0;
+				cursor: pointer;
+				user-select: none;
+				box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+			}
+			.add-section-btn:hover {
+				background: rgba(0,0,0,0.05);
+			}
+
 			/* ✅ Article mockup card (preview) */
 			.article-mock {
 				max-width: 900px;
@@ -461,13 +486,18 @@
 							</div>
 
 							<!-- ✅ subtitle entry removed -->
-
-							<div class="col-12">
-								<input type="text" name="coverImage" placeholder="Cover image URL (optional)" />
-							</div>
+							<!-- ✅ cover image URL entry removed -->
 
 							<div class="col-12">
 								<textarea name="content" placeholder="Write your article here..." rows="10"></textarea>
+							</div>
+
+							<!-- ✅ NEW: sections container (subheading + paragraph blocks) -->
+							<div class="col-12" id="sections-container"></div>
+
+							<!-- ✅ NEW: full-width "+" button under the paragraph box -->
+							<div class="col-12">
+								<button type="button" id="add-section" class="add-section-btn" aria-label="Add new section">+</button>
 							</div>
 
 							<div class="col-12">
@@ -569,6 +599,10 @@
 				var titleEl = document.getElementById("hero-title");
 				var titleInput = document.querySelector('input[name="title"]');
 
+				// ✅ sections
+				var sectionsContainer = document.getElementById("sections-container");
+				var addSectionBtn = document.getElementById("add-section");
+
 				// ✅ mockup bindings
 				var mockHero = document.getElementById("mock-hero");
 				var mockTitle = document.getElementById("mock-title");
@@ -585,24 +619,54 @@
 					if (mockTitle) mockTitle.textContent = t || "Your Article Title";
 				}
 
-				function syncContent() {
-					if (!mockContent || !contentInput) return;
-					var raw = (contentInput.value || "").trim();
-					if (!raw) {
+				function renderCombinedContentForMock() {
+					if (!mockContent) return;
+
+					var blocks = [];
+
+					// main content textarea first
+					if (contentInput) {
+						var rawMain = (contentInput.value || "").trim();
+						if (rawMain) {
+							rawMain.split(/\n\s*\n/g).map(function (p) { return p.trim(); }).filter(Boolean)
+								.forEach(function (p) {
+									blocks.push("<p>" + p.replace(/\n/g, "<br>") + "</p>");
+								});
+						}
+					}
+
+					// then each extra section: <h3> + paragraphs
+					if (sectionsContainer) {
+						var sectionEls = sectionsContainer.querySelectorAll(".pp-section");
+						sectionEls.forEach(function (sec) {
+							var h = sec.querySelector('input[name^="subheading_"]');
+							var t = sec.querySelector('textarea[name^="section_"]');
+							var heading = (h && h.value || "").trim();
+							var body = (t && t.value || "").trim();
+
+							if (heading) blocks.push("<h3 style=\"margin: 0 0 10px 0; color: #666;\">" + heading + "</h3>");
+
+							if (body) {
+								body.split(/\n\s*\n/g).map(function (p) { return p.trim(); }).filter(Boolean)
+									.forEach(function (p) {
+										blocks.push("<p>" + p.replace(/\n/g, "<br>") + "</p>");
+									});
+							}
+						});
+					}
+
+					if (!blocks.length) {
 						mockContent.innerHTML =
 							"<p>This is a preview of your article layout. When you publish, your content will flow here with your selected hero image above.</p>" +
 							"<p>You can use paragraphs, line breaks, and headings (later) to structure updates, release notes, roadmaps, and announcements.</p>";
 						return;
 					}
-					// basic preview: split into paragraphs by blank lines
-					var paras = raw.split(/\n\s*\n/g).map(function (p) {
-						return p.trim();
-					}).filter(Boolean);
 
-					mockContent.innerHTML = paras.map(function (p) {
-						// keep single newlines as <br>
-						return "<p>" + p.replace(/\n/g, "<br>") + "</p>";
-					}).join("");
+					mockContent.innerHTML = blocks.join("");
+				}
+
+				function syncContent() {
+					renderCombinedContentForMock();
 				}
 
 				function syncTags() {
@@ -642,6 +706,46 @@
 					reader.readAsDataURL(file);
 				}
 
+				var sectionCount = 0;
+
+				function addSection() {
+					if (!sectionsContainer) return;
+					sectionCount += 1;
+
+					var wrapper = document.createElement("div");
+					wrapper.className = "pp-section";
+					wrapper.style.marginTop = "20px";
+
+					var h = document.createElement("input");
+					h.type = "text";
+					h.name = "subheading_" + sectionCount;
+					h.placeholder = "Subheading";
+
+					var t = document.createElement("textarea");
+					t.name = "section_" + sectionCount;
+					t.placeholder = "Write your paragraph here...";
+					t.rows = 6;
+
+					// match existing spacing/layout
+					var hWrap = document.createElement("div");
+					hWrap.className = "col-12";
+					hWrap.appendChild(h);
+
+					var tWrap = document.createElement("div");
+					tWrap.className = "col-12";
+					tWrap.appendChild(t);
+
+					wrapper.appendChild(hWrap);
+					wrapper.appendChild(tWrap);
+					sectionsContainer.appendChild(wrapper);
+
+					// live mock updates
+					h.addEventListener("input", syncContent);
+					t.addEventListener("input", syncContent);
+
+					syncContent();
+				}
+
 				// ✅ Title always drives the hero text AND mockup title live
 				titleInput.addEventListener("input", syncTitle);
 				syncTitle();
@@ -651,6 +755,9 @@
 				tagsInput && tagsInput.addEventListener("input", syncTags);
 				syncContent();
 				syncTags();
+
+				// ✅ add-section button
+				addSectionBtn && addSectionBtn.addEventListener("click", addSection);
 
 				drop.addEventListener("click", function () {
 					fileInput.click();
