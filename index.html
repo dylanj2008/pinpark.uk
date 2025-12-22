@@ -593,111 +593,114 @@
 			})();
 		</script>
 
-		<!-- 🔐 Auth state: swap Login/Sign up for Logout, show Admin for admins -->
 		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import {
-				getAuth,
-				onAuthStateChanged,
-				signOut
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-			const firebaseConfig = {
-				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-				authDomain: "pinpark-1fcb3.firebaseapp.com",
-				projectId: "pinpark-1fcb3",
-				storageBucket: "pinpark-1fcb3.firebasestorage.app",
-				messagingSenderId: "677372487037",
-				appId: "1:677372487037:web:5dcd5e788874aca5851814",
-				measurementId: "G-LJN7NRFFX4"
-			};
+  const firebaseConfig = {
+    apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+    authDomain: "pinpark-1fcb3.firebaseapp.com",
+    projectId: "pinpark-1fcb3",
+    storageBucket: "pinpark-1fcb3.firebasestorage.app",
+    messagingSenderId: "677372487037",
+    appId: "1:677372487037:web:5dcd5e788874aca5851814",
+    measurementId: "G-LJN7NRFFX4"
+  };
 
-			const app  = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-			const db   = getFirestore(app);
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
 
-			const liLogin   = document.getElementById("nav-login-item");
-			const liSignup  = document.getElementById("nav-signup-item");
-			const liAdmin   = document.getElementById("nav-admin-item");
-			const liLogout  = document.getElementById("nav-logout-item");
-			const logoutLink = document.getElementById("link-logout");
+  const liLogin    = document.getElementById("nav-login-item");
+  const liSignup   = document.getElementById("nav-signup-item");
+  const liAdmin    = document.getElementById("nav-admin-item");
+  const liLogout   = document.getElementById("nav-logout-item");
+  const logoutLink = document.getElementById("link-logout");
 
-			function setVisible(el, show) {
-				if (!el) return;
-				el.style.display = show ? "" : "none";
-			}
-
-			async function isAdminUser(user) {
-				if (!user) return false;
-				try {
-					const snap = await getDoc(doc(db, "admins", user.uid));
-					return snap.exists();
-				} catch (e) {
-					console.error("Admin check failed:", e);
-					return false;
-				}
-			}
-
-			onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // Signed out → show Login + Sign up, hide Admin + Logout
-    setVisible(liLogin, true);
-    setVisible(liSignup, true);
-    setVisible(liLogout, false);
-    setVisible(liAdmin, false);
-    return;
+  function setVisible(el, show) {
+    if (!el) return;
+    el.style.display = show ? "" : "none";
   }
 
-  // Signed in → check if this user is an admin
-  const admin = await isAdminUser(user);
-
-  // 🔁 If admin, redirect to the admin version of this page (if one exists)
-  if (admin) {
-    const path = window.location.pathname;
-    let file = path.split("/").pop();
-
-    // Handle root "/" case where there's no explicit filename
-    if (!file) {
-      file = "index.html";
-    }
-
-    // Map normal pages → admin equivalents
-    const adminMap = {
-      "index.html": "index_admin.html",
-      "articles.html": "articles_admin.html",
-      // add more mappings here if you make more admin pages
-      // "policies.html": "policies_admin.html",
-    };
-
-    const target = adminMap[file];
-    if (target && !path.endsWith(target)) {
-      window.location.href = target;
-      return; // stop, we're navigating away
+  async function isAdminUser(user) {
+    if (!user) return false;
+    try {
+      const snap = await getDoc(doc(db, "admins", user.uid));
+      return snap.exists();
+    } catch (e) {
+      console.error("Admin check failed:", e);
+      return false;
     }
   }
 
-  // If we didn't redirect, just update the nav state as usual
-  setVisible(liLogin, false);
-  setVisible(liSignup, false);
-  setVisible(liLogout, true);
-  setVisible(liAdmin, admin);
-});
+  // Map normal pages -> admin equivalents
+  const adminMap = {
+    "index.html": "index_admin.html",
+    "articles.html": "articles_admin.html",
+    // add more as you create them:
+    // "policies.html": "policies_admin.html",
+  };
 
+  // Optional reverse map (admin -> normal) if you want to block non-admins from admin pages
+  const normalMap = Object.fromEntries(Object.entries(adminMap).map(([k, v]) => [v, k]));
 
-			logoutLink?.addEventListener("click", async (e) => {
-				e.preventDefault();
-				try {
-					await signOut(auth);
-					window.location.href = "index.html";
-				} catch (err) {
-					console.error("Logout failed:", err);
-				}
-			});
-		</script>
+  function currentFile() {
+    // Handles "/" (no filename) -> treat as index.html
+    let file = window.location.pathname.split("/").pop();
+    if (!file) file = "index.html";
+    return file;
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    const file = currentFile();
+
+    if (!user) {
+      // Signed out -> show Login + Sign up, hide Admin + Logout
+      setVisible(liLogin, true);
+      setVisible(liSignup, true);
+      setVisible(liLogout, false);
+      setVisible(liAdmin, false);
+
+      // (Optional) if someone tries to open an admin page while signed out, kick them to normal
+      if (normalMap[file]) {
+        window.location.replace(normalMap[file]);
+      }
+      return;
+    }
+
+    const admin = await isAdminUser(user);
+
+    // If admin and on a normal page with an admin equivalent -> redirect
+    const adminTarget = adminMap[file];
+    if (admin && adminTarget && file !== adminTarget) {
+      window.location.replace(adminTarget); // replace avoids back-button loops
+      return;
+    }
+
+    // (Optional) If NOT admin and they are on an admin page -> kick them out
+    const normalTarget = normalMap[file];
+    if (!admin && normalTarget) {
+      window.location.replace(normalTarget);
+      return;
+    }
+
+    // If we didn't redirect, just update the nav
+    setVisible(liLogin, false);
+    setVisible(liSignup, false);
+    setVisible(liLogout, true);
+    setVisible(liAdmin, admin);
+  });
+
+  logoutLink?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+      window.location.replace("index.html");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  });
+</script>
 	</body>
 </html>
