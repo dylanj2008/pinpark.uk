@@ -404,11 +404,17 @@
 				height: 330px !important;
 			}
 
-			/* 📱 Mobile: hero 25% shorter (330px → 247.5px) */
+			/* 📱 Mobile tweaks */
 			@media screen and (max-width: 736px) {
+				/* hero 25% shorter (330px → 247.5px) */
 				.latest-article .hero,
 				#latest-article-mount.latest-article .hero {
 					height: calc(330px * 0.75) !important;
+				}
+
+				/* 👉 article box 5px wider each side (20px → 15px padding) */
+				#latest-article-mount.latest-article {
+					padding: 0 15px !important;
 				}
 			}
 		</style>
