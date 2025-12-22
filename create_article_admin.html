@@ -163,7 +163,7 @@
 				margin-right: auto;
 			}
 
-			/* ✅ Hero image box: default uses same PinPark top-strip design (matches #create.cover) */
+			/* ✅ Hero image box: default matches the big smooth blue hero look */
 			.hero-drop {
 				width: 100%;
 				max-width: 900px;
@@ -184,56 +184,19 @@
 				position: relative;
 				overflow: hidden;
 
+				/* ✅ Default look (only used until an image is uploaded) */
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+
 				/* uploaded image goes here (set by JS) */
 				background-size: cover;
 				background-position: center;
 				background-repeat: no-repeat;
 			}
 
-			/* Default hero tint (matches page top strip tint) */
-			.hero-drop::before {
-				content: "";
-				position: absolute;
-				inset: 0;
-				pointer-events: none;
-				z-index: 0;
-				background: linear-gradient(
-					135deg,
-					rgba(0, 173, 238, 0.78) 0%,
-					rgba(255, 255, 255, 0.35) 50%,
-					rgba(0, 138, 205, 0.78) 100%
-				);
-			}
-
-			/* Default hero overlay (matches page top strip overlay) */
+			/* ✅ Remove extra overlays so it stays clean like the screenshot */
+			.hero-drop::before,
 			.hero-drop::after {
-				content: "";
-				position: absolute;
-				inset: 0;
-				pointer-events: none;
-				z-index: 0;
-
-				background:
-					radial-gradient(circle at 0% 100%,
-						rgba(0, 173, 238, 0.8) 0%,
-						rgba(0, 173, 238, 0.8) 22%,
-						rgba(0, 173, 238, 0.6) 30%,
-						rgba(0, 173, 238, 0.3) 38%,
-						rgba(0, 173, 238, 0) 46.2%
-					),
-					radial-gradient(circle at 100% 0%,
-						rgba(255, 255, 255, 0.10) 0%,
-						rgba(255, 255, 255, 0.10) 16%,
-						rgba(255, 255, 255, 0.07) 23%,
-						rgba(255, 255, 255, 0.04) 30%,
-						rgba(255, 255, 255, 0.02) 36%,
-						rgba(255, 255, 255, 0) 41.8%
-					),
-					linear-gradient(
-						135deg,
-						rgba(0, 138, 205, 0.75) 0%,
-						rgba(0, 138, 205, 0.75) 100%
-					);
+				content: none;
 			}
 
 			/* Title always shown on hero */
@@ -324,8 +287,8 @@
 				z-index: 1;
 				height: 100%;
 				display: flex;
-				align-items: center;          /* ✅ center vertically */
-				justify-content: center;      /* ✅ center horizontally */
+				align-items: center;
+				justify-content: center;
 				padding: 22px;
 				box-sizing: border-box;
 				text-align: center;
