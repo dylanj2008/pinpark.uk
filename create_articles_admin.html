@@ -1,0 +1,406 @@
+<!-- create_article_admin.html -->
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>PinPark</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+		<!-- ✅ Tab icon -->
+		<link rel="icon" type="image/png" href="pinparklogo.png" />
+
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<style>
+			/* ✅ Hide admin page until admin is verified */
+			html { visibility: hidden; }
+
+			/* ✅ Make the blue cover part exactly 60px tall */
+			#create.cover {
+				height: 60px !important;
+				min-height: 60px !important;
+				padding: 0 !important;
+			}
+			#create.cover > .container {
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+			#create.cover header,
+			#create.cover h2,
+			#create.cover p {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			/* ✅ PinPark hero tint */
+			#create.cover:before,
+			#create:before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				) !important;
+			}
+
+			/* ✅ PinPark hero tint overlay */
+			#create.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
+			#create.cover::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+
+			/* ✅ keep your hero content above the tint */
+			#create.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			/* ✅ Make PinPark logo 25% smaller total */
+			#logo .image img {
+				width: 75%;
+				height: auto;
+				transform: translateY(-10px);
+			}
+
+			/* ✅ Center the PinPark logo horizontally in the sidebar column */
+			#logo {
+				text-align: center;
+			}
+			#logo .image {
+				display: inline-block;
+			}
+			#logo .image img {
+				display: block;
+				margin: 0 auto;
+			}
+
+			/* ✅ Ensure left nav icons visibly highlight when active */
+			#nav ul li a.active span.icon:before,
+			#nav ul li a.active-locked span.icon:before {
+				color: #fff !important;
+			}
+			#nav ul li a.active,
+			#nav ul li a.active-locked {
+				color: #fff !important;
+			}
+
+			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
+			#nav ul li a,
+			#nav ul li a:before,
+			#nav ul li a:after,
+			#nav ul li a span.icon:before {
+				transition:
+					background-color 0.1s ease,
+					color 0.1s ease,
+					opacity 0.1s ease,
+					border-color 0.1s ease;
+			}
+
+			/* ✅ Position page content like terms.html (strip + logo + heading + paragraph) */
+			#main .pinpark-under-strip {
+				margin-top: 120px !important;
+				text-align: center;
+			}
+			#main .pinpark-under-strip img {
+				max-width: 260px;
+				width: 60%;
+				height: auto;
+				display: inline-block;
+			}
+
+			#main .pinpark-under-strip .articles-under-logo {
+				margin-top: 100px !important;
+				margin-bottom: 2em !important;
+			}
+			#main .pinpark-under-strip .articles-under-logo h2 {
+				margin-top: 0 !important;
+			}
+
+			/* ✅ Form area: match paragraph padding style */
+			#main .pinpark-under-strip .articles-paragraph {
+				margin-top: 0 !important;
+				padding-left: 30px !important;
+				padding-right: 30px !important;
+				box-sizing: border-box;
+				text-align: left !important;
+				max-width: 900px;
+				margin-left: auto;
+				margin-right: auto;
+			}
+
+			/* ✅ Back button: bottom-left, no bullet, no underline */
+			#header .bottom {
+				text-align: left !important;
+				padding-left: 15px !important;
+				padding-bottom: 15px !important;
+			}
+			#nav-back ul,
+			#nav-back ul li {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			#back-link {
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+				box-shadow: none !important;
+				font-size: 0.8em !important;
+			}
+
+			#back-link .icon:before {
+				margin-right: 5px !important;
+				font-size: 1em !important;
+			}
+
+			#nav-back ul li a,
+			#nav-back ul li a span.icon:before {
+				color: rgba(255, 255, 255, 0.55) !important;
+			}
+			#nav-back ul li a:hover,
+			#nav-back ul li a:hover span.icon:before {
+				color: #fff !important;
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+			}
+
+			#nav-back ul li a:before,
+			#nav-back ul li a:after {
+				background: transparent !important;
+				box-shadow: none !important;
+				opacity: 0 !important;
+			}
+
+			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			#footer,
+			#footer::after {
+				background: none !important;
+				content: none !important;
+			}
+			#footer {
+				position: static !important;
+				overflow: visible !important;
+				height: 70px;
+				padding: 0 !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright {
+				margin: 0 !important;
+			}
+			#footer,
+			#footer * {
+				color: #000 !important;
+			}
+			#footer a {
+				color: #000 !important;
+				border-bottom-color: rgba(0, 0, 0, 0.35) !important;
+			}
+			#footer a:hover {
+				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
+			}
+		</style>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Header -->
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+				</div>
+
+				<nav id="nav">
+					<ul>
+						<li><a href="articles_admin.html?section=current" id="current-link"><span class="icon solid fa-file-alt">Latest Article</span></a></li>
+						<li><a href="articles_admin.html?section=other" id="other-link"><span class="icon solid fa-list">Other Articles</span></a></li>
+						<li><a href="create_article_admin.html" id="create-link" class="active"><span class="icon solid fa-pen">Create</span></a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="bottom">
+				<nav id="nav-back">
+					<ul>
+						<li><a href="articles_admin.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Main -->
+		<div id="main">
+			<!-- ✅ Top strip only -->
+			<section id="create" class="one dark cover">
+				<div class="container">
+					<header></header>
+				</div>
+			</section>
+
+			<!-- ✅ Positioned like terms.html -->
+			<div class="pinpark-under-strip">
+				<img src="pinpark.png" alt="PinPark" />
+				<header class="articles-under-logo"><h2>Create Article</h2></header>
+
+				<div class="articles-paragraph">
+					<!-- ✅ Article template -->
+					<form method="post" action="#" style="margin: 0;">
+						<div class="row">
+							<div class="col-12">
+								<input type="text" name="title" placeholder="Title" />
+							</div>
+
+							<div class="col-12">
+								<input type="text" name="subtitle" placeholder="Subtitle (optional)" />
+							</div>
+
+							<div class="col-12">
+								<input type="text" name="coverImage" placeholder="Cover image URL (optional)" />
+							</div>
+
+							<div class="col-12">
+								<textarea name="content" placeholder="Write your article here..." rows="10"></textarea>
+							</div>
+
+							<div class="col-12">
+								<input type="text" name="tags" placeholder="Tags (comma separated) e.g. update, release, roadmap" />
+							</div>
+
+							<div class="col-12" style="margin-top: 0.7em;">
+								<ul class="actions" style="margin: 0;">
+									<li>
+										<input
+											type="submit"
+											value="Save draft"
+											style="
+												background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+												border-radius: 14px;
+												color: #fff;
+												border: 1px solid rgba(255,255,255,0);
+												box-shadow: 0 5px 11px rgba(0,0,0,0.07);
+												text-transform: none;
+												letter-spacing: inherit;
+											"
+										/>
+									</li>
+									<li>
+										<a
+											href="#"
+											class="button"
+											style="
+												background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+												border-radius: 14px;
+												color: #fff;
+												border: 1px solid rgba(255,255,255,0);
+												box-shadow: 0 5px 11px rgba(0,0,0,0.07);
+												text-transform: none;
+												letter-spacing: inherit;
+											"
+										>
+											Publish
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; 2025 PinPark. All rights reserved</li>
+			</ul>
+		</div>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<!-- 🔐 Admin guard (must be signed-in admin or get kicked out) -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
+
+			const app  = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
+
+			async function checkAdmin(user) {
+				if (!user) return false;
+				try {
+					const snap = await getDoc(doc(db, "admins", user.uid));
+					return snap.exists();
+				} catch (e) {
+					console.error("Admin check failed:", e);
+					return false;
+				}
+			}
+
+			onAuthStateChanged(auth, async (user) => {
+				const isAdmin = await checkAdmin(user);
+
+				if (!isAdmin) {
+					window.location.replace("articles.html");
+					return;
+				}
+
+				// ✅ Admin confirmed -> reveal page
+				document.documentElement.style.visibility = "visible";
+			});
+		</script>
+
+	</body>
+</html>
