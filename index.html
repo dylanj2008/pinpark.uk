@@ -19,7 +19,7 @@
 				min-height: calc(100vh - 275px) !important;
 			}
 
-			/* ✅ PinPark hero tint (replace pink/blue/grey with PinPark palette) */
+			/* ✅ PinPark hero tint */
 			#home.cover:before,
 			#home:before {
 				background: linear-gradient(
@@ -30,7 +30,6 @@
 				) !important;
 			}
 
-			/* ✅ PinPark hero tint overlay (forces #00ADEE + circular highlights) */
 			#home.cover {
 				position: relative;
 				overflow: hidden;
@@ -66,13 +65,11 @@
 					);
 			}
 
-			/* ✅ keep your hero content above the tint */
 			#home.cover > .container {
 				position: relative;
 				z-index: 1;
 			}
 
-			/* ✅ Replace "Read more" button with link-style text (underline on hover) */
 			#home .button.scrolly {
 				background: transparent !important;
 				border: 0 !important;
@@ -93,14 +90,12 @@
 				text-underline-offset: 4px;
 			}
 
-			/* ✅ Make PinPark logo 25% smaller total (was 15%, now 10% smaller again) */
+			/* ✅ PinPark logo */
 			#logo .image img {
 				width: 75%;
 				height: auto;
 				transform: translateY(-10px);
 			}
-
-			/* ✅ Center the PinPark logo horizontally in the sidebar column */
 			#logo {
 				text-align: center;
 			}
@@ -112,7 +107,7 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Ensure left nav icons visibly highlight when active */
+			/* ✅ Nav highlight */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
 				color: #fff !important;
@@ -121,8 +116,6 @@
 			#nav ul li a.active-locked {
 				color: #fff !important;
 			}
-
-			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
 			#nav ul li a,
 			#nav ul li a:before,
 			#nav ul li a:after,
@@ -134,7 +127,7 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			/* ✅ Footer */
 			#footer,
 			#footer::after {
 				background: none !important;
@@ -193,7 +186,7 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Remove bullet point next to Support PinPark */
+			/* ✅ Donations button */
 			#donations .actions {
 				margin-left: 0 !important;
 				padding-left: 0 !important;
@@ -205,8 +198,6 @@
 				padding-left: 0 !important;
 				margin-left: 0 !important;
 			}
-
-			/* ✅ Make the donations button PinPark-style (Update Note vibe) */
 			#donations .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
@@ -228,7 +219,7 @@
 				transform: scale(1.025) translateY(1px);
 			}
 
-			/* ✅ Apply the same PinPark button styling to "Send Message" */
+			/* ✅ Contact button */
 			#contact form input[type="submit"] {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
@@ -249,7 +240,7 @@
 				transform: scale(1.025) translateY(1px);
 			}
 
-			/* 🔐 Auth nav: centred, no underline, with "|" separators, colours like tabs */
+			/* 🔐 Auth nav */
 			#header .bottom {
 				text-align: center;
 			}
@@ -267,7 +258,8 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
-			#nav-auth ul li + li::before {
+			/* 🔹 separators between items, but NOT before Logout */
+			#nav-auth ul li + li:not(#nav-logout-item)::before {
 				content: "|";
 				margin: 0 6px;
 				opacity: 0.75;
@@ -276,11 +268,11 @@
 				text-decoration: none !important;
 				border: none !important;
 				box-shadow: none !important;
-				color: rgba(255, 255, 255, 0.55) !important; /* unselected tab */
+				color: rgba(255, 255, 255, 0.55) !important;
 				transition: color 0.1s ease;
 			}
 			#nav-auth a:hover {
-				color: #ffffff !important; /* selected tab */
+				color: #ffffff !important;
 			}
 		</style>
 	</head>
@@ -519,7 +511,6 @@
 					});
 				}
 
-				// ✅ Add "instant" option so initial load doesn't smooth-scroll
 				function scrollToId(id, instant) {
 					var el = document.getElementById(id);
 					if (!el) return;
@@ -544,7 +535,6 @@
 				var initial = (new URL(window.location.href)).searchParams.get('section');
 				if (initial && document.getElementById(initial)) {
 					requestAnimationFrame(function () {
-						// ✅ Initial load jumps instantly (no scroll animation)
 						scrollToId(initial, true);
 						setActiveById(initial);
 						clearSectionFromUrl();
@@ -594,7 +584,6 @@
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
 					if (id && document.getElementById(id)) {
-						// ✅ Back/forward jumps instantly too
 						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
@@ -656,7 +645,6 @@
 
 			onAuthStateChanged(auth, async (user) => {
 				if (!user) {
-					// Signed out → show Login + Sign up, hide Admin + Logout
 					setVisible(liLogin, true);
 					setVisible(liSignup, true);
 					setVisible(liLogout, false);
@@ -664,7 +652,6 @@
 					return;
 				}
 
-				// Signed in → show Logout, hide Login/Signup
 				const admin = await isAdminUser(user);
 				setVisible(liLogin, false);
 				setVisible(liSignup, false);
@@ -676,11 +663,9 @@
 				e.preventDefault();
 				try {
 					await signOut(auth);
-					// After logout, reload to reset UI state
 					window.location.href = "index.html";
 				} catch (err) {
 					console.error("Logout failed:", err);
-					// You could add a small inline status somewhere if you like.
 				}
 			});
 		</script>
