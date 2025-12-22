@@ -528,7 +528,6 @@
 							</a>
 						</li>
 
-						<!-- ✅ Edit posts button -->
 						<li>
 							<a
 								href="edit_articles_admin.html"
@@ -710,11 +709,13 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages, but default to "current") -->
+		<!-- ✅ Section nav: remembers last section using sessionStorage -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
 				if (!nav) return;
+
+				const STORAGE_KEY = 'articlesAdminLastSection';
 
 				function hrefToId(href) {
 					try {
@@ -796,10 +797,21 @@
 
 						scrollToId(id, false);
 						clearSectionFromUrl();
+
+						// ✅ remember last section for refresh
+						try {
+							window.sessionStorage.setItem(STORAGE_KEY, id);
+						} catch (_) {}
 					});
 				});
 
-				var initial = (new URL(window.location.href)).searchParams.get('section');
+				var url = new URL(window.location.href);
+				var initial = url.searchParams.get('section');
+				var stored = null;
+				try {
+					stored = window.sessionStorage.getItem(STORAGE_KEY);
+				} catch (_) {}
+
 				if (initial && document.getElementById(initial)) {
 					document.documentElement.setAttribute('data-prejump', initial);
 
@@ -808,9 +820,18 @@
 					clearSectionFromUrl();
 
 					document.documentElement.removeAttribute('data-prejump');
+
+					try {
+						window.sessionStorage.setItem(STORAGE_KEY, initial);
+					} catch (_) {}
+				} else if (stored && document.getElementById(stored)) {
+					scrollToId(stored, true);
+					setActiveById(stored);
 				} else {
-					/* ✅ No section in URL → default highlight to "current" on first load/refresh */
 					setActiveById('current');
+					try {
+						window.sessionStorage.setItem(STORAGE_KEY, 'current');
+					} catch (_) {}
 				}
 
 				var ticking = false;
@@ -844,6 +865,9 @@
 
 						if (best && Date.now() >= lockedUntil) {
 							setActiveById(best.id);
+							try {
+								window.sessionStorage.setItem(STORAGE_KEY, best.id);
+							} catch (_) {}
 						}
 					});
 				}
@@ -856,10 +880,11 @@
 						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
+						try {
+							window.sessionStorage.setItem(STORAGE_KEY, id);
+						} catch (_) {}
 					}
 				});
-
-				/* ❌ removed onScroll() here so it doesn't override initial "current" state */
 			})();
 		</script>
 

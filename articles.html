@@ -370,7 +370,7 @@
 				padding-right: 40px !important; /* was 30px */
 			}
 
-			/* ✅ FORCE: white article card 5px from each side */
+			/* ✅ FORCE: white article card 5px from each side and 20px gap below */
 			#latest-article-mount.latest-article {
 				max-width: none !important;
 				width: 100% !important;
@@ -597,11 +597,13 @@
 			loadLatestPublished();
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as before, but default to "current" on refresh) -->
+		<!-- ✅ Section nav: remembers last section using sessionStorage -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
 				if (!nav) return;
+
+				const STORAGE_KEY = 'articlesLastSection';
 
 				function hrefToId(href) {
 					try {
@@ -683,11 +685,23 @@
 
 						scrollToId(id, false);
 						clearSectionFromUrl();
+
+						// ✅ remember last section for refresh
+						try {
+							window.sessionStorage.setItem(STORAGE_KEY, id);
+						} catch (_) {}
 					});
 				});
 
-				var initial = (new URL(window.location.href)).searchParams.get('section');
+				var url = new URL(window.location.href);
+				var initial = url.searchParams.get('section');
+				var stored = null;
+				try {
+					stored = window.sessionStorage.getItem(STORAGE_KEY);
+				} catch (_) {}
+
 				if (initial && document.getElementById(initial)) {
+					// ✅ direct link with ?section=... → respect URL
 					document.documentElement.setAttribute('data-prejump', initial);
 
 					scrollToId(initial, true);
@@ -695,9 +709,20 @@
 					clearSectionFromUrl();
 
 					document.documentElement.removeAttribute('data-prejump');
+
+					try {
+						window.sessionStorage.setItem(STORAGE_KEY, initial);
+					} catch (_) {}
+				} else if (stored && document.getElementById(stored)) {
+					// ✅ no URL param, but we have a last section stored → restore it
+					scrollToId(stored, true);
+					setActiveById(stored);
 				} else {
-					/* ✅ No section in URL → default highlight to "current" on first load/refresh */
+					// ✅ fall back to "current"
 					setActiveById('current');
+					try {
+						window.sessionStorage.setItem(STORAGE_KEY, 'current');
+					} catch (_) {}
 				}
 
 				var ticking = false;
@@ -731,6 +756,10 @@
 
 						if (best && Date.now() >= lockedUntil) {
 							setActiveById(best.id);
+							// ✅ update stored section when user scrolls into a new one
+							try {
+								window.sessionStorage.setItem(STORAGE_KEY, best.id);
+							} catch (_) {}
 						}
 					});
 				}
@@ -743,10 +772,13 @@
 						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
+						try {
+							window.sessionStorage.setItem(STORAGE_KEY, id);
+						} catch (_) {}
 					}
 				});
 
-				/* ❌ removed onScroll() here so it doesn't override initial "current" state */
+				/* ❌ no initial onScroll(); we keep whatever we set above */
 			})();
 		</script>
 
