@@ -382,25 +382,11 @@
 
 			/* ✅ FORCE: white article card 5px from each side */
 			#latest-article-mount.latest-article {
-				padding-left: 20px !important;
-				padding-right: 20px !important;
-			}
-
-			#latest-article-mount.latest-article .card {
-				width: 100% !important;
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-				box-sizing: border-box !important;
-			}
-
-			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
-			       and sit 20px below the top bar, with 20px bottom gap to the next section */
-			#latest-article-mount.latest-article {
-				max-width: none !important;
-				width: 100% !important;
 				padding: 0 20px !important;      /* 20px left + 20px right */
 				box-sizing: border-box !important;
 				margin: -50px 0 20px !important; /* 20px gap below article */
+				max-width: none !important;
+				width: 100% !important;
 			}
 
 			#latest-article-mount.latest-article .card {
@@ -414,7 +400,7 @@
 				height: 330px !important;
 			}
 
-			/* 📱 Mobile tweaks (same as public articles page) */
+			/* 📱 Mobile tweaks */
 			@media screen and (max-width: 736px) {
 				/* hero 25% shorter (330px → 247.5px) */
 				.latest-article .hero,
@@ -422,19 +408,27 @@
 					height: calc(330px * 0.75) !important;
 				}
 
-				/* 👉 article box 10px wider each side (smaller horizontal padding)
-				   and keep 20px gap below the article */
+				/* 👉 article box 10px wider each side (current 20px → 10px padding)
+					   and keep 20px gap below the article */
 				#latest-article-mount.latest-article {
-					padding: 0 5px !important;
+					padding: 0 10px !important;
 					margin: -50px 0 20px !important;
 				}
 			}
 
-			/* 🎯 Stack Create/Edit buttons vertically aligned on same x-axis as header */
+			/* 🎯 Stack Create/Edit buttons vertically on same x-axis as header, no bullets */
 			#create .actions {
 				display: inline-flex;
 				flex-direction: column;
 				align-items: center;
+				list-style: none;
+				margin-left: 0;
+				padding-left: 0;
+			}
+			#create .actions li {
+				list-style: none;
+				margin-left: 0;
+				padding-left: 0;
 			}
 			#create .actions li + li {
 				margin-top: 20px; /* Edit posts 20px lower than Create post */
@@ -732,7 +726,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages) -->
+		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
