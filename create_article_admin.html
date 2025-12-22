@@ -589,11 +589,11 @@
 						<div id="mock-hero" class="mock-hero"></div>
 
 						<div class="mock-body">
-							<!-- ✅ Title + Published in same row, same Y axis -->
+							<!-- ✅ Title + date in same row, same Y axis -->
 							<div class="mock-header-row">
 								<h1 class="mock-header-title" id="mock-title">Your Article Title</h1>
 								<div class="mock-header-meta">
-									<span id="mock-date">Published: 22 Dec 2025</span>
+									<span id="mock-date">22 Dec 2025</span>
 									<span>•</span>
 									<span>PinPark</span>
 								</div>
@@ -993,12 +993,11 @@
 				}
 			}
 
+			// ✅ now preserves any HTML (e.g. <ul>, <li>, <strong>) instead of stripping it
 			function paragraphHtmlToTextarea(html) {
 				if (!html) return "";
 				let s = String(html);
 				s = s.replace(/<br\s*\/?>/gi, "\n");
-				// strip any remaining tags
-				s = s.replace(/<[^>]*>/g, "");
 				return s;
 			}
 
