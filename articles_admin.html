@@ -1,4 +1,4 @@
-<!-- articles.html -->
+<!-- articles_admin.html -->
 <!DOCTYPE HTML>
 <!--
 	Prologue by HTML5 UP
@@ -296,7 +296,7 @@
 				<img src="pinpark.png" alt="PinPark" />
 				<header class="articles-under-logo"><h2>V1.0.0 In Development</h2></header>
 
-				<!-- 🔹 New blue "Create post" button (admin-style) -->
+				<!-- 🔹 Blue "Create post" button -->
 				<ul class="actions" style="margin-top: 0.7em;">
 					<li>
 						<a
@@ -498,6 +498,54 @@
 
 				onScroll();
 			})();
+		</script>
+
+		<!-- 🔐 Admin guard (must be signed-in admin or get kicked out) -->
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import {
+				getAuth,
+				onAuthStateChanged
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
+
+			const app  = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
+
+			async function checkAdmin(user) {
+				if (!user) return false;
+				const snap = await getDoc(doc(db, "admins", user.uid));
+				return snap.exists();
+			}
+
+			onAuthStateChanged(auth, async (user) => {
+				// Not signed in → send to login
+				if (!user) {
+					window.location.href = "auth.html?mode=login";
+					return;
+				}
+
+				// Signed in but not admin → send to main site
+				const isAdmin = await checkAdmin(user);
+				if (!isAdmin) {
+					window.location.href = "index.html";
+				}
+			});
 		</script>
 
 	</body>
