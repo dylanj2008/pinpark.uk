@@ -163,7 +163,7 @@
 				margin-right: auto;
 			}
 
-			/* ✅ Hero image box: default matches the big smooth blue hero look */
+			/* ✅ Hero image box: now visually matches the big smooth blue hero look */
 			.hero-drop {
 				width: 100%;
 				max-width: 900px;
@@ -184,7 +184,7 @@
 				position: relative;
 				overflow: hidden;
 
-				/* ✅ Default look (only used until an image is uploaded) */
+				/* Base gradient (sits under the tints) */
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
 
 				/* uploaded image goes here (set by JS) */
@@ -193,10 +193,47 @@
 				background-repeat: no-repeat;
 			}
 
-			/* ✅ Remove extra overlays so it stays clean like the screenshot */
-			.hero-drop::before,
+			/* ✅ Apply the same tint + circles as the hero / mock-hero */
+			.hero-drop::before {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				);
+			}
 			.hero-drop::after {
-				content: none;
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
 			}
 
 			/* Title always shown on hero */
@@ -265,7 +302,7 @@
 				background-position: center;
 				background-repeat: no-repeat;
 			}
-			/* Default hero tint (now matches page top strip tint) */
+			/* Default hero tint (matches page top strip tint) */
 			.article-mock .mock-hero::before {
 				content: "";
 				position: absolute;
@@ -307,38 +344,36 @@
 						rgba(0, 138, 205, 0.75) 100%
 					);
 			}
-			.article-mock .mock-hero .mock-hero-inner {
-				position: relative;
-				z-index: 1;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				padding: 22px;
-				box-sizing: border-box;
-				text-align: center;
-			}
-			.article-mock .mock-hero-title {
-				color: #fff;
-				font-size: 1.6em;
-				line-height: 1.15;
-				margin: 0;
-				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
-				word-break: break-word;
-				max-width: 92%;
-			}
 			.article-mock .mock-body {
 				padding: 22px 22px 20px;
 			}
-			.article-mock .mock-meta {
+
+			/* ✅ NEW: title + Published row on SAME Y axis */
+			.article-mock .mock-header-row {
 				display: flex;
-				gap: 10px;
+				align-items: center; /* same vertical axis */
+				justify-content: space-between;
+				gap: 16px;
 				flex-wrap: wrap;
-				align-items: center;
 				margin: 0 0 14px 0;
+			}
+			.article-mock .mock-header-title {
+				margin: 0;
+				font-size: 1.6em;
+				line-height: 1.15;
+				color: #000;
+				word-break: break-word;
+			}
+			.article-mock .mock-header-meta {
+				margin: 0;
 				color: rgba(0,0,0,0.55);
 				font-size: 0.9em;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				white-space: nowrap;
 			}
+
 			.article-mock .mock-tags {
 				display: flex;
 				gap: 8px;
@@ -551,17 +586,17 @@
 				<!-- ✅ MOCKUP PREVIEW (how it will look as an actual article) -->
 				<div class="article-mock">
 					<div class="mock-card">
-						<div id="mock-hero" class="mock-hero">
-							<div class="mock-hero-inner">
-								<h1 class="mock-hero-title" id="mock-title">Your Article Title</h1>
-							</div>
-						</div>
+						<div id="mock-hero" class="mock-hero"></div>
 
 						<div class="mock-body">
-							<div class="mock-meta">
-								<span id="mock-date">Published: 22 Dec 2025</span>
-								<span>•</span>
-								<span>PinPark</span>
+							<!-- ✅ Title + Published in same row, same Y axis -->
+							<div class="mock-header-row">
+								<h1 class="mock-header-title" id="mock-title">Your Article Title</h1>
+								<div class="mock-header-meta">
+									<span id="mock-date">Published: 22 Dec 2025</span>
+									<span>•</span>
+									<span>PinPark</span>
+								</div>
 							</div>
 
 							<div id="mock-content">
