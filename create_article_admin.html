@@ -163,7 +163,7 @@
 				margin-right: auto;
 			}
 
-			/* ✅ Hero image box: default uses same PinPark hero style as index.html hero */
+			/* ✅ Hero image box: default uses same PinPark top-strip design (matches #create.cover) */
 			.hero-drop {
 				width: 100%;
 				max-width: 900px;
@@ -190,7 +190,7 @@
 				background-repeat: no-repeat;
 			}
 
-			/* Default hero tint (matches index.html #home.cover:before) */
+			/* Default hero tint (matches page top strip tint) */
 			.hero-drop::before {
 				content: "";
 				position: absolute;
@@ -205,7 +205,7 @@
 				);
 			}
 
-			/* Default hero overlay (matches index.html #home.cover::after) */
+			/* Default hero overlay (matches page top strip overlay) */
 			.hero-drop::after {
 				content: "";
 				position: absolute;
@@ -277,7 +277,7 @@
 				background-position: center;
 				background-repeat: no-repeat;
 			}
-			/* Default hero tint if no image */
+			/* Default hero tint (now matches page top strip tint) */
 			.article-mock .mock-hero::before {
 				content: "";
 				position: absolute;
@@ -324,10 +324,11 @@
 				z-index: 1;
 				height: 100%;
 				display: flex;
-				flex-direction: column;
-				justify-content: flex-end;
-				padding: 22px 22px 18px;
+				align-items: center;          /* ✅ center vertically */
+				justify-content: center;      /* ✅ center horizontally */
+				padding: 22px;
 				box-sizing: border-box;
+				text-align: center;
 			}
 			.article-mock .mock-hero-title {
 				color: #fff;
@@ -336,6 +337,7 @@
 				margin: 0;
 				text-shadow: 0 4px 14px rgba(0,0,0,0.22);
 				word-break: break-word;
+				max-width: 92%;
 			}
 			.article-mock .mock-body {
 				padding: 22px 22px 20px;
