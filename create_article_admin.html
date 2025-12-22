@@ -188,7 +188,7 @@
 				background: rgba(0,0,0,0.08);
 			}
 
-			/* ✅ Hero image box */
+			/* ✅ Hero image box: now visually matches the big smooth blue hero look */
 			.hero-drop {
 				width: 100%;
 				max-width: 900px;
@@ -218,7 +218,7 @@
 				background-repeat: no-repeat;
 			}
 
-			/* ✅ Apply the same tint + circles as the hero / mock-hero (default state) */
+			/* ✅ Apply the same tint + circles as the hero / mock-hero */
 			.hero-drop::before {
 				content: "";
 				position: absolute;
@@ -259,12 +259,6 @@
 						rgba(0, 138, 205, 0.75) 0%,
 						rgba(0, 138, 205, 0.75) 100%
 					);
-			}
-
-			/* ✅ REMOVE blue tint once a real image is used */
-			.hero-drop.has-image::before,
-			.hero-drop.has-image::after {
-				background: none !important;
 			}
 
 			/* Title always shown on hero */
@@ -375,13 +369,6 @@
 						rgba(0, 138, 205, 0.75) 100%
 					);
 			}
-
-			/* ✅ REMOVE tint from preview hero when real image set */
-			.article-mock .mock-hero.has-image::before,
-			.article-mock .mock-hero.has-image::after {
-				background: none !important;
-			}
-
 			.article-mock .mock-body {
 				padding: 22px 22px 20px;
 			}
@@ -783,22 +770,15 @@
 				function setHeroFile(file) {
 					if (!file || !file.type || !file.type.startsWith("image/")) return;
 
-					// store selected file globally so the module script can upload it
-					window.__heroFile = file;
-
 					var reader = new FileReader();
 					reader.onload = function () {
 						var dataUrl = reader.result;
 						drop.style.backgroundImage = "url('" + dataUrl + "')";
-						drop.classList.add("has-image");       // ✅ remove blue tint on create box
-
-						// still keep in hidden for preview / legacy; Storage will overwrite with URL on publish
-						hidden.value = dataUrl;
+						hidden.value = dataUrl; // later: upload to Storage and save URL instead
 
 						// ✅ also update mock hero background
 						if (mockHero) {
 							mockHero.style.backgroundImage = "url('" + dataUrl + "')";
-							mockHero.classList.add("has-image"); // ✅ remove tint on preview hero
 						}
 					};
 					reader.readAsDataURL(file);
@@ -939,25 +919,11 @@
 			})();
 		</script>
 
-		<!-- 🔐 Admin guard + ✅ Publish + Edit logic (Firestore + Storage) -->
+		<!-- 🔐 Admin guard + ✅ Publish + Edit logic -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc,
-				collection,
-				addDoc,
-				updateDoc,
-				serverTimestamp
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-			import {
-				getStorage,
-				ref,
-				uploadBytes,
-				getDownloadURL
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
+			import { getFirestore, doc, getDoc, collection, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -972,7 +938,6 @@
 			const app  = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
 			const db   = getFirestore(app);
-			const storage = getStorage(app);
 
 			let currentArticleId = null;
 			let nextSectionIndex = 1000; // for edit-created sections
@@ -1003,7 +968,7 @@
 					.split(/\n\s*\n/g)
 					.map(p => p.trim())
 					.filter(Boolean)
-					.map(p => p.replace(/\n/g, "<br>"));
+					.map(p => p.replace(/\\n/g, "<br>"));
 			}
 
 			function escapeHtml(str) {
@@ -1015,7 +980,7 @@
 					.replace(/'/g, "&#039;");
 			}
 
-			function buildArticlePayload(heroImageUrlFromStorage) {
+			function buildArticlePayload() {
 				const titleInput = document.querySelector('input[name="title"]');
 				const heroHidden = document.getElementById("heroImageDataUrl");
 				const mainSubheadingInput = document.querySelector('input[name="subheading_main"]');
@@ -1024,13 +989,7 @@
 				const sectionsContainer = document.getElementById("sections-container");
 
 				const title = (titleInput?.value || "").trim();
-
-				// ✅ Prefer Storage URL if provided, otherwise whatever is in the hidden field
-				const heroImageValue =
-					(heroImageUrlFromStorage !== undefined && heroImageUrlFromStorage !== null && heroImageUrlFromStorage !== "")
-						? heroImageUrlFromStorage
-						: ((heroHidden?.value || "").trim() || null);
-
+				const heroImageDataUrl = (heroHidden?.value || "").trim() || null;
 				const mainSubheading = (mainSubheadingInput?.value || "").trim();
 				const mainRaw = (contentInput?.value || "").trim();
 
@@ -1040,7 +999,8 @@
 					.filter(Boolean)
 					.slice(0, 12);
 
-				// ✅ blocks = structured content
+				// ✅ blocks = structured content you can render safely anywhere
+				// types: "subheading" | "paragraph"
 				const blocks = [];
 
 				if (mainSubheading) blocks.push({ type: "subheading", text: mainSubheading });
@@ -1065,7 +1025,7 @@
 					});
 				}
 
-				// ✅ renderedHtml
+				// ✅ renderedHtml = ready-to-display HTML that matches the mock style
 				const renderedHtml = blocks.map(b => {
 					if (b.type === "subheading") {
 						return `<h3 style="margin: 0 0 20px 0; color: #666;">${escapeHtml(b.text)}</h3>`;
@@ -1075,7 +1035,7 @@
 
 				return {
 					title,
-					heroImageDataUrl: heroImageValue, // now usually a Storage URL
+					heroImageDataUrl,
 					tags,
 					blocks,
 					renderedHtml
@@ -1083,7 +1043,6 @@
 			}
 
 			function refreshPreviewFromForm() {
-				// use whatever is in the hidden field for preview
 				const payload = buildArticlePayload();
 
 				const mockTitle = document.getElementById("mock-title");
@@ -1230,11 +1189,9 @@
 						heroHidden.value = hero;
 						if (hero && heroDrop) {
 							heroDrop.style.backgroundImage = `url('${hero}')`;
-							heroDrop.classList.add("has-image");   // ✅ no tint in create box when editing
 						}
 						if (hero && mockHero) {
 							mockHero.style.backgroundImage = `url('${hero}')`;
-							mockHero.classList.add("has-image");   // ✅ no tint in mock hero
 						}
 					}
 
@@ -1317,49 +1274,12 @@
 				}
 			}
 
-			// ✅ Upload hero to Firebase Storage if needed
-			async function uploadHeroImageIfNeeded() {
-				const heroHidden = document.getElementById("heroImageDataUrl");
-				const existing = (heroHidden?.value || "").trim();
-				const heroFile = window.__heroFile || null;
-
-				// If user picked a new file, upload it
-				if (heroFile) {
-					try {
-						const safeName = heroFile.name || "hero.jpg";
-						const storageRef = ref(storage, "article-heroes/" + Date.now() + "_" + safeName);
-						const snapshot = await uploadBytes(storageRef, heroFile);
-						const url = await getDownloadURL(snapshot.ref);
-
-						// store URL in hidden field for preview / editing
-						if (heroHidden) heroHidden.value = url;
-						window.__heroFile = null;
-
-						return url;
-					} catch (e) {
-						console.error("Hero image upload failed:", e);
-						alert("Hero image upload failed: " + (e?.message || e));
-						throw e;
-					}
-				}
-
-				// No new file, but we might have an existing URL or legacy data URL
-				if (existing) return existing;
-
-				// No hero image
-				return null;
-			}
-
 			async function publishArticle() {
 				const btn = document.getElementById("publish-btn");
 				if (btn) btn.disabled = true;
 
 				try {
-					// ✅ Upload hero image first (if needed) and get a URL
-					const heroImageUrl = await uploadHeroImageIfNeeded();
-
-					// ✅ Now build payload using that URL (or existing one)
-					const payload = buildArticlePayload(heroImageUrl);
+					const payload = buildArticlePayload();
 
 					if (!payload.title) {
 						alert("Please enter a title before publishing.");
