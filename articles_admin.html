@@ -99,7 +99,7 @@
 					);
 			}
 
-			/* ✅ Hero content (title) */
+			/* (Hero title style is kept, but we now use the title below the hero) */
 			.current-hero-content {
 				margin: 0 !important;
 				padding: 0 !important;
@@ -122,7 +122,7 @@
 				}
 			}
 
-			/* ✅ Published text now lives *below* the hero, so use dark text */
+			/* ✅ Published text style (used below hero, in header row) */
 			.current-hero-meta {
 				margin: 12px 0 16px 0 !important;
 				color: rgba(0,0,0,0.55) !important;
@@ -171,10 +171,34 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Content under hero (replaces the old "under strip" positioning) */
+			/* ✅ Content under hero */
 			#main .article-under-hero {
 				margin-top: 45px !important;
 				text-align: center;
+			}
+
+			/* ✅ New: title + published on the same row, same Y-axis */
+			.article-under-hero-header {
+				max-width: 900px;
+				margin: 0 auto 16px;
+				padding: 0 30px;
+				box-sizing: border-box;
+				display: flex;
+				align-items: center;  /* same vertical line */
+				justify-content: space-between;
+				gap: 16px;
+				text-align: left;
+			}
+			.article-under-hero-header .current-hero-title {
+				margin: 0;
+				padding: 0;
+				color: #000 !important;       /* override hero white */
+				text-shadow: none !important; /* clean text in content area */
+				font-size: 2.0em;
+				line-height: 1.1;
+			}
+			.article-under-hero-header .current-hero-meta {
+				margin: 0 !important;
 			}
 
 			/* ✅ Current Article paragraph/card area: centered + 30px padding each side */
@@ -313,18 +337,22 @@
 
 		<!-- Main -->
 		<div id="main">
-			<!-- ✅ Top strip is now the HERO -->
+			<!-- ✅ Top strip is now the HERO (image + tint only) -->
 			<section id="current" class="one dark cover">
 				<div class="container">
 					<header class="current-hero-content">
-						<h1 class="current-hero-title" id="current-article-title"></h1>
+						<!-- hero text removed; title now sits below in the section header -->
 					</header>
 				</div>
 			</section>
 
-			<!-- ✅ Published text + article content under the hero -->
+			<!-- ✅ Title + Published text + article content under the hero -->
 			<div class="article-under-hero">
-				<p class="current-hero-meta" id="current-article-meta"></p>
+				<!-- Title + meta on the same Y-axis -->
+				<div class="article-under-hero-header">
+					<h1 class="current-hero-title" id="current-article-title"></h1>
+					<p class="current-hero-meta" id="current-article-meta"></p>
+				</div>
 
 				<div class="articles-paragraph" id="current-article-body">
 					Your current article will go here.
@@ -624,7 +652,7 @@
 					metaEl.textContent = dateText ? `Published: ${dateText} • PinPark` : "PinPark";
 				}
 
-				// Article content card (hero moved to top section)
+				// Article content card under the header row
 				bodyEl.innerHTML = `
 					<div style="
 						max-width: 900px;
