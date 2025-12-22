@@ -372,20 +372,6 @@
 
 			/* ✅ FORCE: white article card 5px from each side */
 			#latest-article-mount.latest-article {
-				padding-left: 20px !important;
-				padding-right: 20px !important;
-			}
-
-			#latest-article-mount.latest-article .card {
-				width: 100% !important;
-				margin-left: 0 !important;
-				margin-right: 0 !important;
-				box-sizing: border-box !important;
-			}
-
-			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
-			       and sit 20px below the top bar, with 20px bottom gap to the next section */
-			#latest-article-mount.latest-article {
 				max-width: none !important;
 				width: 100% !important;
 				padding: 0 20px !important;             /* 20px left + 20px right */
@@ -412,10 +398,10 @@
 					height: calc(330px * 0.75) !important;
 				}
 
-				/* 👉 article box 10px wider each side (current 15px → 5px padding) */
+				/* 👉 article box 10px wider each side (20px → 5px padding), keep 20px gap below */
 				#latest-article-mount.latest-article {
 					padding: 0 5px !important;
-					margin: -50px 0 20px !important;   /* keep same 20px bottom gap on mobile */
+					margin: -50px 0 20px !important;
 				}
 			}
 		</style>
@@ -611,7 +597,7 @@
 			loadLatestPublished();
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as before) -->
+		<!-- ✅ Section nav (same behaviour as before, but default to "current" on refresh) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -709,6 +695,9 @@
 					clearSectionFromUrl();
 
 					document.documentElement.removeAttribute('data-prejump');
+				} else {
+					/* ✅ No section in URL → default highlight to "current" on first load/refresh */
+					setActiveById('current');
 				}
 
 				var ticking = false;
@@ -757,7 +746,7 @@
 					}
 				});
 
-				onScroll();
+				/* ❌ removed onScroll() here so it doesn't override initial "current" state */
 			})();
 		</script>
 

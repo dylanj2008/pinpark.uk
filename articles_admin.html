@@ -380,13 +380,13 @@
 				padding-right: 40px !important; /* was 30px */
 			}
 
-			/* ✅ FORCE: white article card 5px from each side */
+			/* ✅ FORCE: white article card 5px from each side and 20px bottom gap */
 			#latest-article-mount.latest-article {
+				max-width: none !important;
+				width: 100% !important;
 				padding: 0 20px !important;      /* 20px left + 20px right */
 				box-sizing: border-box !important;
 				margin: -50px 0 20px !important; /* 20px gap below article */
-				max-width: none !important;
-				width: 100% !important;
 			}
 
 			#latest-article-mount.latest-article .card {
@@ -398,22 +398,6 @@
 			/* 🔥 FINAL OVERRIDE: force hero height to 330px in admin card */
 			#latest-article-mount.latest-article .hero {
 				height: 330px !important;
-			}
-
-			/* 📱 Mobile tweaks */
-			@media screen and (max-width: 736px) {
-				/* hero 25% shorter (330px → 247.5px) */
-				.latest-article .hero,
-				#latest-article-mount.latest-article .hero {
-					height: calc(330px * 0.75) !important;
-				}
-
-				/* 👉 article box 10px wider each side (current 20px → 10px padding)
-					   and keep 20px gap below the article */
-				#latest-article-mount.latest-article {
-					padding: 0 10px !important;
-					margin: -50px 0 20px !important;
-				}
 			}
 
 			/* 🎯 Stack Create/Edit buttons vertically on same x-axis as header, no bullets */
@@ -726,7 +710,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
+		<!-- ✅ Section nav (same behaviour as other pages, but default to "current") -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -824,6 +808,9 @@
 					clearSectionFromUrl();
 
 					document.documentElement.removeAttribute('data-prejump');
+				} else {
+					/* ✅ No section in URL → default highlight to "current" on first load/refresh */
+					setActiveById('current');
 				}
 
 				var ticking = false;
@@ -872,7 +859,7 @@
 					}
 				});
 
-				onScroll();
+				/* ❌ removed onScroll() here so it doesn't override initial "current" state */
 			})();
 		</script>
 
