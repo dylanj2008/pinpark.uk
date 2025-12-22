@@ -430,8 +430,17 @@
 				}
 			}
 
-			/* 🎯 Create / Edit buttons: match homepage donation/contact buttons
-			   (gradient, hover colour swap, scale on hover/active) */
+			/* 🎯 Stack Create/Edit buttons vertically aligned on same x-axis as header */
+			#create .actions {
+				display: inline-flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			#create .actions li + li {
+				margin-top: 20px; /* Edit posts 20px lower than Create post */
+			}
+
+			/* 🎯 Create / Edit buttons: match homepage donation/contact buttons */
 			#create .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
@@ -541,7 +550,7 @@
 							</a>
 						</li>
 
-						<!-- ✅ NEW: Edit posts button -->
+						<!-- ✅ Edit posts button -->
 						<li>
 							<a
 								href="edit_articles_admin.html"
@@ -577,7 +586,7 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- 🔐 Admin guard + load latest published article (same card style as articles.html) -->
+		<!-- 🔐 Admin guard + load latest published article -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -669,7 +678,6 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
-				// ✅ Only title is inside the hero card; just hide placeholder text
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 			}
@@ -724,7 +732,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
+		<!-- ✅ Section nav (same behaviour as other pages) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
