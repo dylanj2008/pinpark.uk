@@ -384,13 +384,13 @@
 			}
 
 			/* ✅ FORCE (NEW): white article card 5px from each side (override the 900px cap + padding)
-			       and sit 20px below the top bar */
+			       and sit 20px below the top bar, with 20px bottom gap to the next section */
 			#latest-article-mount.latest-article {
 				max-width: none !important;
 				width: 100% !important;
-				padding: 0 20px !important;      /* 20px left + 20px right */
+				padding: 0 20px !important;             /* 20px left + 20px right */
 				box-sizing: border-box !important;
-				margin: -50px 0 0 !important;    /* keeping your original vertical offset */
+				margin: -50px 0 20px !important;        /* ⬅️ bottom margin = 20px */
 			}
 
 			#latest-article-mount.latest-article .card {
@@ -415,6 +415,7 @@
 				/* 👉 article box 10px wider each side (current 15px → 5px padding) */
 				#latest-article-mount.latest-article {
 					padding: 0 5px !important;
+					margin: -50px 0 20px !important;   /* keep same 20px bottom gap on mobile */
 				}
 			}
 		</style>
