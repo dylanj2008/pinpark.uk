@@ -163,6 +163,31 @@
 				margin-right: auto;
 			}
 
+			/* ✅ Bullet toolbar for textareas */
+			.bullet-wrapper {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-end;
+				gap: 6px;
+			}
+
+			.bullet-toolbar {
+				align-self: flex-end;
+			}
+
+			.bullet-btn {
+				border-radius: 999px;
+				border: 1px solid rgba(0,0,0,0.12);
+				background: rgba(0,0,0,0.04);
+				padding: 4px 10px;
+				font-size: 0.9em;
+				cursor: pointer;
+			}
+
+			.bullet-btn:hover {
+				background: rgba(0,0,0,0.08);
+			}
+
 			/* ✅ Hero image box: now visually matches the big smooth blue hero look */
 			.hero-drop {
 				width: 100%;
@@ -348,7 +373,7 @@
 				padding: 22px 22px 20px;
 			}
 
-			/* ✅ NEW: title + Published row on SAME Y axis */
+			/* ✅ NEW: title + date on SAME Y axis */
 			.article-mock .mock-header-row {
 				display: flex;
 				align-items: center; /* same vertical axis */
@@ -526,7 +551,12 @@
 							</div>
 
 							<div class="col-12">
-								<textarea name="content" placeholder="Write your article here..." rows="10"></textarea>
+								<div class="bullet-wrapper">
+									<div class="bullet-toolbar">
+										<button type="button" class="bullet-btn" data-bullet-for="content">•</button>
+									</div>
+									<textarea name="content" placeholder="Write your article here..." rows="10"></textarea>
+								</div>
 							</div>
 
 							<!-- ✅ sections container (subheading + paragraph blocks) -->
@@ -754,6 +784,37 @@
 					reader.readAsDataURL(file);
 				}
 
+				function insertBulletAtCursor(textarea) {
+					if (!textarea) return;
+					var bullet = "• ";
+					var start = textarea.selectionStart || 0;
+					var end = textarea.selectionEnd || 0;
+					var value = textarea.value || "";
+
+					var before = value.slice(0, start);
+					var after = value.slice(end);
+
+					var lastNewline = before.lastIndexOf("\n");
+					var isLineStart = lastNewline === -1 || lastNewline === before.length - 1;
+
+					var insertText = isLineStart ? bullet : "\n" + bullet;
+
+					textarea.value = before + insertText + after;
+
+					var newPos = before.length + insertText.length;
+					textarea.selectionStart = textarea.selectionEnd = newPos;
+					textarea.focus();
+
+					textarea.dispatchEvent(new Event("input", { bubbles: true }));
+				}
+
+				function attachBulletButton(btn, textarea) {
+					if (!btn || !textarea) return;
+					btn.addEventListener("click", function () {
+						insertBulletAtCursor(textarea);
+					});
+				}
+
 				var sectionCount = 0;
 
 				function addSection() {
@@ -781,7 +842,22 @@
 
 					var tWrap = document.createElement("div");
 					tWrap.className = "col-12";
-					tWrap.appendChild(t);
+
+					var bulletWrapper = document.createElement("div");
+					bulletWrapper.className = "bullet-wrapper";
+
+					var toolbar = document.createElement("div");
+					toolbar.className = "bullet-toolbar";
+
+					var btn = document.createElement("button");
+					btn.type = "button";
+					btn.className = "bullet-btn";
+					btn.textContent = "•";
+
+					toolbar.appendChild(btn);
+					bulletWrapper.appendChild(toolbar);
+					bulletWrapper.appendChild(t);
+					tWrap.appendChild(bulletWrapper);
 
 					wrapper.appendChild(hWrap);
 					wrapper.appendChild(tWrap);
@@ -790,11 +866,17 @@
 					h.addEventListener("input", syncContent);
 					t.addEventListener("input", syncContent);
 
+					attachBulletButton(btn, t);
+
 					syncContent();
 				}
 
 				titleInput.addEventListener("input", syncTitle);
 				syncTitle();
+
+				// ✅ attach bullet button for main content
+				var mainBulletBtn = document.querySelector('.bullet-btn[data-bullet-for="content"]');
+				attachBulletButton(mainBulletBtn, contentInput);
 
 				mainSubheadingInput && mainSubheadingInput.addEventListener("input", syncContent);
 				contentInput && contentInput.addEventListener("input", syncContent);
@@ -886,7 +968,7 @@
 					.split(/\n\s*\n/g)
 					.map(p => p.trim())
 					.filter(Boolean)
-					.map(p => p.replace(/\n/g, "<br>"));
+					.map(p => p.replace(/\\n/g, "<br>"));
 			}
 
 			function escapeHtml(str) {
@@ -1029,14 +1111,47 @@
 				tArea.rows = 6;
 				tArea.value = bodyText || "";
 
+				const bulletWrapper = document.createElement("div");
+				bulletWrapper.className = "bullet-wrapper";
+
+				const toolbar = document.createElement("div");
+				toolbar.className = "bullet-toolbar";
+
+				const btn = document.createElement("button");
+				btn.type = "button";
+				btn.className = "bullet-btn";
+				btn.textContent = "•";
+
+				toolbar.appendChild(btn);
+				bulletWrapper.appendChild(toolbar);
+				bulletWrapper.appendChild(tArea);
+				tWrap.appendChild(bulletWrapper);
+
 				hWrap.appendChild(hInput);
-				tWrap.appendChild(tArea);
 				wrapper.appendChild(hWrap);
 				wrapper.appendChild(tWrap);
 				sectionsContainer.appendChild(wrapper);
 
 				hInput.addEventListener("input", refreshPreviewFromForm);
 				tArea.addEventListener("input", refreshPreviewFromForm);
+
+				btn.addEventListener("click", function () {
+					const textarea = tArea;
+					const bullet = "• ";
+					const start = textarea.selectionStart || 0;
+					const end = textarea.selectionEnd || 0;
+					const value = textarea.value || "";
+					const before = value.slice(0, start);
+					const after = value.slice(end);
+					const lastNewline = before.lastIndexOf("\n");
+					const isLineStart = lastNewline === -1 || lastNewline === before.length - 1;
+					const insertText = isLineStart ? bullet : "\n" + bullet;
+					textarea.value = before + insertText + after;
+					const newPos = before.length + insertText.length;
+					textarea.selectionStart = textarea.selectionEnd = newPos;
+					textarea.focus();
+					textarea.dispatchEvent(new Event("input", { bubbles: true }));
+				});
 			}
 
 			async function loadExistingArticle(articleId) {
