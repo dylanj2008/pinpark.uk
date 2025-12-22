@@ -372,7 +372,7 @@
 		<div id="header">
 			<div class="top">
 				<div id="logo">
-					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+					<span class="image"><img src="pinparkadmin.png" alt="PinPark" /></span>
 				</div>
 
 				<nav id="nav">
@@ -406,7 +406,7 @@
 			<div class="pinpark-under-strip">
 				<img src="pinpark.png" alt="PinPark" />
 				<header class="articles-under-logo">
-					<h2 id="current-article-title">Latest Article</h2>
+					<h2>Latest Article</h2>
 				</header>
 
 				<p class="articles-paragraph" id="current-article-fallback">
@@ -559,11 +559,7 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
-				// update page heading
-				const h2 = document.getElementById("current-article-title");
-				if (h2) h2.textContent = title;
-
-				// hide placeholder
+				// ✅ ONLY title is inside the blue hero box now – no extra article title elsewhere
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 			}
