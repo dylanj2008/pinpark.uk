@@ -429,6 +429,32 @@
 					margin: -50px 0 20px !important;
 				}
 			}
+
+			/* 🎯 Create / Edit buttons: match homepage donation/contact buttons
+			   (gradient, hover colour swap, scale on hover/active) */
+			#create .actions .button {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
+				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				color: #fff !important;
+				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: scale(1);
+				transition:
+					transform 100ms ease,
+					box-shadow 100ms ease,
+					background 100ms ease;
+				display: inline-block;
+			}
+			#create .actions .button:hover {
+				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
+				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+				transform: scale(1.025);
+			}
+			#create .actions .button:active {
+				transform: scale(1.025) translateY(1px);
+			}
 		</style>
 	</head>
 
@@ -515,7 +541,7 @@
 							</a>
 						</li>
 
-						<!-- ✅ Edit posts button -->
+						<!-- ✅ NEW: Edit posts button -->
 						<li>
 							<a
 								href="edit_articles_admin.html"
@@ -551,7 +577,7 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- 🔐 Admin guard + load latest published article -->
+		<!-- 🔐 Admin guard + load latest published article (same card style as articles.html) -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -643,6 +669,7 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
+				// ✅ Only title is inside the hero card; just hide placeholder text
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 			}
@@ -697,7 +724,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav (same behaviour as other pages) -->
+		<!-- ✅ Section nav (same behaviour as other pages, no auth stuff here) -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
