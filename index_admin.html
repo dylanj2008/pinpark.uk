@@ -267,12 +267,6 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
-			/* 🔹 separators between items, but NOT before Logout */
-			#nav-auth ul li + li:not(#nav-logout-item)::before {
-				content: "|";
-				margin: 0 6px;
-				opacity: 0.75;
-			}
 			#nav-auth a {
 				text-decoration: none !important;
 				border: none !important;
@@ -308,15 +302,6 @@
 			<div class="bottom">
 				<nav id="nav-auth">
 					<ul>
-						<li id="nav-login-item">
-							<a href="auth.html?mode=login" id="link-login">Login</a>
-						</li>
-						<li id="nav-signup-item">
-							<a href="auth.html?mode=signup" id="link-signup">Sign up</a>
-						</li>
-						<li id="nav-admin-item" style="display:none;">
-							<a href="articles_admin.html" id="link-admin">Admin</a>
-						</li>
 						<li id="nav-logout-item" style="display:none;">
 							<a href="#" id="link-logout">Logout</a>
 						</li>
@@ -605,19 +590,10 @@
 			})();
 		</script>
 
-		<!-- 🔐 Auth state: swap Login/Sign up for Logout, show Admin for admins -->
+		<!-- 🔐 Auth state: show Logout only -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import {
-				getAuth,
-				onAuthStateChanged,
-				signOut
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -631,12 +607,8 @@
 
 			const app  = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
-			const db   = getFirestore(app);
 
-			const liLogin   = document.getElementById("nav-login-item");
-			const liSignup  = document.getElementById("nav-signup-item");
-			const liAdmin   = document.getElementById("nav-admin-item");
-			const liLogout  = document.getElementById("nav-logout-item");
+			const liLogout   = document.getElementById("nav-logout-item");
 			const logoutLink = document.getElementById("link-logout");
 
 			function setVisible(el, show) {
@@ -644,40 +616,15 @@
 				el.style.display = show ? "" : "none";
 			}
 
-			async function isAdminUser(user) {
-				if (!user) return false;
-				try {
-					const snap = await getDoc(doc(db, "admins", user.uid));
-					return snap.exists();
-				} catch (e) {
-					console.error("Admin check failed:", e);
-					return false;
-				}
-			}
-
 			onAuthStateChanged(auth, async (user) => {
-				if (!user) {
-					// Signed out → show Login + Sign up, hide Admin + Logout
-					setVisible(liLogin, true);
-					setVisible(liSignup, true);
-					setVisible(liLogout, false);
-					setVisible(liAdmin, false);
-					return;
-				}
-
-				// Signed in → show Logout, hide Login/Signup
-				const admin = await isAdminUser(user);
-				setVisible(liLogin, false);
-				setVisible(liSignup, false);
-				setVisible(liLogout, true);
-				setVisible(liAdmin, admin);
+				// Only show logout when signed in
+				setVisible(liLogout, !!user);
 			});
 
 			logoutLink?.addEventListener("click", async (e) => {
 				e.preventDefault();
 				try {
 					await signOut(auth);
-					// After logout, reload to reset UI state
 					window.location.href = "index.html";
 				} catch (err) {
 					console.error("Logout failed:", err);
