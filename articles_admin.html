@@ -194,6 +194,7 @@
 				text-decoration: none !important;
 				border-bottom: 0 !important;
 				color: inherit !important;
+				cursor: pointer;
 			}
 			.other-articles-list a:hover .other-article-title {
 				text-decoration: underline;
@@ -631,6 +632,9 @@
 			const auth = getAuth(app);
 			const db   = getFirestore(app);
 
+			let _allArticles = [];
+			let _currentArticleId = null;
+
 			async function checkAdmin(user) {
 				if (!user) return false;
 				try {
@@ -711,16 +715,14 @@
 
 				if (fallback) fallback.style.display = "none";
 
-				// 🔗 Change "article.html" here if your view page uses a different filename
 				const itemsHtml = articles.map(a => {
 					const title = (a.title || "").trim() || "Untitled";
 					const date  = formatDate(a.publishedAt || a.createdAt);
 					const id    = a.id;
-					const url   = `article.html?id=${encodeURIComponent(id)}`;
 
 					return `
 						<li>
-							<a href="${url}">
+							<a href="#" data-article-id="${id}">
 								<span class="other-article-title">${title}</span>
 								${date ? `<span class="other-article-date">${date}</span>` : ""}
 							</a>
@@ -733,6 +735,50 @@
 						${itemsHtml}
 					</ul>
 				`;
+
+				// attach click handlers to switch the selected article in-place
+				const links = listEl.querySelectorAll('a[data-article-id]');
+				links.forEach(link => {
+					link.addEventListener('click', (e) => {
+						e.preventDefault();
+						const id = link.getAttribute('data-article-id');
+						if (!id) return;
+
+						renderAllArticles(id);
+
+						// switch nav highlight back to "Latest Article"
+						const currentLink = document.getElementById('current-link');
+						const otherLink = document.getElementById('other-link');
+						if (currentLink && otherLink) {
+							currentLink.classList.add('active');
+							currentLink.classList.remove('active-locked');
+							otherLink.classList.remove('active');
+							otherLink.classList.remove('active-locked');
+						}
+
+						// scroll to the top/current section so it feels like a new selected article
+						const currentSection = document.getElementById('current');
+						if (currentSection) {
+							currentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						}
+					});
+				});
+			}
+
+			function renderAllArticles(preferredId) {
+				if (!_allArticles.length) return;
+
+				let current = _allArticles[0];
+				if (preferredId) {
+					const found = _allArticles.find(a => a.id === preferredId);
+					if (found) current = found;
+				}
+
+				_currentArticleId = current.id;
+				const others = _allArticles.filter(a => a.id !== _currentArticleId);
+
+				renderArticleCard(current);
+				renderOtherArticles(others);
 			}
 
 			async function loadPublishedAndRender() {
@@ -762,13 +808,10 @@
 
 				if (snap.empty) return;
 
-				const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-				const [latest, ...others] = docs;
+				_allArticles = snap.docs.map(d => ({ id: d.id, ...d.data() }));
 
-				if (latest) {
-					renderArticleCard(latest);
-				}
-				renderOtherArticles(others);
+				// default: latest article as "current"
+				renderAllArticles(_currentArticleId);
 			}
 
 			onAuthStateChanged(auth, async (user) => {
