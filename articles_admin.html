@@ -209,6 +209,26 @@
 				white-space: nowrap;
 			}
 
+			/* NEW: containers & icons for Other Articles row actions */
+			.other-article-main {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+			}
+			.other-article-actions {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+			.other-article-icon {
+				cursor: pointer;
+				font-size: 0.9em;
+				color: rgba(0, 0, 0, 0.45);
+			}
+			.other-article-icon:hover {
+				color: rgba(0, 0, 0, 0.85);
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
@@ -391,32 +411,17 @@
 				gap: 10px;
 				flex-wrap: wrap;
 				align-items: center;
-				margin: 0 0 14px 0;
+				margin: 0 0 10px 0;
 				color: rgba(0,0,0,0.55);
 				font-size: 0.9em;
-				justify-content: space-between; /* date on left, icons on right */
 			}
 
-			/* NEW: left/right split inside meta row */
-			.latest-article .meta-left {
-				display: flex;
-				gap: 10px;
-				flex-wrap: wrap;
-				align-items: center;
+			/* NEW: wrapper for Delete post button under publish line */
+			.article-admin-actions {
+				margin: 0 0 14px 0;
 			}
-			.latest-article .meta-actions {
-				display: flex;
-				gap: 12px;
-				align-items: center;
-				margin-left: auto;
-			}
-			.latest-article .meta-action-icon {
-				cursor: pointer;
-				color: rgba(0, 0, 0, 0.45);
-				font-size: 0.95em;
-			}
-			.latest-article .meta-action-icon:hover {
-				color: rgba(0, 0, 0, 0.85);
+			.article-admin-actions .button.small {
+				font-size: 0.8em;
 			}
 
 			.latest-article .tags {
@@ -544,14 +549,14 @@
 			<!-- ✅ Positioned like terms.html -->
 			<div class="pinpark-under-strip">
 				<header class="articles-under-logo">
-					<h2 style="visibility: hidden;">Latest Article</h2>
+					<h2 style="visibility: hidden;">Selected Article</h2>
 				</header>
 
 				<p class="articles-paragraph" id="current-article-fallback">
 					Your current article will go here.
 				</p>
 
-				<!-- ✅ Latest article card mounts here -->
+				<!-- ✅ Selected article card mounts here -->
 				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
@@ -750,25 +755,14 @@
 						</div>
 						<div class="body">
 							<div class="meta">
-								<div class="meta-left">
-									<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
-									<span>•</span>
-									<span>PinPark</span>
-								</div>
-								<div class="meta-actions">
-									<span
-										class="icon solid fa-pen meta-action-icon"
-										data-action="edit"
-										data-article-id="${id}"
-										title="Edit article"
-									></span>
-									<span
-										class="icon solid fa-trash meta-action-icon"
-										data-action="delete"
-										data-article-id="${id}"
-										title="Delete article"
-									></span>
-								</div>
+								<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
+								<span>•</span>
+								<span>PinPark</span>
+							</div>
+							<div class="article-admin-actions">
+								<a href="#" id="delete-current-article-btn" class="button small">
+									Delete post
+								</a>
 							</div>
 							<div class="content" id="latest-content">
 								${html || "<p></p>"}
@@ -788,25 +782,14 @@
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
 
-				// attach handlers to pen/bin icons for this article
-				const icons = mount.querySelectorAll(".meta-action-icon");
-				icons.forEach(icon => {
-					icon.addEventListener("click", (e) => {
+				// hook up Delete post button for the currently displayed article
+				const deleteBtn = document.getElementById("delete-current-article-btn");
+				if (deleteBtn) {
+					deleteBtn.addEventListener("click", (e) => {
 						e.preventDefault();
-						e.stopPropagation();
-
-						const action = icon.getAttribute("data-action");
-						const articleId = icon.getAttribute("data-article-id");
-						if (!articleId || !action) return;
-
-						if (action === "edit") {
-							// go to edit page for this specific article (id passed in query)
-							window.location.href = `edit_articles_admin.html?id=${encodeURIComponent(articleId)}`;
-						} else if (action === "delete") {
-							deleteArticleById(articleId);
-						}
+						deleteArticleById(id);
 					});
-				});
+				}
 			}
 
 			function renderOtherArticles(articles) {
@@ -831,8 +814,24 @@
 					return `
 						<li>
 							<a href="#" data-article-id="${id}">
-								<span class="other-article-title">${title}</span>
-								${date ? `<span class="other-article-date">${date}</span>` : ""}
+								<span class="other-article-main">
+									<span class="other-article-title">${title}</span>
+									${date ? `<span class="other-article-date">${date}</span>` : ""}
+								</span>
+								<span class="other-article-actions">
+									<span
+										class="icon solid fa-pen other-article-icon"
+										data-action="edit"
+										data-article-id="${id}"
+										title="Edit article"
+									></span>
+									<span
+										class="icon solid fa-trash other-article-icon"
+										data-action="delete"
+										data-article-id="${id}"
+										title="Delete article"
+									></span>
+								</span>
 							</a>
 						</li>
 					`;
@@ -844,7 +843,7 @@
 					</ul>
 				`;
 
-				// attach click handlers to switch the selected article in-place
+				// click entire row to select article
 				const links = listEl.querySelectorAll('a[data-article-id]');
 				links.forEach(link => {
 					link.addEventListener('click', (e) => {
@@ -868,6 +867,25 @@
 						const currentSection = document.getElementById('current');
 						if (currentSection) {
 							currentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						}
+					});
+				});
+
+				// hook up edit/delete icons on each row
+				const actionIcons = listEl.querySelectorAll('.other-article-icon');
+				actionIcons.forEach(icon => {
+					icon.addEventListener('click', (e) => {
+						e.preventDefault();
+						e.stopPropagation();
+
+						const action = icon.getAttribute('data-action');
+						const id = icon.getAttribute('data-article-id');
+						if (!action || !id) return;
+
+						if (action === 'edit') {
+							window.location.href = `edit_articles_admin.html?id=${encodeURIComponent(id)}`;
+						} else if (action === 'delete') {
+							deleteArticleById(id);
 						}
 					});
 				});
