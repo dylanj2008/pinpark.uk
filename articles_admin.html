@@ -301,7 +301,7 @@
 			.latest-article .card {
 				border: 1px solid rgba(0,0,0,0.10);
 				border-radius: 14px;
-				box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+				box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
 				overflow: hidden;
 				background: #fff;
 			}
@@ -394,7 +394,31 @@
 				margin: 0 0 14px 0;
 				color: rgba(0,0,0,0.55);
 				font-size: 0.9em;
+				justify-content: space-between; /* date on left, icons on right */
 			}
+
+			/* NEW: left/right split inside meta row */
+			.latest-article .meta-left {
+				display: flex;
+				gap: 10px;
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.latest-article .meta-actions {
+				display: flex;
+				gap: 12px;
+				align-items: center;
+				margin-left: auto;
+			}
+			.latest-article .meta-action-icon {
+				cursor: pointer;
+				color: rgba(0, 0, 0, 0.45);
+				font-size: 0.95em;
+			}
+			.latest-article .meta-action-icon:hover {
+				color: rgba(0, 0, 0, 0.85);
+			}
+
 			.latest-article .tags {
 				display: flex;
 				gap: 8px;
@@ -615,7 +639,8 @@
 				where,
 				orderBy,
 				limit,
-				getDocs
+				getDocs,
+				deleteDoc
 			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
@@ -660,6 +685,52 @@
 				}
 			}
 
+			async function deleteArticleById(id) {
+				if (!id) return;
+
+				const article = _allArticles.find(a => a.id === id);
+				const title = article && article.title ? article.title : "this article";
+
+				const ok = window.confirm(
+					`Are you sure you want to delete "${title}"?\n\n` +
+					"This will permanently remove it from the website."
+				);
+				if (!ok) return;
+
+				try {
+					await deleteDoc(doc(db, "articles", id));
+
+					// remove from local list
+					_allArticles = _allArticles.filter(a => a.id !== id);
+
+					// no articles left: reset UI
+					if (!_allArticles.length) {
+						const mount = document.getElementById("latest-article-mount");
+						if (mount) mount.innerHTML = "";
+						const fallbackCurrent = document.getElementById("current-article-fallback");
+						if (fallbackCurrent) fallbackCurrent.style.display = "block";
+
+						const listEl = document.getElementById("other-articles-list");
+						if (listEl) listEl.innerHTML = "";
+						const fallbackOther = document.getElementById("other-articles-fallback");
+						if (fallbackOther) fallbackOther.style.display = "block";
+
+						_currentArticleId = null;
+						return;
+					}
+
+					// if we deleted the selected article, move selection to newest
+					if (_currentArticleId === id) {
+						_currentArticleId = _allArticles[0].id;
+					}
+
+					renderAllArticles(_currentArticleId);
+				} catch (e) {
+					console.error("Failed to delete article:", e);
+					alert("Failed to delete article. Please try again.");
+				}
+			}
+
 			function renderArticleCard(article) {
 				const mount = document.getElementById("latest-article-mount");
 				if (!mount) return;
@@ -668,6 +739,7 @@
 				const hero  = article.heroImageDataUrl || null;
 				const html  = (article.renderedHtml || "").trim();
 				const tags  = Array.isArray(article.tags) ? article.tags : [];
+				const id    = article.id || "";
 
 				mount.innerHTML = `
 					<div class="card">
@@ -678,9 +750,25 @@
 						</div>
 						<div class="body">
 							<div class="meta">
-								<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
-								<span>•</span>
-								<span>PinPark</span>
+								<div class="meta-left">
+									<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
+									<span>•</span>
+									<span>PinPark</span>
+								</div>
+								<div class="meta-actions">
+									<span
+										class="icon solid fa-pen meta-action-icon"
+										data-action="edit"
+										data-article-id="${id}"
+										title="Edit article"
+									></span>
+									<span
+										class="icon solid fa-trash meta-action-icon"
+										data-action="delete"
+										data-article-id="${id}"
+										title="Delete article"
+									></span>
+								</div>
 							</div>
 							<div class="content" id="latest-content">
 								${html || "<p></p>"}
@@ -699,6 +787,26 @@
 
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
+
+				// attach handlers to pen/bin icons for this article
+				const icons = mount.querySelectorAll(".meta-action-icon");
+				icons.forEach(icon => {
+					icon.addEventListener("click", (e) => {
+						e.preventDefault();
+						e.stopPropagation();
+
+						const action = icon.getAttribute("data-action");
+						const articleId = icon.getAttribute("data-article-id");
+						if (!articleId || !action) return;
+
+						if (action === "edit") {
+							// go to edit page for this specific article (id passed in query)
+							window.location.href = `edit_articles_admin.html?id=${encodeURIComponent(articleId)}`;
+						} else if (action === "delete") {
+							deleteArticleById(articleId);
+						}
+					});
+				});
 			}
 
 			function renderOtherArticles(articles) {
