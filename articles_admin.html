@@ -416,7 +416,7 @@
 				font-size: 0.9em;
 			}
 
-			/* NEW: wrapper for Delete post button under publish line */
+			/* (CSS for .article-admin-actions is left in case you reuse it later) */
 			.article-admin-actions {
 				margin: 0 0 14px 0;
 			}
@@ -480,10 +480,10 @@
 				padding-left: 0;
 			}
 			#create .actions li + li {
-				margin-top: 20px; /* Edit posts 20px lower than Create post */
+				margin-top: 20px; /* spacing between buttons */
 			}
 
-			/* 🎯 Create / Edit buttons: match homepage donation/contact buttons */
+			/* 🎯 Create / Edit / Delete buttons: match homepage donation/contact buttons */
 			#create .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
@@ -582,17 +582,19 @@
 							<a
 								href="create_article_admin.html"
 								class="button"
-								style="
-									background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-									border-radius: 14px;
-									color: #fff;
-									border: 1px solid rgba(255,255,255,0);
-									box-shadow: 0 5px 11px rgba(0,0,0,0.07);
-									text-transform: none;
-									letter-spacing: inherit;
-								"
 							>
 								Create post
+							</a>
+						</li>
+
+						<!-- ✅ NEW: Delete post button below Create post -->
+						<li>
+							<a
+								href="#"
+								id="delete-current-article-btn"
+								class="button"
+							>
+								Delete post
 							</a>
 						</li>
 
@@ -600,15 +602,6 @@
 							<a
 								href="edit_articles_admin.html"
 								class="button"
-								style="
-									background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-									border-radius: 14px;
-									color: #fff;
-									border: 1px solid rgba(255,255,255,0);
-									box-shadow: 0 5px 11px rgba(0,0,0,0.07);
-									text-transform: none;
-									letter-spacing: inherit;
-								"
 							>
 								Edit posts
 							</a>
@@ -744,7 +737,6 @@
 				const hero  = article.heroImageDataUrl || null;
 				const html  = (article.renderedHtml || "").trim();
 				const tags  = Array.isArray(article.tags) ? article.tags : [];
-				const id    = article.id || "";
 
 				mount.innerHTML = `
 					<div class="card">
@@ -758,11 +750,6 @@
 								<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
 								<span>•</span>
 								<span>PinPark</span>
-							</div>
-							<div class="article-admin-actions">
-								<a href="#" id="delete-current-article-btn" class="button small">
-									Delete post
-								</a>
 							</div>
 							<div class="content" id="latest-content">
 								${html || "<p></p>"}
@@ -781,15 +768,6 @@
 
 				const fallback = document.getElementById("current-article-fallback");
 				if (fallback) fallback.style.display = "none";
-
-				// hook up Delete post button for the currently displayed article
-				const deleteBtn = document.getElementById("delete-current-article-btn");
-				if (deleteBtn) {
-					deleteBtn.addEventListener("click", (e) => {
-						e.preventDefault();
-						deleteArticleById(id);
-					});
-				}
 			}
 
 			function renderOtherArticles(articles) {
@@ -907,6 +885,20 @@
 				renderOtherArticles(others);
 			}
 
+			function setupDeleteButton() {
+				const btn = document.getElementById("delete-current-article-btn");
+				if (!btn) return;
+
+				btn.addEventListener("click", (e) => {
+					e.preventDefault();
+					if (!_currentArticleId) {
+						alert("No article is currently selected.");
+						return;
+					}
+					deleteArticleById(_currentArticleId);
+				});
+			}
+
 			async function loadPublishedAndRender() {
 				const col = collection(db, "articles");
 
@@ -954,6 +946,7 @@
 
 				try {
 					await loadPublishedAndRender();
+					setupDeleteButton();
 				} catch (e) {
 					console.error("Failed to load articles:", e);
 				}
