@@ -568,8 +568,6 @@
 				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
-			<!-- 🔁 SECTIONS SWAPPED: Create comes before Other Articles -->
-
 			<section id="create" class="two">
 				<div class="container">
 					<header><h2>Create</h2></header>
@@ -962,7 +960,7 @@
 			});
 		</script>
 
-		<!-- ✅ Section nav: remembers last section using sessionStorage -->
+		<!-- ✅ Section nav: remembers last section + highlights by viewed section -->
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -988,12 +986,13 @@
 					} catch (_) {}
 				}
 
+				// nav links (tabs)
 				var links = Array.prototype.slice.call(nav.querySelectorAll('a[href*="section="]'));
-				var sections = links
-					.map(function (a) {
-						var id = hrefToId(a.getAttribute('href') || '');
-						return id ? document.getElementById(id) : null;
-					})
+
+				// sections to watch (explicit: current, create, other)
+				var sectionIds = ['current', 'create', 'other'];
+				var sections = sectionIds
+					.map(function (id) { return document.getElementById(id); })
 					.filter(Boolean);
 
 				if (!links.length || !sections.length) return;
@@ -1038,6 +1037,7 @@
 					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
 				}
 
+				// click on tabs
 				links.forEach(function (a) {
 					a.addEventListener('click', function (e) {
 						var id = hrefToId(a.getAttribute('href') || '');
@@ -1051,7 +1051,7 @@
 						scrollToId(id, false);
 						clearSectionFromUrl();
 
-						// ✅ remember last section for refresh
+						// remember last section
 						try {
 							window.sessionStorage.setItem(STORAGE_KEY, id);
 						} catch (_) {}
@@ -1127,6 +1127,7 @@
 
 				window.addEventListener('scroll', onScroll, { passive: true });
 				window.addEventListener('resize', onScroll);
+				window.addEventListener('load', onScroll);
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
 					if (id && document.getElementById(id)) {
