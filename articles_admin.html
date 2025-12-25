@@ -465,7 +465,7 @@
 				height: 330px !important;
 			}
 
-			/* 🎯 Stack Create/Edit buttons vertically on same x-axis as header, no bullets */
+			/* 🎯 Stack Create/Edit/Delete buttons vertically on same x-axis as header, no bullets */
 			#create .actions {
 				display: inline-flex;
 				flex-direction: column;
@@ -483,7 +483,7 @@
 				margin-top: 20px; /* spacing between buttons */
 			}
 
-			/* 🎯 Create / Edit / Delete buttons: match homepage donation/contact buttons */
+			/* 🎯 Base style for Create / Edit buttons */
 			#create .actions .button {
 				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
 				border: 1px solid rgba(255, 255, 255, 0.0) !important;
@@ -568,18 +568,7 @@
 				<div id="latest-article-mount" class="latest-article"></div>
 			</div>
 
-			<section id="other" class="two">
-				<div class="container">
-					<header><h2>Other Articles</h2></header>
-
-					<p class="other-paragraph" id="other-articles-fallback">
-						Add your other articles here.
-					</p>
-
-					<!-- ✅ Older published articles will be listed here -->
-					<div id="other-articles-list"></div>
-				</div>
-			</section>
+			<!-- 🔁 SECTIONS SWAPPED: Create comes before Other Articles -->
 
 			<section id="create" class="two">
 				<div class="container">
@@ -595,7 +584,6 @@
 							</a>
 						</li>
 
-						<!-- ✅ Delete post button below Create post, now red gradient -->
 						<li>
 							<a
 								href="#"
@@ -615,6 +603,19 @@
 							</a>
 						</li>
 					</ul>
+				</div>
+			</section>
+
+			<section id="other" class="two">
+				<div class="container">
+					<header><h2>Other Articles</h2></header>
+
+					<p class="other-paragraph" id="other-articles-fallback">
+						Add your other articles here.
+					</p>
+
+					<!-- ✅ Older published articles will be listed here -->
+					<div id="other-articles-list"></div>
 				</div>
 			</section>
 		</div>
