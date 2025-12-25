@@ -173,6 +173,42 @@
 				box-sizing: border-box;
 			}
 
+			/* ✅ Other Articles list styling (matches admin layout, no icons) */
+			.other-articles-list {
+				list-style: none;
+				margin: 0;
+				padding: 0 30px 20px;
+				box-sizing: border-box;
+			}
+			.other-articles-list li {
+				border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+			}
+			.other-articles-list li:last-child {
+				border-bottom: none;
+			}
+			.other-articles-list a {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 12px 0;
+				text-decoration: none !important;
+				border-bottom: 0 !important;
+				color: inherit !important;
+				cursor: pointer;
+			}
+			.other-articles-list a:hover .other-article-title {
+				text-decoration: underline;
+			}
+			.other-article-title {
+				font-weight: 600;
+			}
+			.other-article-date {
+				font-size: 0.85em;
+				color: rgba(0, 0, 0, 0.55);
+				margin-left: 12px;
+				white-space: nowrap;
+			}
+
 			/* ✅ Back button: bottom-left, no bullet, no underline */
 			#header .bottom {
 				text-align: left !important;
@@ -265,7 +301,7 @@
 			.latest-article .card {
 				border: 1px solid rgba(0,0,0,0.10);
 				border-radius: 14px;
-				box-shadow: 0 10px 22px rgba(0,0,0,0.06);
+				box-shadow: 0 10px 22px rgba(0, 0, 0, 0.06);
 				overflow: hidden;
 				background: #fff;
 			}
@@ -461,9 +497,12 @@
 				<div class="container">
 					<header><h2>Other Articles</h2></header>
 
-					<p class="other-paragraph">
+					<p class="other-paragraph" id="other-articles-fallback">
 						No other articles to display
 					</p>
+
+					<!-- ✅ Other published articles will be listed here -->
+					<div id="other-articles-list"></div>
 				</div>
 			</section>
 		</div>
@@ -481,10 +520,18 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
-		<!-- ✅ Load latest published article from Firestore -->
+		<!-- ✅ Load latest + other published articles from Firestore -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import { getFirestore, collection, query, where, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import {
+				getFirestore,
+				collection,
+				query,
+				where,
+				orderBy,
+				limit,
+				getDocs
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -498,6 +545,9 @@
 
 			const app = initializeApp(firebaseConfig);
 			const db  = getFirestore(app);
+
+			let _allArticles = [];
+			let _currentArticleId = null;
 
 			function formatDate(ts) {
 				try {
@@ -515,7 +565,7 @@
 
 			function renderArticleCard(article) {
 				const mount = document.getElementById("latest-article-mount");
-				if (!mount) return;
+				if (!mount || !article) return;
 
 				const title = (article.title || "").trim() || "Untitled";
 				const hero  = article.heroImageDataUrl || null;
@@ -531,7 +581,7 @@
 						</div>
 						<div class="body">
 							<div class="meta">
-								<span>${formatDate(article.publishedAt) || ""}</span>
+								<span>${formatDate(article.publishedAt || article.createdAt) || ""}</span>
 								<span>•</span>
 								<span>PinPark</span>
 							</div>
@@ -550,7 +600,7 @@
 					if (heroEl) heroEl.style.backgroundImage = `url('${hero}')`;
 				}
 
-				// ✅ also set the (hidden) page heading to match the latest article
+				// ✅ also set the (hidden) page heading to match the selected article
 				const h2 = document.getElementById("current-article-title");
 				if (h2) h2.textContent = title;
 
@@ -559,42 +609,120 @@
 				if (fallback) fallback.style.display = "none";
 			}
 
-			async function loadLatestPublished() {
+			function renderOtherArticles(articles) {
+				const listEl    = document.getElementById("other-articles-list");
+				const fallback  = document.getElementById("other-articles-fallback");
+
+				if (!listEl) return;
+
+				if (!articles || !articles.length) {
+					listEl.innerHTML = "";
+					if (fallback) fallback.style.display = "block";
+					return;
+				}
+
+				if (fallback) fallback.style.display = "none";
+
+				const itemsHtml = articles.map(a => {
+					const title = (a.title || "").trim() || "Untitled";
+					const date  = formatDate(a.publishedAt || a.createdAt);
+					const id    = a.id;
+
+					return `
+						<li>
+							<a href="#" data-article-id="${id}">
+								<span class="other-article-title">${title}</span>
+								${date ? `<span class="other-article-date">${date}</span>` : ""}
+							</a>
+						</li>
+					`;
+				}).join("");
+
+				listEl.innerHTML = `
+					<ul class="other-articles-list">
+						${itemsHtml}
+					</ul>
+				`;
+
+				// click entire row to select that article
+				const links = listEl.querySelectorAll('a[data-article-id]');
+				links.forEach(link => {
+					link.addEventListener('click', (e) => {
+						e.preventDefault();
+						const id = link.getAttribute('data-article-id');
+						if (!id) return;
+
+						const article = _allArticles.find(a => a.id === id);
+						if (!article) return;
+
+						_currentArticleId = article.id;
+						// current = clicked, others = all except current
+						const others = _allArticles.filter(a => a.id !== _currentArticleId);
+
+						renderArticleCard(article);
+						renderOtherArticles(others);
+
+						// Scroll back up to the selected article
+						const currentSection = document.getElementById('current');
+						if (currentSection) {
+							currentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						}
+					});
+				});
+			}
+
+			function renderAllArticles(preferredId) {
+				if (!_allArticles.length) return;
+
+				let current = _allArticles[0];
+				if (preferredId) {
+					const found = _allArticles.find(a => a.id === preferredId);
+					if (found) current = found;
+				}
+
+				_currentArticleId = current.id;
+				const others = _allArticles.filter(a => a.id !== _currentArticleId);
+
+				renderArticleCard(current);
+				renderOtherArticles(others);
+			}
+
+			async function loadPublishedAndRender() {
 				try {
 					const col = collection(db, "articles");
 
-					// preferred (publishedAt)
 					let q = query(
 						col,
 						where("status", "==", "published"),
 						orderBy("publishedAt", "desc"),
-						limit(1)
+						limit(20)
 					);
 
 					let snap;
 					try {
 						snap = await getDocs(q);
 					} catch (e) {
-						// fallback (createdAt) if publishedAt ordering/index causes issues
+						console.warn("Falling back to createdAt index:", e);
 						q = query(
 							col,
 							where("status", "==", "published"),
 							orderBy("createdAt", "desc"),
-							limit(1)
+							limit(20)
 						);
 						snap = await getDocs(q);
 					}
 
 					if (snap.empty) return;
 
-					const doc0 = snap.docs[0];
-					renderArticleCard({ id: doc0.id, ...doc0.data() });
+					_allArticles = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+					renderAllArticles(_currentArticleId);
 				} catch (e) {
-					console.error("Failed to load latest article:", e);
+					console.error("Failed to load articles:", e);
 				}
 			}
 
-			loadLatestPublished();
+			loadPublishedAndRender();
 		</script>
 
 		<!-- ✅ Section nav: remembers last section using sessionStorage -->
