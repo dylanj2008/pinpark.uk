@@ -321,6 +321,7 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
+						<!-- ✅ This will be replaced by latest article title via JS -->
 						<h2 class="alt">V1.0.0 In Development</h2>
 						<p></p>
 					</header>
@@ -596,7 +597,17 @@
 		<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    query,
+    where,
+    orderBy,
+    limit,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -701,6 +712,49 @@
       console.error("Logout failed:", err);
     }
   });
+
+  // 📰 Load latest published article title into the home hero
+  async function loadLatestArticleTitle() {
+    try {
+      const col = collection(db, "articles");
+
+      let q = query(
+        col,
+        where("status", "==", "published"),
+        orderBy("publishedAt", "desc"),
+        limit(1)
+      );
+
+      let snap;
+      try {
+        snap = await getDocs(q);
+      } catch (e) {
+        console.warn("Falling back to createdAt index for homepage headline:", e);
+        q = query(
+          col,
+          where("status", "==", "published"),
+          orderBy("createdAt", "desc"),
+          limit(1)
+        );
+        snap = await getDocs(q);
+      }
+
+      if (snap.empty) return;
+
+      const data = snap.docs[0].data();
+      const title = (data.title || "").trim();
+      if (!title) return;
+
+      const heroTitle = document.querySelector('#home h2.alt');
+      if (heroTitle) {
+        heroTitle.textContent = title;
+      }
+    } catch (e) {
+      console.error("Failed to load latest article title:", e);
+    }
+  }
+
+  loadLatestArticleTitle();
 </script>
 	</body>
 </html>
