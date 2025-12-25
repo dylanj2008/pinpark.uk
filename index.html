@@ -321,12 +321,13 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<!-- ✅ This will be replaced by latest article title via JS -->
-						<h2 class="alt">V1.0.0 In Development</h2>
+						<!-- ✅ Default: no words; JS will fill in with latest article title if available -->
+						<h2 class="alt"></h2>
 						<p></p>
 					</header>
 					<footer>
-						<a href="articles.html" class="button scrolly">Read more</a>
+						<!-- ✅ Hidden by default, only shown when an article title is loaded -->
+						<a href="articles.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
 					</footer>
 				</div>
 			</section>
@@ -748,6 +749,12 @@
       const heroTitle = document.querySelector('#home h2.alt');
       if (heroTitle) {
         heroTitle.textContent = title;
+      }
+
+      // ✅ Only show "Read more" when we actually have a title
+      const readMore = document.getElementById("home-read-more");
+      if (readMore) {
+        readMore.style.display = "";
       }
     } catch (e) {
       console.error("Failed to load latest article title:", e);
