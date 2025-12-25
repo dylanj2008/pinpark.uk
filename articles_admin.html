@@ -507,6 +507,14 @@
 			#create .actions .button:active {
 				transform: scale(1.025) translateY(1px);
 			}
+
+			/* 🔴 SPECIAL: red gradient for Delete post button only */
+			#create .actions .button.button-delete {
+				background: linear-gradient(135deg, #FF4B5C 0%, #C81E2B 100%) !important;
+			}
+			#create .actions .button.button-delete:hover {
+				background: linear-gradient(135deg, #C81E2B 0%, #FF4B5C 100%) !important;
+			}
 		</style>
 	</head>
 
@@ -587,12 +595,12 @@
 							</a>
 						</li>
 
-						<!-- ✅ NEW: Delete post button below Create post -->
+						<!-- ✅ Delete post button below Create post, now red gradient -->
 						<li>
 							<a
 								href="#"
 								id="delete-current-article-btn"
-								class="button"
+								class="button button-delete"
 							>
 								Delete post
 							</a>
