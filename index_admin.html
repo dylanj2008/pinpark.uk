@@ -318,11 +318,13 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<h2 class="alt">V1.0.0 In Development</h2>
+						<!-- ✅ Default: no words; JS will fill in with latest article title if available -->
+						<h2 class="alt"></h2>
 						<p></p>
 					</header>
 					<footer>
-						<a href="articles_admin.html" class="button scrolly">Read more</a>
+						<!-- ✅ Hidden by default, only shown when an article title is loaded -->
+						<a href="articles_admin.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
 					</footer>
 				</div>
 			</section>
@@ -593,11 +595,21 @@
 			})();
 		</script>
 
-		<!-- 🔐 Auth state: show Logout only -->
+		<!-- 🔐 Auth state: show Logout only + load latest article title into hero -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc,
+				collection,
+				query,
+				where,
+				orderBy,
+				limit,
+				getDocs
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -657,6 +669,55 @@
 					console.error("Logout failed:", err);
 				}
 			});
+
+			// 📰 Load latest published article title into the admin home hero
+			async function loadLatestArticleTitle() {
+				try {
+					const col = collection(db, "articles");
+
+					let q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("publishedAt", "desc"),
+						limit(1)
+					);
+
+					let snap;
+					try {
+						snap = await getDocs(q);
+					} catch (e) {
+						console.warn("Falling back to createdAt index for admin homepage headline:", e);
+						q = query(
+							col,
+							where("status", "==", "published"),
+							orderBy("createdAt", "desc"),
+							limit(1)
+						);
+						snap = await getDocs(q);
+					}
+
+					if (snap.empty) return;
+
+					const data = snap.docs[0].data();
+					const title = (data.title || "").trim();
+					if (!title) return;
+
+					const heroTitle = document.querySelector('#home h2.alt');
+					if (heroTitle) {
+						heroTitle.textContent = title;
+					}
+
+					// ✅ Only show "Read more" when we actually have a title
+					const readMore = document.getElementById("home-read-more");
+					if (readMore) {
+						readMore.style.display = "";
+					}
+				} catch (e) {
+					console.error("Failed to load latest article title (admin):", e);
+				}
+			}
+
+			loadLatestArticleTitle();
 		</script>
 	</body>
 </html>
