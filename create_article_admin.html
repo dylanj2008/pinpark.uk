@@ -469,15 +469,34 @@
 				opacity: 0 !important;
 			}
 
-			/* ✅ Account tab positioning: 50px above Back button */
+			/* ✅ Account tab: same tab style, 50px above Back */
 			#nav-account {
-				margin-bottom: 50px;
+				margin-bottom: 50px; /* distance above Back button */
 			}
 			#nav-account ul,
 			#nav-account ul li {
 				list-style: none !important;
 				margin: 0 !important;
 				padding: 0 !important;
+			}
+			#nav-account ul li a {
+				display: block;
+				text-decoration: none;
+				border: 0;
+				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+				border-radius: 0.35em;
+				padding: 0.6em 0.75em;
+				margin: 0 0 0.5em 0;
+				background: rgba(255, 255, 255, 0.05);
+				color: rgba(255, 255, 255, 0.65);
+			}
+			#nav-account ul li a span.icon:before {
+				margin-right: 0.5em;
+			}
+			#nav-account ul li a:hover,
+			#nav-account ul li a:focus {
+				color: #fff !important;
+				background: rgba(255, 255, 255, 0.15);
 			}
 
 			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
@@ -566,7 +585,7 @@
 			</div>
 
 			<div class="bottom">
-				<!-- ✅ Account tab moved here, 50px above Back -->
+				<!-- ✅ Account tab here, styled like main tabs, 50px above Back -->
 				<nav id="nav-account">
 					<ul>
 						<li>
