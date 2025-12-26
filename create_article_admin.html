@@ -111,11 +111,15 @@
 
 			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
-			#nav ul li a.active-locked span.icon:before {
+			#nav ul li a.active-locked span.icon:before,
+			#nav-account ul li a.active span.icon:before,
+			#nav-account ul li a.active-locked span.icon:before {
 				color: #fff !important;
 			}
 			#nav ul li a.active,
-			#nav ul li a.active-locked {
+			#nav ul li a.active-locked,
+			#nav-account ul li a.active,
+			#nav-account ul li a.active-locked {
 				color: #fff !important;
 			}
 
@@ -469,7 +473,7 @@
 				opacity: 0 !important;
 			}
 
-			/* ✅ Account tab: same tab style, 50px above Back */
+			/* ✅ Account tab: SAME pill style as main tabs, 50px above Back */
 			#nav-account {
 				margin-bottom: 50px; /* distance above Back button */
 			}
@@ -479,6 +483,10 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
+			#nav-account ul li {
+				padding-left: 0;
+				margin: 0 0 0.5em 0;
+			}
 			#nav-account ul li a {
 				display: block;
 				text-decoration: none;
@@ -486,7 +494,6 @@
 				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 				border-radius: 0.35em;
 				padding: 0.6em 0.75em;
-				margin: 0 0 0.5em 0;
 				background: rgba(255, 255, 255, 0.05);
 				color: rgba(255, 255, 255, 0.65);
 			}
