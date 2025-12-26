@@ -939,6 +939,13 @@
 					var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
 					setHeroFile(f);
 				});
+
+				/* ✅ Make Publish button exactly the same width as Save draft */
+				var saveDraftBtn = document.querySelector('.articles-paragraph input[type="submit"][value="Save draft"]');
+				var publishBtn = document.getElementById("publish-btn");
+				if (saveDraftBtn && publishBtn) {
+					publishBtn.style.width = saveDraftBtn.offsetWidth + "px";
+				}
 			})();
 		</script>
 
