@@ -388,6 +388,7 @@
 						rgba(0, 138, 205, 0.75) 100%
 					);
 			}
+
 			.article-mock .mock-body {
 				padding: 22px 22px 20px;
 			}
@@ -997,7 +998,15 @@
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import { getFirestore, doc, getDoc, collection, addDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc,
+				collection,
+				updateDoc,
+				serverTimestamp,
+				setDoc
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -1052,6 +1061,23 @@
 					.replace(/>/g, "&gt;")
 					.replace(/"/g, "&quot;")
 					.replace(/'/g, "&#039;");
+			}
+
+			// ✅ Build a Firestore-safe document ID from the title
+			function makeArticleIdFromTitle(title) {
+				const raw = (title || "").toLowerCase().trim();
+
+				let slug = raw
+					.replace(/[^a-z0-9\s\-]/g, "") // keep letters, numbers, spaces, dashes
+					.replace(/\s+/g, "-")          // spaces → single dash
+					.replace(/\-+/g, "-")          // collapse multiple dashes
+					.replace(/^-+|-+$/g, "");      // trim leading/trailing dashes
+
+				if (!slug) {
+					slug = "article-" + Date.now();
+				}
+
+				return slug;
 			}
 
 			function buildArticlePayload() {
@@ -1396,8 +1422,11 @@
 
 						await updateDoc(ref, updateData);
 					} else {
-						// 🆕 CREATE MODE: new document
-						await addDoc(collection(db, "articles"), {
+						// 🆕 CREATE MODE: new document with ID based on the title
+						const articleId = makeArticleIdFromTitle(payload.title);
+						const ref = doc(db, "articles", articleId);
+
+						await setDoc(ref, {
 							title: payload.title,
 							heroImageDataUrl: payload.heroImageDataUrl,
 							tags: payload.tags,
