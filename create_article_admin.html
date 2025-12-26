@@ -522,7 +522,8 @@
 				display: inline-block;
 			}
 
-			/* ✅ Faint horizontal lines top & bottom of Account tab, same colour as text */
+			/* ✅ Horizontal lines top & bottom of Account tab,
+			       same colour as text, moved 2.5px closer from each side */
 			#account-link {
 				position: relative;
 			}
@@ -536,10 +537,10 @@
 				background: rgba(255, 255, 255, 0.65);
 			}
 			#account-link::before {
-				top: -6px;
+				top: -3.5px;    /* was -6px */
 			}
 			#account-link::after {
-				bottom: -6px;
+				bottom: -3.5px; /* was -6px */
 			}
 		</style>
 	</head>
