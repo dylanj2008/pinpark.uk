@@ -486,6 +486,25 @@
 			#footer a:hover {
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
+
+			/* ✅ Center Save/Publish buttons, remove bullets, equal width */
+			.articles-paragraph .actions {
+				list-style: none !important;
+				padding-left: 0 !important;
+				margin: 0 !important;
+				display: flex;
+				justify-content: center;
+				gap: 0.8em;
+			}
+			.articles-paragraph .actions li {
+				list-style: none !important;
+				margin: 0;
+				padding: 0;
+			}
+			.articles-paragraph .actions input[type="submit"],
+			.articles-paragraph .actions #publish-btn {
+				min-width: 160px;
+			}
 		</style>
 	</head>
 
