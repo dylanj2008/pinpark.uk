@@ -521,6 +521,26 @@
 				line-height: 1;
 				display: inline-block;
 			}
+
+			/* ✅ Faint vertical lines either side of Account tab */
+			#account-link {
+				position: relative;
+			}
+			#account-link::before,
+			#account-link::after {
+				content: "";
+				position: absolute;
+				top: 10%;
+				bottom: 10%;
+				width: 1px;
+				background: rgba(255, 255, 255, 0.2);
+			}
+			#account-link::before {
+				left: -10px;
+			}
+			#account-link::after {
+				right: -10px;
+			}
 		</style>
 	</head>
 
@@ -550,8 +570,8 @@
 								<span class="icon solid fa-pen">Create</span>
 							</a>
 						</li>
-						<!-- ✅ Account tab, same styling, lowered by 200px -->
-						<li style="margin-top: 200px;">
+						<!-- ✅ Account tab, same styling, lowered by 300px -->
+						<li style="margin-top: 300px;">
 							<a href="account.html" id="account-link">
 								<span class="icon solid fa-user">Account</span>
 							</a>
