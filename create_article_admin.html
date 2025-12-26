@@ -940,11 +940,13 @@
 					setHeroFile(f);
 				});
 
-				/* ✅ Make Publish button exactly the same width as Save draft */
+				/* ✅ Make Publish button exactly the same width AND height as Save draft */
 				var saveDraftBtn = document.querySelector('.articles-paragraph input[type="submit"][value="Save draft"]');
 				var publishBtn = document.getElementById("publish-btn");
 				if (saveDraftBtn && publishBtn) {
-					publishBtn.style.width = saveDraftBtn.offsetWidth + "px";
+					var rect = saveDraftBtn.getBoundingClientRect();
+					publishBtn.style.width = rect.width + "px";
+					publishBtn.style.height = rect.height + "px";
 				}
 			})();
 		</script>
