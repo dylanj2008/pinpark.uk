@@ -169,23 +169,35 @@
 				flex-direction: column;
 				align-items: flex-end;
 				gap: 6px;
+				position: relative; /* so the bullet can float next to the textarea */
 			}
 
 			.bullet-toolbar {
 				align-self: flex-end;
+				position: absolute;
+				left: 0;
+				top: 14px;
+				transform: translateX(-50%); /* sits just to the left of the paragraph box */
 			}
 
 			.bullet-btn {
-				border-radius: 999px;
-				border: 1px solid rgba(0,0,0,0.12);
-				background: rgba(0,0,0,0.04);
-				padding: 4px 10px;
+				border-radius: 50%;
+				border: none;
+				background: #000;
+				color: #fff;
+				width: 26px;
+				height: 26px;
+				padding: 0;
 				font-size: 0.9em;
 				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 
 			.bullet-btn:hover {
-				background: rgba(0,0,0,0.08);
+				background: #000;
+				opacity: 0.85;
 			}
 
 			/* ✅ Hero image box: now visually matches the big smooth blue hero look */
