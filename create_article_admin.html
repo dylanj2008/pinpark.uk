@@ -469,42 +469,32 @@
 				opacity: 0 !important;
 			}
 
-			/* ✅ Account tab: same pill style as main tabs, 50px above Back */
+			/* ✅ Account tab: same tab style, 50px above Back */
 			#nav-account {
 				margin-bottom: 50px; /* distance above Back button */
 			}
-			#nav-account ul {
+			#nav-account ul,
+			#nav-account ul li {
 				list-style: none !important;
 				margin: 0 !important;
 				padding: 0 !important;
-			}
-			#nav-account ul li {
-				margin: 0 0 0.5em 0;
-				padding-left: 0;
 			}
 			#nav-account ul li a {
 				display: block;
 				text-decoration: none;
 				border: 0;
-				padding: 0;
-			}
-			#nav-account ul li a span {
-				position: relative;
-				display: block;
-				padding: 0.5em 1.5em 0.5em 1.5em; /* same as main tabs */
-				border-radius: 0.35em;
 				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+				border-radius: 0.35em;
+				padding: 0.6em 0.75em;
+				margin: 0 0 0.5em 0;
 				background: rgba(255, 255, 255, 0.05);
 				color: rgba(255, 255, 255, 0.65);
-				text-transform: uppercase;
-				letter-spacing: 0.25em;
-				font-size: 0.75em;
 			}
 			#nav-account ul li a span.icon:before {
-				margin-right: 0.75em;
+				margin-right: 0.5em;
 			}
-			#nav-account ul li a:hover span,
-			#nav-account ul li a:focus span {
+			#nav-account ul li a:hover,
+			#nav-account ul li a:focus {
 				color: #fff !important;
 				background: rgba(255, 255, 255, 0.15);
 			}
