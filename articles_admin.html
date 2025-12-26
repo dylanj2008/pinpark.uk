@@ -272,7 +272,7 @@
 				opacity: 0 !important;
 			}
 
-			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
+			/* ✅ Revert footer bar styling back to default (non-blue, black text) + match index.html layout */
 			#footer,
 			#footer::after {
 				background: none !important;
@@ -289,6 +289,34 @@
 			}
 			#footer .copyright {
 				margin: 0 !important;
+				position: relative;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright li:first-child {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				margin: 0 !important;
+			}
+			#footer .copyright li:nth-child(2) {
+				margin-left: auto;
+				padding-left: 0 !important;
+				border-left: 0 !important;
+			}
+			#footer .copyright li:nth-child(3) {
+				margin-left: 12px;
+			}
+			#footer .copyright li:nth-child(2) a,
+			#footer .copyright li:nth-child(3) a {
+				font-size: 12px !important;
+			}
+			#footer .copyright li:nth-child(2),
+			#footer .copyright li:nth-child(3) {
+				position: relative;
+				left: -7px;
 			}
 			#footer,
 			#footer * {
@@ -621,6 +649,8 @@
 		<div id="footer">
 			<ul class="copyright">
 				<li>&copy; 2025 PinPark. All rights reserved</li>
+				<li><a href="policies.html">Terms</a></li>
+				<li><a href="policies.html#other">Privacy</a></li>
 			</ul>
 		</div>
 
