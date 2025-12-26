@@ -430,7 +430,7 @@
 			#header .bottom {
 				text-align: left !important;
 				padding-left: 15px !important;
-				padding-bottom: 15px !important;
+				padding-bottom: 40px !important; /* moved up from 15px */
 			}
 			#nav-back ul,
 			#nav-back ul li {
@@ -523,7 +523,7 @@
 			}
 
 			/* ✅ Horizontal lines top & bottom of Account tab,
-			       same colour as text, moved 2.5px closer from each side */
+			       same colour as text, both same thickness */
 			#account-link {
 				position: relative;
 			}
@@ -533,14 +533,14 @@
 				position: absolute;
 				left: 0;
 				right: 0;
-				height: 1px;
+				height: 2px; /* same thickness for both lines */
 				background: rgba(255, 255, 255, 0.65);
 			}
 			#account-link::before {
-				top: -3.5px;    /* was -6px */
+				top: -3.5px;
 			}
 			#account-link::after {
-				bottom: -3.5px; /* was -6px */
+				bottom: -3.5px;
 			}
 		</style>
 	</head>
