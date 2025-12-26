@@ -175,7 +175,7 @@
 			.bullet-toolbar {
 				align-self: flex-end;
 				position: absolute;
-				left: 0;
+				left: -20px;         /* 🔹 moved 20px further left */
 				top: 14px;
 				transform: translateX(-50%); /* sits just to the left of the paragraph box */
 			}
@@ -600,10 +600,6 @@
 							<!-- ✅ full-width "+" button under the paragraph box -->
 							<div class="col-12">
 								<button type="button" id="add-section" class="add-section-btn" aria-label="Add new section">+</button>
-							</div>
-
-							<div class="col-12">
-								<input type="text" name="tags" placeholder="Tags (comma separated) e.g. update, release, roadmap" />
 							</div>
 
 							<div class="col-12" style="margin-top: 0.7em;">
