@@ -469,6 +469,17 @@
 				opacity: 0 !important;
 			}
 
+			/* ✅ Account tab positioning: 50px above Back button */
+			#nav-account {
+				margin-bottom: 50px;
+			}
+			#nav-account ul,
+			#nav-account ul li {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
 			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
 			#footer,
 			#footer::after {
@@ -550,7 +561,14 @@
 								<span class="icon solid fa-pen">Create</span>
 							</a>
 						</li>
-						<!-- ✅ New Account tab at the bottom -->
+					</ul>
+				</nav>
+			</div>
+
+			<div class="bottom">
+				<!-- ✅ Account tab moved here, 50px above Back -->
+				<nav id="nav-account">
+					<ul>
 						<li>
 							<a href="account.html" id="account-link">
 								<span class="icon solid fa-user">Account</span>
@@ -558,9 +576,7 @@
 						</li>
 					</ul>
 				</nav>
-			</div>
 
-			<div class="bottom">
 				<nav id="nav-back">
 					<ul>
 						<li><a href="articles_admin.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
