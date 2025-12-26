@@ -487,13 +487,14 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Center Save/Publish buttons, remove bullets, equal width */
+			/* ✅ Center Save/Publish buttons, remove bullets, equal size & stacked */
 			.articles-paragraph .actions {
 				list-style: none !important;
 				padding-left: 0 !important;
 				margin: 0 !important;
 				display: flex;
-				justify-content: center;
+				flex-direction: column;
+				align-items: center;
 				gap: 0.8em;
 			}
 			.articles-paragraph .actions li {
@@ -503,7 +504,10 @@
 			}
 			.articles-paragraph .actions input[type="submit"],
 			.articles-paragraph .actions #publish-btn {
-				min-width: 160px;
+				min-width: 180px;
+				padding: 0.85em 2.5em;
+				line-height: 1;
+				display: inline-block;
 			}
 		</style>
 	</head>
