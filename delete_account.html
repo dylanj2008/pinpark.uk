@@ -124,6 +124,15 @@
       text-align: center;
     }
 
+    .modal input {
+      width: 90%;
+      padding: 8px 10px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.2);
+      font-size: 14px;
+    }
+
     .modal-buttons {
       display: flex;
       gap: 10px;
@@ -199,6 +208,10 @@
         This action cannot be undone.
       </p>
 
+      <!-- Email & Password Fields -->
+      <input type="email" id="emailInput" placeholder="Email" />
+      <input type="password" id="passwordInput" placeholder="Password" />
+
       <div class="modal-buttons">
         <button class="confirm" id="confirmDelete">Yes, I'm sure</button>
         <button class="cancel" id="cancelDelete">No, I'm not</button>
@@ -208,7 +221,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getAuth, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, doc, getDocs, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -237,45 +250,51 @@ cancel.addEventListener("click", () => {
 });
 
 confirm.addEventListener("click", async () => {
+  const email = document.getElementById("emailInput").value;
+  const password = document.getElementById("passwordInput").value;
 
   modal.style.display = "none";
 
+  if (!email || !password) {
+    msg.style.display = "block";
+    msg.textContent = "Please enter both email and password.";
+    return;
+  }
+
   try {
-    const user = auth.currentUser;
+    // Reauthenticate the user using email & password
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
     if (!user) {
       msg.style.display = "block";
-      msg.textContent = "No user is currently signed in.";
+      msg.textContent = "Invalid credentials.";
       return;
     }
 
     const uid = user.uid;
 
+    // Delete Firestore data
     try {
       const parkedSnap = await getDocs(collection(db, "users", uid, "parked_pin"));
-
       for (const d of parkedSnap.docs) {
         await deleteDoc(d.ref);
       }
-
       await deleteDoc(doc(db, "users", uid));
-
     } catch (e) {
       console.error("Firestore cleanup failed", e);
     }
 
+    // Delete Auth user
     await deleteUser(user);
 
     msg.style.display = "block";
     msg.textContent = "Your account has been deleted successfully.";
 
   } catch (e) {
-
     msg.style.display = "block";
     msg.textContent = e.message || "Failed to delete account.";
-
   }
-
 });
 </script>
 
