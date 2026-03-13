@@ -1,0 +1,148 @@
+<!doctype html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Delete Account</title>
+  <style>
+    :root {
+      --bg: #f1f1f1;
+      --accent1: #00adee;
+      --accent2: #008acd;
+      --text: rgba(0,0,0,0.86);
+      --muted: rgba(0,0,0,0.62);
+      --error: #ff4d4d;
+      --ok: #43d17a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .wrap {
+      width: min(520px, calc(100% - 32px));
+      border-radius: 16px;
+      background: #ffffff;
+      border: 0.8px solid rgba(0,0,0,0.26);
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+      padding: 6px;
+    }
+
+    .frame {
+      border-radius: 12px;
+      background: linear-gradient(to right, rgba(0,173,238,0.90), rgba(0,138,205,1.0));
+      padding: 1.6px;
+    }
+
+    .inner {
+      border-radius: 10.4px;
+      background: #ffffff;
+      padding: 28px;
+    }
+
+    h1 { margin: 0 0 8px; font-size: 22px; text-align: center; }
+    p { margin: 0 0 18px; color: var(--muted); line-height: 1.45; }
+    #subtitle { text-align: center; }
+
+    .btn {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.18);
+      background: linear-gradient(to right, var(--accent1) 0%, var(--accent1) 45%, var(--accent2) 100%);
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: none;
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .msg {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.14);
+      background: rgba(0,0,0,0.04);
+      color: rgba(0,0,0,0.70);
+      display: none;
+      white-space: pre-line;
+    }
+
+    .tiny { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: center; }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.16);
+      background: rgba(0,0,0,0.04);
+      color: rgba(0,0,0,0.62);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="frame">
+      <div class="inner">
+
+        <img src="pinpark.png" alt="PinPark" style="display:block; margin: 0 auto 14px; width: 40%; max-width: 160px; min-width: 96px; height: auto;" />
+
+        <h1>Delete your account</h1>
+
+        <p id="subtitle">
+          Your PinPark account can only be deleted from inside the app.
+        </p>
+
+        <p>
+          To permanently delete your account and all associated data:
+        </p>
+
+        <p>
+          1. Open the PinPark app.<br>
+          2. Go to <strong>Settings</strong>.<br>
+          3. Tap <strong>Delete Account</strong>.<br>
+          4. Confirm the deletion when prompted.
+        </p>
+
+        <p>
+          Once your account is deleted, your authentication data and saved parking information will be permanently removed and cannot be recovered.
+        </p>
+
+        <button class="btn" id="deleteBtn">Delete Account</button>
+
+        <div id="msg" class="msg"></div>
+
+        <div class="tiny">
+          If you cannot access the app, please contact support.
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById("deleteBtn");
+    const msg = document.getElementById("msg");
+
+    btn.addEventListener("click", () => {
+      msg.style.display = "block";
+      msg.textContent = "Account deletion must be completed inside the PinPark app.";
+    });
+  </script>
+</body>
+</html>
