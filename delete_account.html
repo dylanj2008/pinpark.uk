@@ -84,15 +84,18 @@
 
     .tiny { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: center; }
 
-    .support-link {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
+.support-link {
+  text-decoration: none;
+  color: #00adee; /* blue text */
+  cursor: pointer;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
 
-    .support-link:hover {
-      text-decoration: underline;
-    }
+.support-link:hover {
+  color: #008acd; /* darker blue on hover */
+  text-decoration: underline;
+  text-decoration-color: #008acd; /* match the hover color */
+}
 
     .pill {
       display: inline-block;
@@ -196,7 +199,7 @@
         <div id="msg" class="msg"></div>
 
         <div class="tiny">
-          If you cannot access the app, please <span class="support-link">contact support</span>.
+          If you cannot access the app, please <a href="mailto:pinpark@outlook.com" class="support-link">contact support</a>.
         </div>
 
       </div>
