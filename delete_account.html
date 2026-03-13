@@ -57,7 +57,7 @@
       padding: 12px 14px;
       border-radius: 12px;
       border: 1px solid rgba(0,0,0,0.18);
-      background: linear-gradient(to right, var(--accent1) 0%, var(--accent1) 45%, var(--accent2) 100%);
+      background: linear-gradient(to right, #ff4d4d, #d93636);
       color: #ffffff;
       font-weight: 700;
       cursor: pointer;
@@ -83,6 +83,16 @@
 
     .tiny { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: center; }
 
+    .support-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    .support-link:hover {
+      text-decoration: underline;
+    }
+
     .pill {
       display: inline-block;
       padding: 6px 10px;
@@ -105,7 +115,7 @@
         <h1>Delete your account</h1>
 
         <p id="subtitle">
-          Your PinPark account can only be deleted from inside the app.
+          To delete your PinPark account, you can either do it here, or directly through the app. All user data is deleted within 90 days.
         </p>
 
         <p>
@@ -113,22 +123,20 @@
         </p>
 
         <p>
-          1. Open the PinPark app.<br>
-          2. Go to <strong>Settings</strong>.<br>
-          3. Tap <strong>Delete Account</strong>.<br>
-          4. Confirm the deletion when prompted.
+          1. Click the 'Delete my account' button at the bottom of the box<br>
+          2. When prompted with the confirmation message, click 'Yes'
         </p>
 
         <p>
           Once your account is deleted, your authentication data and saved parking information will be permanently removed and cannot be recovered.
         </p>
 
-        <button class="btn" id="deleteBtn">Delete Account</button>
+        <button class="btn" id="deleteBtn">Delete my account</button>
 
         <div id="msg" class="msg"></div>
 
         <div class="tiny">
-          If you cannot access the app, please contact support.
+          If you cannot access the app, please <span class="support-link">contact support</span>.
         </div>
 
       </div>
