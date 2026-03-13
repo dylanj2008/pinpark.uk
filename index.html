@@ -471,6 +471,479 @@
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
 
+		<!-- index.html -->
+<!DOCTYPE HTML>
+<!--
+	Prologue by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>PinPark</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" type="image/png" href="pinpark_favicon.png">
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<!-- ✅ Make the hero (top/intro cover) 100px shorter -->
+		<style>
+			#home.cover {
+				height: calc(100vh - 275px) !important;
+				min-height: calc(100vh - 275px) !important;
+			}
+
+			/* ✅ PinPark hero tint */
+			#home.cover:before,
+			#home:before {
+				background: linear-gradient(
+					135deg,
+					rgba(0, 173, 238, 0.78) 0%,
+					rgba(255, 255, 255, 0.35) 50%,
+					rgba(0, 138, 205, 0.78) 100%
+				) !important;
+			}
+
+			#home.cover {
+				position: relative;
+				overflow: hidden;
+			}
+
+			#home.cover::after {
+				content: "";
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+				z-index: 0;
+
+				background:
+					radial-gradient(circle at 0% 100%,
+						rgba(0, 173, 238, 0.8) 0%,
+						rgba(0, 173, 238, 0.8) 22%,
+						rgba(0, 173, 238, 0.6) 30%,
+						rgba(0, 173, 238, 0.3) 38%,
+						rgba(0, 173, 238, 0) 46.2%
+					),
+					radial-gradient(circle at 100% 0%,
+						rgba(255, 255, 255, 0.10) 0%,
+						rgba(255, 255, 255, 0.10) 16%,
+						rgba(255, 255, 255, 0.07) 23%,
+						rgba(255, 255, 255, 0.04) 30%,
+						rgba(255, 255, 255, 0.02) 36%,
+						rgba(255, 255, 255, 0) 41.8%
+					),
+					linear-gradient(
+						135deg,
+						rgba(0, 138, 205, 0.75) 0%,
+						rgba(0, 138, 205, 0.75) 100%
+					);
+			}
+
+			#home.cover > .container {
+				position: relative;
+				z-index: 1;
+			}
+
+			#home .button.scrolly {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				padding: 0 !important;
+				margin: 0 !important;
+				color: inherit !important;
+				position: relative;
+				top: -5px;
+				font-size: 90% !important;
+			}
+			#home .button.scrolly:hover {
+				background: transparent !important;
+				border: 0 !important;
+				box-shadow: none !important;
+				text-decoration: underline;
+				text-decoration-color: currentColor;
+				text-underline-offset: 4px;
+			}
+
+			/* ✅ PinPark logo */
+			#logo .image img {
+				width: 75%;
+				height: auto;
+				transform: translateY(-10px);
+			}
+			#logo {
+				text-align: center;
+			}
+			#logo .image {
+				display: inline-block;
+			}
+			#logo .image img {
+				display: block;
+				margin: 0 auto;
+			}
+
+			/* ✅ Nav highlight */
+			#nav ul li a.active span.icon:before,
+			#nav ul li a.active-locked span.icon:before {
+				color: #fff !important;
+			}
+			#nav ul li a.active,
+			#nav ul li a.active-locked {
+				color: #fff !important;
+			}
+			#nav ul li a,
+			#nav ul li a:before,
+			#nav ul li a:after,
+			#nav ul li a span.icon:before {
+				transition:
+					background-color 0.1s ease,
+					color 0.1s ease,
+					opacity 0.1s ease,
+					border-color 0.1s ease;
+			}
+
+			/* ✅ Footer */
+			#footer,
+			#footer::after {
+				background: none !important;
+				content: none !important;
+			}
+			#footer {
+				position: static !important;
+				overflow: visible !important;
+				height: 70px;
+				padding: 0 !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright {
+				margin: 0 !important;
+				position: relative;
+				width: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#footer .copyright li:first-child {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				margin: 0 !important;
+			}
+			#footer .copyright li:nth-child(2) {
+				margin-left: auto;
+				padding-left: 0 !important;
+				border-left: 0 !important;
+			}
+			#footer .copyright li:nth-child(3) {
+				margin-left: 12px;
+			}
+			#footer .copyright li:nth-child(2) a,
+			#footer .copyright li:nth-child(3) a {
+				font-size: 12px !important;
+			}
+			#footer .copyright li:nth-child(2),
+			#footer .copyright li:nth-child(3) {
+				position: relative;
+				left: -7px;
+			}
+
+			#footer,
+			#footer * {
+				color: #000 !important;
+			}
+			#footer a {
+				color: #000 !important;
+				border-bottom-color: rgba(0, 0, 0, 0.35) !important;
+			}
+			#footer a:hover {
+				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
+			}
+
+			/* ✅ Donations button */
+			#donations .actions {
+				margin-left: 0 !important;
+				padding-left: 0 !important;
+				text-align: center !important;
+				list-style: none !important;
+			}
+			#donations .actions li {
+				list-style: none !important;
+				padding-left: 0 !important;
+				margin-left: 0 !important;
+			}
+			#donations .actions .button {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
+				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				color: #fff !important;
+				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: scale(1);
+				transition: transform 100ms ease;
+				display: inline-block;
+			}
+			#donations .actions .button:hover {
+				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
+				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+				transform: scale(1.025);
+			}
+			#donations .actions .button:active {
+				transform: scale(1.025) translateY(1px);
+			}
+
+			/* ✅ Contact button */
+			#contact form input[type="submit"] {
+				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
+				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				color: #fff !important;
+				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: scale(1);
+				transition: transform 100ms ease;
+			}
+			#contact form input[type="submit"]:hover {
+				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
+				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
+				transform: scale(1.025);
+			}
+			#contact form input[type="submit"]:active {
+				transform: scale(1.025) translateY(1px);
+			}
+
+			/* 🔐 Auth nav */
+			#header .bottom {
+				text-align: center;
+			}
+			#nav-auth ul {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 0 15px 0 !important;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				font-size: 0.8em;
+			}
+			#nav-auth ul li {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			/* 🔹 separators between items, but NOT before Logout */
+			#nav-auth ul li + li:not(#nav-logout-item)::before {
+				content: "|";
+				margin: 0 6px;
+				opacity: 0.75;
+			}
+			#nav-auth a {
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+				color: rgba(255, 255, 255, 0.55) !important;
+				transition: color 0.1s ease;
+			}
+			#nav-auth a:hover {
+				color: #ffffff !important;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Header -->
+		<div id="header">
+			<div class="top">
+				<div id="logo">
+					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
+				</div>
+
+				<nav id="nav">
+					<ul>
+						<li><a href="?section=home" id="top-link"><span class="icon solid fa-home">Home</span></a></li>
+						<li><a href="?section=about" id="portfolio-link"><span class="icon solid fa-info-circle">About</span></a></li>
+						<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
+						<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
+						<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- 🔐 Sidebar bottom: auth controls -->
+			<div class="bottom">
+				<nav id="nav-auth">
+					<ul>
+						<li id="nav-login-item">
+							<a href="auth.html?mode=login" id="link-login">Login</a>
+						</li>
+						<li id="nav-signup-item">
+							<a href="auth.html?mode=signup" id="link-signup">Sign up</a>
+						</li>
+						<li id="nav-admin-item" style="display:none;">
+							<a href="articles_admin.html" id="link-admin">Admin</a>
+						</li>
+						<li id="nav-logout-item" style="display:none;">
+							<a href="#" id="link-logout">Logout</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Main -->
+		<div id="main">
+			<section id="home" class="one dark cover">
+				<div class="container">
+					<header>
+						<!-- ✅ Default: no words; JS will fill in with latest article title if available -->
+						<h2 class="alt"></h2>
+						<p></p>
+					</header>
+					<footer>
+						<!-- ✅ Hidden by default, only shown when an article title is loaded -->
+						<a href="articles.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
+					</footer>
+				</div>
+			</section>
+
+			<section id="about" class="two">
+				<div class="container">
+					<header>
+						<h2>What we're about</h2>
+					</header>
+
+					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
+						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
+						parking experience, and make travelling less stressful and more enjoyable.
+					</p>
+
+					<div class="row">
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
+								<header>
+									<h3>Ipsum Feugiat</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
+								<header>
+									<h3>Rhoncus Semper</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
+								<header>
+									<h3>Magna Nullam</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
+								<header>
+									<h3>Natoque Vitae</h3>
+								</header>
+							</article>
+						</div>
+						<div class="col-4 col-12-mobile">
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
+								<header>
+									<h3>Dolor Penatibus</h3>
+								</header>
+							</article>
+							<article class="item">
+								<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+								<header>
+									<h3>Orci Convallis</h3>
+								</header>
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="features" class="three">
+				<div class="container">
+					<header>
+						<h2>Features</h2>
+					</header>
+
+					<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
+
+					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+					ornare iaculis.</p>
+				</div>
+			</section>
+
+			<section id="contact" class="four">
+				<div class="container">
+					<header>
+						<h2>Contact</h2>
+					</header>
+
+					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
+						or want to get in touch for any other reason, feel free to send a message. 
+						we'd love to hear from you!
+					</p>
+
+					<form method="post" action="#">
+						<div class="row">
+							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
+							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-12">
+								<textarea name="message" placeholder="Message"></textarea>
+							</div>
+							<div class="col-12">
+								<input type="submit" value="Send Message" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+
+			<section id="donations" class="four">
+				<div class="container">
+					<header>
+						<h2>Donations</h2>
+					</header>
+
+					<p>PinPark is independently developed and will be continuously improved.
+					   If you think you will find our app useful, you can choose to contribute
+					   here. All donations will help us cover infrastructure costs, and allow
+					   more time to be spent improving and refining current features and performance.
+					   Thank you in advance for any donations.
+					</p>
+
+					<ul class="actions">
+						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
+					</ul>
+				</div>
+			</section>
+		</div>
+
+		<!-- Footer -->
+		<div id="footer">
+			<ul class="copyright">
+				<li>&copy; 2026 PinPark. All rights reserved</li>
+				<li><a href="policies.html">Terms</a></li>
+				<li><a href="policies.html#other">Privacy</a></li>
+			</ul>
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
 		<script>
 			(function () {
 				var nav = document.querySelector('#nav');
@@ -764,5 +1237,7 @@
 
   loadLatestArticleTitle();
 </script>
+	</body>
+</html>
 	</body>
 </html>
