@@ -207,16 +207,18 @@
     border-radius: 14px !important;
     text-transform: none !important;
     letter-spacing: inherit !important;
-    transform: translateY(0);
-    transition: transform 20ms ease, box-shadow 20ms ease;
+    transform: translateY(0) !important;
+    transition: transform 20ms ease, box-shadow 20ms ease !important;
     display: inline-block;
 }
 #donations .actions .button:hover {
     background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+    transform: translateY(0) !important;
 }
 #donations .actions .button:active {
     box-shadow: none !important;
-    transform: translateY(2.5px);
+    transform: translateY(2.5px) !important;
 }
 
 			/* ✅ Contact button */
@@ -228,15 +230,17 @@
     border-radius: 14px !important;
     text-transform: none !important;
     letter-spacing: inherit !important;
-    transform: translateY(0);
-    transition: transform 20ms ease, box-shadow 20ms ease;
+    transform: translateY(0) !important;
+    transition: transform 20ms ease, box-shadow 20ms ease !important;
 }
 #contact form input[type="submit"]:hover {
     background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+    transform: translateY(0) !important;
 }
 #contact form input[type="submit"]:active {
     box-shadow: none !important;
-    transform: translateY(2.5px);
+    transform: translateY(2.5px) !important;
 }
 
 			/* 🔐 Auth nav */
