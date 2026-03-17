@@ -199,47 +199,45 @@
 				padding-left: 0 !important;
 				margin-left: 0 !important;
 			}
-			#donations .actions .button {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
-				border: 1px solid rgba(255, 255, 255, 0.0) !important;
-				color: #fff !important;
-				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
-				border-radius: 14px !important;
-				text-transform: none !important;
-				letter-spacing: inherit !important;
-				transform: scale(1);
-				transition: transform 100ms ease;
-				display: inline-block;
-			}
-			#donations .actions .button:hover {
-				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-				transform: scale(1.025);
-			}
-			#donations .actions .button:active {
-				transform: scale(1.025) translateY(1px);
-			}
+		#donations .actions .button {
+    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+    border-radius: 14px !important;
+    text-transform: none !important;
+    letter-spacing: inherit !important;
+    transform: translateY(0);
+    transition: transform 20ms ease, box-shadow 20ms ease;
+    display: inline-block;
+}
+#donations .actions .button:hover {
+    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+}
+#donations .actions .button:active {
+    box-shadow: none !important;
+    transform: translateY(2.5px);
+}
 
 			/* ✅ Contact button */
 			#contact form input[type="submit"] {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
-				border: 1px solid rgba(255, 255, 255, 0.0) !important;
-				color: #fff !important;
-				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
-				border-radius: 14px !important;
-				text-transform: none !important;
-				letter-spacing: inherit !important;
-				transform: scale(1);
-				transition: transform 100ms ease;
-			}
-			#contact form input[type="submit"]:hover {
-				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-				transform: scale(1.025);
-			}
-			#contact form input[type="submit"]:active {
-				transform: scale(1.025) translateY(1px);
-			}
+    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+    border: none !important;
+    color: #fff !important;
+    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+    border-radius: 14px !important;
+    text-transform: none !important;
+    letter-spacing: inherit !important;
+    transform: translateY(0);
+    transition: transform 20ms ease, box-shadow 20ms ease;
+}
+#contact form input[type="submit"]:hover {
+    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+}
+#contact form input[type="submit"]:active {
+    box-shadow: none !important;
+    transform: translateY(2.5px);
+}
 
 			/* 🔐 Auth nav */
 			#header .bottom {
