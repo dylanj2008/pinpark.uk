@@ -53,15 +53,16 @@
     justify-content: center;
     padding: 30px 15px;
   }
-  .auth-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 22px 24px 20px;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
-    max-width: 420px;
-    width: 100%;
-    box-sizing: border-box;
-  }
+.auth-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 24px 20px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+  max-width: 420px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
   .auth-card h2 {
     margin: 0 0 4px;
     font-size: 1.4em;
@@ -254,43 +255,46 @@
     const primaryBtn   = document.getElementById("btn-primary");
 
     function setMode(mode) {
-      const isSignup = mode === "signup";
+  const isSignup = mode === "signup";
+  window.__authMode = mode;
 
-      window.__authMode = mode;
+  toggleLogin.classList.toggle("active", !isSignup);
+  toggleSignup.classList.toggle("active", isSignup);
 
-      toggleLogin.classList.toggle("active", !isSignup);
-      toggleSignup.classList.toggle("active", isSignup);
+  // Slide the knob
+  const knob = document.getElementById("toggle-knob");
+  const activeBtn = isSignup
+    ? document.getElementById("toggle-signup")
+    : document.getElementById("toggle-login");
+  if (knob && activeBtn) {
+    knob.style.width = activeBtn.offsetWidth + "px";
+    knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
+  }
 
-      // ✅ Slide the knob to the active button
-      const knob = document.getElementById("toggle-knob");
-      const activeBtn = isSignup
-        ? document.getElementById("toggle-signup")
-        : document.getElementById("toggle-login");
-      if (knob && activeBtn) {
-        knob.style.width = activeBtn.offsetWidth + "px";
-        knob.style.transform = isSignup
-          ? "translateX(" + activeBtn.offsetLeft + "px)"
-          : "translateX(0)";
+  // Fade title + subtitle out, swap text, fade back in
+  titleEl.classList.add("fading");
+  subtitleEl.classList.add("fading");
+
+  setTimeout(() => {
+    if (isSignup) {
+      titleEl.textContent = "Create a PinPark account";
+      subtitleEl.textContent = "You'll be able to use this account in both the app and on this website.";
+      if (primaryBtn) {
+        primaryBtn.textContent = "Sign up";
+        primaryBtn.classList.add("mode-signup");
       }
-
-      if (isSignup) {
-        titleEl.textContent = "Create a PinPark account";
-        subtitleEl.textContent =
-          "You'll be able to use this account in both the app and on this website.";
-        if (primaryBtn) {
-          primaryBtn.textContent = "Sign up";
-          primaryBtn.classList.add("mode-signup");
-        }
-      } else {
-        titleEl.textContent = "Sign in to PinPark";
-        subtitleEl.textContent =
-          "Use the same email and password you use in the app.";
-        if (primaryBtn) {
-          primaryBtn.textContent = "Sign in";
-          primaryBtn.classList.remove("mode-signup");
-        }
+    } else {
+      titleEl.textContent = "Sign in to PinPark";
+      subtitleEl.textContent = "Use the same email and password you use in the app.";
+      if (primaryBtn) {
+        primaryBtn.textContent = "Sign in";
+        primaryBtn.classList.remove("mode-signup");
       }
     }
+    titleEl.classList.remove("fading");
+    subtitleEl.classList.remove("fading");
+  }, 160);
+}
 
     // Initialise from ?mode=signup|login in URL
     try {
