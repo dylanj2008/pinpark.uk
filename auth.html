@@ -9,174 +9,146 @@
     <link rel="stylesheet" href="assets/css/main.css" />
 
     <style>
-      body {
-        background: #f6f6f6;
-      }
+  body {
+    background: #f6f6f6;
+  }
 
-      /* Reuse sidebar/header style to match site */
-      #header {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 250px;
-        height: 100%;
-      }
-      #main {
-        margin-left: 250px;
-      }
+  /* Logo size same as other pages */
+  #logo .image img {
+    width: 75%;
+    height: auto;
+    transform: translateY(-10px);
+  }
+  #logo {
+    text-align: center;
+  }
+  #logo .image {
+    display: inline-block;
+  }
+  #logo .image img {
+    display: block;
+    margin: 0 auto;
+  }
 
-      /* Logo size same as other pages */
-      #logo .image img {
-        width: 75%;
-        height: auto;
-        transform: translateY(-10px);
-      }
-      #logo {
-        text-align: center;
-      }
-      #logo .image {
-        display: inline-block;
-      }
-      #logo .image img {
-        display: block;
-        margin: 0 auto;
-      }
+  /* Simple left nav (Back home) */
+  #nav {
+    margin-top: 20px;
+  }
+  #nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #nav ul li a {
+    display: block;
+    padding: 0.6em 1.2em;
+    text-decoration: none;
+  }
 
-      /* Simple left nav (Back home) */
-      #nav {
-        margin-top: 20px;
-      }
-      #nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      #nav ul li a {
-        display: block;
-        padding: 0.6em 1.2em;
-        text-decoration: none;
-      }
+  /* Main auth layout */
+  .auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+  }
+  .auth-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 24px 20px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+    max-width: 420px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .auth-card h2 {
+    margin: 0 0 4px;
+    font-size: 1.4em;
+    text-align: left;
+  }
+  .auth-subtitle {
+    margin: 0 0 16px;
+    font-size: 0.9em;
+    color: #666;
+    text-align: left;
+  }
 
-      /* Main auth layout */
-      .auth-wrapper {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 30px 15px;
-      }
-      .auth-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 22px 24px 20px;
-        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
-        max-width: 420px;
-        width: 100%;
-        box-sizing: border-box;
-      }
-      .auth-card h2 {
-        margin: 0 0 4px;
-        font-size: 1.4em;
-        text-align: left;
-      }
-      .auth-subtitle {
-        margin: 0 0 16px;
-        font-size: 0.9em;
-        color: #666;
-        text-align: left;
-      }
+  /* Toggle (Login / Sign up) */
+  .auth-toggle {
+    display: inline-flex;
+    border-radius: 999px;
+    background: #f2f2f2;
+    padding: 3px;
+    margin-bottom: 16px;
+    font-size: 0.86em;
+  }
+  .auth-toggle button {
+    border: none;
+    background: #e0e0e0;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #000;
+  }
+  .auth-toggle button.active {
+    background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+    color: #fff;
+  }
 
-      /* Toggle (Login / Sign up) */
-      .auth-toggle {
-        display: inline-flex;
-        border-radius: 999px;
-        background: #f2f2f2;
-        padding: 3px;
-        margin-bottom: 16px;
-        font-size: 0.86em;
-      }
-      .auth-toggle button {
-        border: none;
-        background: #e0e0e0; /* grey background for inactive tab */
-        padding: 6px 14px;
-        border-radius: 999px;
-        cursor: pointer;
-        color: #000;         /* black text for inactive tab */
-      }
-      .auth-toggle button.active {
-        background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-        color: #fff;
-      }
+  .auth-field {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  .auth-field label {
+    display: block;
+    font-size: 0.85em;
+    margin-bottom: 4px;
+  }
+  .auth-field input {
+    width: 100%;
+    padding: 7px 9px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 0.95em;
+  }
 
-      .auth-field {
-        margin-bottom: 10px;
-        text-align: left;
-      }
-      .auth-field label {
-        display: block;
-        font-size: 0.85em;
-        margin-bottom: 4px;
-      }
-      .auth-field input {
-        width: 100%;
-        padding: 7px 9px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        box-sizing: border-box;
-        font-size: 0.95em;
-      }
+  .auth-actions {
+    margin: 12px 0 8px;
+  }
+  #btn-primary {
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    padding: 9px 0;
+    cursor: pointer;
+    font-size: 0.95em;
+    background: #f1f1f1;
+    color: #333;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  #btn-primary.mode-signup {
+    background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+    color: #fff;
+  }
 
-      .auth-actions {
-        margin: 12px 0 8px;
-      }
-      #btn-primary {
-        width: 100%;
-        border-radius: 12px;
-        border: none;
-        padding: 9px 0;
-        cursor: pointer;
-        font-size: 0.95em;
-        background: #f1f1f1;
-        color: #333;
-        transition: background 120ms ease, color 120ms ease;
-      }
-      /* When in signup mode we’ll add .mode-signup to the button */
-      #btn-primary.mode-signup {
-        background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-        color: #fff;
-      }
-
-      .auth-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.8em;
-        margin-top: 4px;
-      }
-      #auth-status {
-        min-height: 1.2em;
-      }
-      .auth-footer a {
-        text-decoration: none;
-        border-bottom: 0;
-        cursor: pointer;
-      }
-
-      /* Small screen – collapse sidebar */
-      @media screen and (max-width: 980px) {
-        #header {
-          position: relative;
-          width: 100%;
-          height: auto;
-        }
-        #main {
-          margin-left: 0;
-        }
-        .auth-wrapper {
-          padding-top: 10px;
-        }
-      }
-    </style>
+  .auth-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    margin-top: 4px;
+  }
+  #auth-status {
+    min-height: 1.2em;
+  }
+  .auth-footer a {
+    text-decoration: none;
+    border-bottom: 0;
+    cursor: pointer;
+  }
+</style>
   </head>
   <body class="is-preload">
     <!-- Header -->
