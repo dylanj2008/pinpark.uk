@@ -39,10 +39,14 @@
     margin: 0;
     padding: 0;
   }
-  #nav ul li a {
+#nav ul li a {
     display: block;
     padding: 0.6em 1.2em;
     text-decoration: none;
+  }
+  #nav ul li a.active-locked,
+  #nav ul li a.active-locked span.icon:before {
+    color: #fff !important;
   }
 
   /* Main auth layout */
@@ -230,7 +234,7 @@
 
         <nav id="nav">
           <ul>
-            <li><a href="index.html"><span class="icon solid fa-home">Back to main site</span></a></li>
+            <li><a href="auth.html" class="active-locked"><span class="icon solid fa-user">Authentication</span></a></li>
           </ul>
         </nav>
       </div>
