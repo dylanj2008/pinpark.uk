@@ -124,10 +124,7 @@
   height: calc(100% - 6px);
   border-radius: 999px;
   background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
-              width 220ms cubic-bezier(0.4, 0, 0.2, 1) !important;
   pointer-events: none;
-  will-change: transform, width;
 }
 .auth-toggle button {
   position: relative;
@@ -154,6 +151,7 @@
   padding: 9px 0;
   cursor: pointer;
   font-size: 0.95em;
+  font-family: inherit;
   background: linear-gradient(to right, #00ADEE, #008ACD);
   color: #fff;
   box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70);
@@ -262,15 +260,17 @@
   toggleLogin.classList.toggle("active", !isSignup);
   toggleSignup.classList.toggle("active", isSignup);
 
-  // Slide the knob
-  const knob = document.getElementById("toggle-knob");
-  const activeBtn = isSignup
-    ? document.getElementById("toggle-signup")
-    : document.getElementById("toggle-login");
-  if (knob && activeBtn) {
-    knob.style.width = activeBtn.offsetWidth + "px";
-    knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
-  }
+
+// Slide the knob
+const knob = document.getElementById("toggle-knob");
+const activeBtn = isSignup
+  ? document.getElementById("toggle-signup")
+  : document.getElementById("toggle-login");
+if (knob && activeBtn) {
+  knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
+  knob.style.width = activeBtn.offsetWidth + "px";
+  knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
+}
 
   // Fade title + subtitle out, swap text, fade back in
   titleEl.classList.add("fading");
@@ -311,14 +311,19 @@
     }
 
     // ✅ Initialise knob instantly on load (no transition flash)
-    const knob = document.getElementById("toggle-knob");
-    const loginBtn = document.getElementById("toggle-login");
-    if (knob && loginBtn) {
-      knob.style.transition = "none";
-      knob.style.width = loginBtn.offsetWidth + "px";
-      knob.style.transform = "translateX(0)";
-      requestAnimationFrame(() => { knob.style.transition = ""; });
-    }
+// Initialise knob instantly on load (no transition flash)
+const knob = document.getElementById("toggle-knob");
+const loginBtn = document.getElementById("toggle-login");
+if (knob && loginBtn) {
+  knob.style.transition = "none";
+  knob.style.width = loginBtn.offsetWidth + "px";
+  knob.style.transform = "translateX(0)";
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
+    });
+  });
+}
 
     toggleLogin?.addEventListener("click", () => setMode("login"));
     toggleSignup?.addEventListener("click", () => setMode("signup"));
