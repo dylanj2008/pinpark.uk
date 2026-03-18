@@ -67,11 +67,41 @@
     font-size: 1.4em;
     text-align: left;
   }
-  .auth-subtitle {
+.auth-subtitle {
     margin: 0 0 16px;
     font-size: 0.9em;
     color: #666;
     text-align: left;
+  }
+
+  .auth-field {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  .auth-field label {
+    display: block;
+    font-size: 0.85em;
+    margin-bottom: 4px;
+  }
+  .auth-field input {
+    width: 100%;
+    padding: 7px 9px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-size: 0.95em;
+    font-family: inherit;
+    background: #fff;
+    color: #333;
+    box-shadow: none;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .auth-field input:focus {
+    border-color: #00ADEE;
+    outline: none;
+    box-shadow: none;
   }
 
   /* Toggle (Login / Sign up) */
@@ -107,6 +137,8 @@
   cursor: pointer;
   color: #666;
   font-weight: 600;
+  font-family: inherit;
+  font-size: 1em;
   transition: color 160ms ease;
 }
 .auth-toggle button.active {
