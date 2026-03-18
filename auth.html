@@ -75,59 +75,61 @@
   }
 
   /* Toggle (Login / Sign up) */
-  .auth-toggle {
-    display: inline-flex;
-    border-radius: 999px;
-    background: #f2f2f2;
-    padding: 3px;
-    margin-bottom: 16px;
-    font-size: 0.86em;
-  }
-  .auth-toggle button {
-    border: none;
-    background: #e0e0e0;
-    padding: 6px 14px;
-    border-radius: 999px;
-    cursor: pointer;
-    color: #000;
-  }
-  .auth-toggle button.active {
-    background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-    color: #fff;
-  }
+  /* Toggle (Login / Sign up) */
+.auth-toggle {
+  position: relative;
+  display: inline-flex;
+  border-radius: 999px;
+  background: #f2f2f2;
+  padding: 3px;
+  margin-bottom: 16px;
+  font-size: 0.86em;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.auth-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  height: calc(100% - 6px);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+              width 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+.auth-toggle button {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #666;
+  font-weight: 600;
+  transition: color 160ms ease;
+}
+.auth-toggle button.active {
+  color: #fff;
+}
 
-  .auth-field {
-    margin-bottom: 10px;
-    text-align: left;
-  }
-  .auth-field label {
-    display: block;
-    font-size: 0.85em;
-    margin-bottom: 4px;
-  }
-  .auth-field input {
-    width: 100%;
-    padding: 7px 9px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    font-size: 0.95em;
-  }
-
-  .auth-actions {
-    margin: 12px 0 8px;
-  }
-  #btn-primary {
-    width: 100%;
-    border-radius: 12px;
-    border: none;
-    padding: 9px 0;
-    cursor: pointer;
-    font-size: 0.95em;
-    background: #f1f1f1;
-    color: #333;
-    transition: background 120ms ease, color 120ms ease;
-  }
+#btn-primary {
+  width: 100%;
+  border-radius: 14px;
+  border: none;
+  padding: 9px 0;
+  cursor: pointer;
+  font-size: 0.95em;
+  background: linear-gradient(to right, #00ADEE, #008ACD);
+  color: #fff;
+  box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70);
+  transform: translateY(0);
+  transition: transform 20ms ease, box-shadow 20ms ease;
+}
+#btn-primary:active {
+  box-shadow: none;
+  transform: translateY(2.5px);
+}
   #btn-primary.mode-signup {
     background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
     color: #fff;
@@ -171,10 +173,11 @@
     <div id="main">
       <div class="auth-wrapper">
         <div class="auth-card">
-          <div class="auth-toggle">
-            <button id="toggle-login" class="active" type="button">Login</button>
-            <button id="toggle-signup" type="button">Sign up</button>
-          </div>
+       <div class="auth-toggle">
+  <div class="auth-toggle-knob" id="toggle-knob"></div>
+  <button id="toggle-login" class="active" type="button">Login</button>
+  <button id="toggle-signup" type="button">Sign up</button>
+</div>
 
           <h2 id="auth-title">Sign in to PinPark</h2>
           <p class="auth-subtitle" id="auth-subtitle">
@@ -209,59 +212,81 @@
     <script src="assets/js/util.js"></script>
 
     <!-- ✅ Toggle logic (no Firebase, always runs) -->
-    <script>
-      (function () {
-        const titleEl      = document.getElementById("auth-title");
-        const subtitleEl   = document.getElementById("auth-subtitle");
-        const toggleLogin  = document.getElementById("toggle-login");
-        const toggleSignup = document.getElementById("toggle-signup");
-        const primaryBtn   = document.getElementById("btn-primary");
+<!-- ✅ Toggle logic (no Firebase, always runs) -->
+<script>
+  (function () {
+    const titleEl      = document.getElementById("auth-title");
+    const subtitleEl   = document.getElementById("auth-subtitle");
+    const toggleLogin  = document.getElementById("toggle-login");
+    const toggleSignup = document.getElementById("toggle-signup");
+    const primaryBtn   = document.getElementById("btn-primary");
 
-        function setMode(mode) {
-          const isSignup = mode === "signup";
+    function setMode(mode) {
+      const isSignup = mode === "signup";
 
-          // store mode globally so the Firebase script can read it
-          window.__authMode = mode;
+      window.__authMode = mode;
 
-          toggleLogin.classList.toggle("active", !isSignup);
-          toggleSignup.classList.toggle("active", isSignup);
+      toggleLogin.classList.toggle("active", !isSignup);
+      toggleSignup.classList.toggle("active", isSignup);
 
-          if (isSignup) {
-            titleEl.textContent = "Create a PinPark account";
-            subtitleEl.textContent =
-              "You'll be able to use this account in both the app and on this website.";
-            if (primaryBtn) {
-              primaryBtn.textContent = "Sign up";
-              primaryBtn.classList.add("mode-signup");
-            }
-          } else {
-            titleEl.textContent = "Sign in to PinPark";
-            subtitleEl.textContent =
-              "Use the same email and password you use in the app.";
-            if (primaryBtn) {
-              primaryBtn.textContent = "Sign in";
-              primaryBtn.classList.remove("mode-signup");
-            }
-          }
+      // ✅ Slide the knob to the active button
+      const knob = document.getElementById("toggle-knob");
+      const activeBtn = isSignup
+        ? document.getElementById("toggle-signup")
+        : document.getElementById("toggle-login");
+      if (knob && activeBtn) {
+        knob.style.width = activeBtn.offsetWidth + "px";
+        knob.style.transform = isSignup
+          ? "translateX(" + activeBtn.offsetLeft + "px)"
+          : "translateX(0)";
+      }
+
+      if (isSignup) {
+        titleEl.textContent = "Create a PinPark account";
+        subtitleEl.textContent =
+          "You'll be able to use this account in both the app and on this website.";
+        if (primaryBtn) {
+          primaryBtn.textContent = "Sign up";
+          primaryBtn.classList.add("mode-signup");
         }
-
-        // Initialise from ?mode=signup|login in URL
-        try {
-          const u = new URL(window.location.href);
-          const mode = u.searchParams.get("mode");
-          if (mode === "signup") {
-            setMode("signup");
-          } else {
-            setMode("login");
-          }
-        } catch (e) {
-          setMode("login");
+      } else {
+        titleEl.textContent = "Sign in to PinPark";
+        subtitleEl.textContent =
+          "Use the same email and password you use in the app.";
+        if (primaryBtn) {
+          primaryBtn.textContent = "Sign in";
+          primaryBtn.classList.remove("mode-signup");
         }
+      }
+    }
 
-        toggleLogin?.addEventListener("click", () => setMode("login"));
-        toggleSignup?.addEventListener("click", () => setMode("signup"));
-      })();
-    </script>
+    // Initialise from ?mode=signup|login in URL
+    try {
+      const u = new URL(window.location.href);
+      const mode = u.searchParams.get("mode");
+      if (mode === "signup") {
+        setMode("signup");
+      } else {
+        setMode("login");
+      }
+    } catch (e) {
+      setMode("login");
+    }
+
+    // ✅ Initialise knob instantly on load (no transition flash)
+    const knob = document.getElementById("toggle-knob");
+    const loginBtn = document.getElementById("toggle-login");
+    if (knob && loginBtn) {
+      knob.style.transition = "none";
+      knob.style.width = loginBtn.offsetWidth + "px";
+      knob.style.transform = "translateX(0)";
+      requestAnimationFrame(() => { knob.style.transition = ""; });
+    }
+
+    toggleLogin?.addEventListener("click", () => setMode("login"));
+    toggleSignup?.addEventListener("click", () => setMode("signup"));
+  })();
+</script>
 
     <!-- 🔐 Firebase Auth (shared with the app) -->
     <script type="module">
