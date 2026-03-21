@@ -13,7 +13,6 @@
     background: #f6f6f6;
   }
 
-  /* Logo size same as other pages */
   #logo .image img {
     width: 75%;
     height: auto;
@@ -30,7 +29,6 @@
     margin: 0 auto;
   }
 
-  /* Simple left nav (Back home) */
   #nav {
     margin-top: 20px;
   }
@@ -40,29 +38,28 @@
     padding: 0;
   }
   #nav ul li a {
-  position: relative;
-}
-#nav ul li a:before {
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 0.35em;
-  content: '';
-  display: block;
-  height: 100%;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-#nav ul li a.active-locked,
-#nav ul li a.active-locked span.icon:before {
-  color: #fff !important;
-}
-#nav ul li a.active-locked:before {
-  opacity: 1 !important;
-}
+    position: relative;
+  }
+  #nav ul li a:before {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 0.35em;
+    content: '';
+    display: block;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  #nav ul li a.active-locked,
+  #nav ul li a.active-locked span.icon:before {
+    color: #fff !important;
+  }
+  #nav ul li a.active-locked:before {
+    opacity: 1 !important;
+  }
 
-  /* Main auth layout */
   .auth-wrapper {
     min-height: 100vh;
     display: flex;
@@ -70,22 +67,22 @@
     justify-content: center;
     padding: 30px 15px;
   }
-.auth-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 22px 24px 20px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
-  max-width: 420px;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-}
+  .auth-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px 24px 20px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
+    max-width: 420px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
   .auth-card h2 {
     margin: 0 0 4px;
     font-size: 1.4em;
     text-align: left;
   }
-.auth-subtitle {
+  .auth-subtitle {
     margin: 0 0 16px;
     font-size: 0.9em;
     color: #666;
@@ -122,66 +119,111 @@
     box-shadow: none;
   }
 
-  /* Toggle (Login / Sign up) */
-  /* Toggle (Login / Sign up) */
-.auth-toggle {
-  position: relative;
-  display: inline-flex;
-  border-radius: 999px;
-  background: #f2f2f2;
-  padding: 3px;
-  margin-bottom: 16px;
-  font-size: 0.86em;
-  border: 1px solid rgba(0,0,0,0.08);
-}
-.auth-toggle-knob {
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  height: calc(100% - 6px);
-  border-radius: 999px;
-  background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
-  pointer-events: none;
-}
-.auth-toggle button {
-  position: relative;
-  z-index: 1;
-  border: none;
-  background: transparent;
-  padding: 6px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  color: #666 !important;
-  font-weight: 400;
-  font-family: inherit;
-  font-size: 1em;
-  transition: color 160ms ease;
-}
-.auth-toggle button.active {
-  color: #fff !important;
-}
+  .auth-toggle {
+    position: relative;
+    display: inline-flex;
+    border-radius: 999px;
+    background: #f2f2f2;
+    padding: 3px;
+    margin-bottom: 16px;
+    font-size: 0.86em;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .auth-toggle-knob {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    height: calc(100% - 6px);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
+    pointer-events: none;
+  }
+  .auth-toggle button {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: #666 !important;
+    font-weight: 400;
+    font-family: inherit;
+    font-size: 1em;
+    transition: color 160ms ease;
+  }
+  .auth-toggle button.active {
+    color: #fff !important;
+  }
 
-#btn-primary {
-  width: 100%;
-  border-radius: 14px;
-  border: none;
-  padding: 9px 0;
-  cursor: pointer;
-  font-size: 0.95em;
-  font-family: inherit;
-  background: linear-gradient(to right, #00ADEE, #008ACD);
-  color: #fff;
-  box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70);
-  transform: translateY(0);
-  transition: transform 20ms ease, box-shadow 20ms ease;
-}
-#btn-primary:active {
-  box-shadow: none;
-  transform: translateY(2.5px);
-}
+  #btn-primary {
+    width: 100%;
+    border-radius: 14px;
+    border: none;
+    padding: 9px 0;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-family: inherit;
+    background: linear-gradient(to right, #00ADEE, #008ACD);
+    color: #fff;
+    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70);
+    transform: translateY(0);
+    transition: transform 20ms ease, box-shadow 20ms ease;
+  }
+  #btn-primary:active {
+    box-shadow: none;
+    transform: translateY(2.5px);
+  }
   #btn-primary.mode-signup {
     background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
     color: #fff;
+  }
+
+  /* Google button */
+  #btn-google {
+    width: 100%;
+    border-radius: 14px;
+    border: 1.6px solid rgba(0,0,0,0.18);
+    padding: 9px 0;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-family: inherit;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 8px;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+    transform: translateY(0);
+    transition: transform 20ms ease, box-shadow 20ms ease;
+    box-sizing: border-box;
+  }
+  #btn-google:active {
+    box-shadow: none;
+    transform: translateY(2.5px);
+  }
+  #btn-google img {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 4px;
+    color: #bbb;
+    font-size: 0.8em;
+  }
+  .auth-divider::before,
+  .auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
   }
 
   .auth-footer {
@@ -199,42 +241,43 @@
     border-bottom: 0;
     cursor: pointer;
   }
+
   #header .bottom {
-  text-align: left !important;
-  padding-left: 15px !important;
-  padding-bottom: 15px !important;
-}
-#nav-back ul, #nav-back ul li {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-#back-link {
-  text-decoration: none !important;
-  border-bottom: 0 !important;
-  box-shadow: none !important;
-  font-size: 0.8em !important;
-}
-#back-link .icon:before {
-  margin-right: 5px !important;
-  font-size: 1em !important;
-}
-#nav-back ul li a,
-#nav-back ul li a span.icon:before {
-  color: rgba(255, 255, 255, 0.55) !important;
-}
-#nav-back ul li a:hover,
-#nav-back ul li a:hover span.icon:before {
-  color: #fff !important;
-  text-decoration: none !important;
-  border-bottom: 0 !important;
-}
-#nav-back ul li a:before,
-#nav-back ul li a:after {
-  background: transparent !important;
-  box-shadow: none !important;
-  opacity: 0 !important;
-}
+    text-align: left !important;
+    padding-left: 15px !important;
+    padding-bottom: 15px !important;
+  }
+  #nav-back ul, #nav-back ul li {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #back-link {
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+    font-size: 0.8em !important;
+  }
+  #back-link .icon:before {
+    margin-right: 5px !important;
+    font-size: 1em !important;
+  }
+  #nav-back ul li a,
+  #nav-back ul li a span.icon:before {
+    color: rgba(255, 255, 255, 0.55) !important;
+  }
+  #nav-back ul li a:hover,
+  #nav-back ul li a:hover span.icon:before {
+    color: #fff !important;
+    text-decoration: none !important;
+    border-bottom: 0 !important;
+  }
+  #nav-back ul li a:before,
+  #nav-back ul li a:after {
+    background: transparent !important;
+    box-shadow: none !important;
+    opacity: 0 !important;
+  }
 </style>
   </head>
   <body class="is-preload">
@@ -244,7 +287,6 @@
         <div id="logo">
           <span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
         </div>
-
         <nav id="nav">
           <ul>
             <li><a href="auth.html" class="active-locked"><span class="icon solid fa-user">Authentication</span></a></li>
@@ -252,23 +294,23 @@
         </nav>
       </div>
       <div class="bottom">
-  <nav id="nav-back">
-    <ul>
-      <li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
-    </ul>
-  </nav>
-</div>
+        <nav id="nav-back">
+          <ul>
+            <li><a href="index.html" id="back-link"><span class="icon solid fa-arrow-left">Back</span></a></li>
+          </ul>
+        </nav>
+      </div>
     </div>
 
     <!-- Main auth content -->
     <div id="main">
       <div class="auth-wrapper">
         <div class="auth-card">
-       <div class="auth-toggle">
-  <div class="auth-toggle-knob" id="toggle-knob"></div>
-  <button id="toggle-login" class="active" type="button">Login</button>
-  <button id="toggle-signup" type="button">Sign up</button>
-</div>
+          <div class="auth-toggle">
+            <div class="auth-toggle-knob" id="toggle-knob"></div>
+            <button id="toggle-login" class="active" type="button">Login</button>
+            <button id="toggle-signup" type="button">Sign up</button>
+          </div>
 
           <h2 id="auth-title">Sign in to PinPark</h2>
           <p class="auth-subtitle" id="auth-subtitle">
@@ -287,6 +329,17 @@
 
           <div class="auth-actions">
             <button id="btn-primary" type="button">Sign in</button>
+
+            <div class="auth-divider">or</div>
+
+            <button id="btn-google" type="button">
+              <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" />
+              Continue with Google
+            </button>
+          </div>
+
+          <div class="auth-footer">
+            <span id="auth-status"></span>
           </div>
         </div>
       </div>
@@ -297,94 +350,87 @@
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/util.js"></script>
 
-    <!-- ✅ Toggle logic (no Firebase, always runs) -->
-<!-- ✅ Toggle logic (no Firebase, always runs) -->
-<script>
-  (function () {
-    const titleEl      = document.getElementById("auth-title");
-    const subtitleEl   = document.getElementById("auth-subtitle");
-    const toggleLogin  = document.getElementById("toggle-login");
-    const toggleSignup = document.getElementById("toggle-signup");
-    const primaryBtn   = document.getElementById("btn-primary");
+    <!-- Toggle logic -->
+    <script>
+      (function () {
+        const titleEl      = document.getElementById("auth-title");
+        const subtitleEl   = document.getElementById("auth-subtitle");
+        const toggleLogin  = document.getElementById("toggle-login");
+        const toggleSignup = document.getElementById("toggle-signup");
+        const primaryBtn   = document.getElementById("btn-primary");
 
-    function setMode(mode) {
-  const isSignup = mode === "signup";
-  window.__authMode = mode;
+        function setMode(mode) {
+          const isSignup = mode === "signup";
+          window.__authMode = mode;
 
-  toggleLogin.classList.toggle("active", !isSignup);
-  toggleSignup.classList.toggle("active", isSignup);
+          toggleLogin.classList.toggle("active", !isSignup);
+          toggleSignup.classList.toggle("active", isSignup);
 
+          const knob = document.getElementById("toggle-knob");
+          const activeBtn = isSignup
+            ? document.getElementById("toggle-signup")
+            : document.getElementById("toggle-login");
+          if (knob && activeBtn) {
+            knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
+            knob.style.width = activeBtn.offsetWidth + "px";
+            knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
+          }
 
-// Slide the knob
-const knob = document.getElementById("toggle-knob");
-const activeBtn = isSignup
-  ? document.getElementById("toggle-signup")
-  : document.getElementById("toggle-login");
-if (knob && activeBtn) {
-  knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
-  knob.style.width = activeBtn.offsetWidth + "px";
-  knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
-}
+          titleEl.classList.add("fading");
+          subtitleEl.classList.add("fading");
 
-  // Fade title + subtitle out, swap text, fade back in
-  titleEl.classList.add("fading");
-  subtitleEl.classList.add("fading");
+          setTimeout(() => {
+            if (isSignup) {
+              titleEl.textContent = "Create a PinPark account";
+              subtitleEl.textContent = "You'll be able to use this account in both the app and on this website.";
+              if (primaryBtn) {
+                primaryBtn.textContent = "Sign up";
+                primaryBtn.classList.add("mode-signup");
+              }
+            } else {
+              titleEl.textContent = "Sign in to PinPark";
+              subtitleEl.textContent = "Use the same email and password you use in the app.";
+              if (primaryBtn) {
+                primaryBtn.textContent = "Sign in";
+                primaryBtn.classList.remove("mode-signup");
+              }
+            }
+            titleEl.classList.remove("fading");
+            subtitleEl.classList.remove("fading");
+          }, 160);
+        }
 
-  setTimeout(() => {
-    if (isSignup) {
-      titleEl.textContent = "Create a PinPark account";
-      subtitleEl.textContent = "You'll be able to use this account in both the app and on this website.";
-      if (primaryBtn) {
-        primaryBtn.textContent = "Sign up";
-        primaryBtn.classList.add("mode-signup");
-      }
-    } else {
-      titleEl.textContent = "Sign in to PinPark";
-      subtitleEl.textContent = "Use the same email and password you use in the app.";
-      if (primaryBtn) {
-        primaryBtn.textContent = "Sign in";
-        primaryBtn.classList.remove("mode-signup");
-      }
-    }
-    titleEl.classList.remove("fading");
-    subtitleEl.classList.remove("fading");
-  }, 160);
-}
+        try {
+          const u = new URL(window.location.href);
+          const mode = u.searchParams.get("mode");
+          if (mode === "signup") {
+            setMode("signup");
+          } else {
+            setMode("login");
+          }
+        } catch (e) {
+          setMode("login");
+        }
 
-    // Initialise from ?mode=signup|login in URL
-    try {
-      const u = new URL(window.location.href);
-      const mode = u.searchParams.get("mode");
-      if (mode === "signup") {
-        setMode("signup");
-      } else {
-        setMode("login");
-      }
-    } catch (e) {
-      setMode("login");
-    }
+        const knob = document.getElementById("toggle-knob");
+        const loginBtn = document.getElementById("toggle-login");
+        if (knob && loginBtn) {
+          knob.style.transition = "none";
+          knob.style.width = loginBtn.offsetWidth + "px";
+          knob.style.transform = "translateX(0)";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
+            });
+          });
+        }
 
-    // ✅ Initialise knob instantly on load (no transition flash)
-// Initialise knob instantly on load (no transition flash)
-const knob = document.getElementById("toggle-knob");
-const loginBtn = document.getElementById("toggle-login");
-if (knob && loginBtn) {
-  knob.style.transition = "none";
-  knob.style.width = loginBtn.offsetWidth + "px";
-  knob.style.transform = "translateX(0)";
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
-    });
-  });
-}
+        toggleLogin?.addEventListener("click", () => setMode("login"));
+        toggleSignup?.addEventListener("click", () => setMode("signup"));
+      })();
+    </script>
 
-    toggleLogin?.addEventListener("click", () => setMode("login"));
-    toggleSignup?.addEventListener("click", () => setMode("signup"));
-  })();
-</script>
-
-    <!-- 🔐 Firebase Auth (shared with the app) -->
+    <!-- Firebase Auth -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
       import {
@@ -392,12 +438,15 @@ if (knob && loginBtn) {
         onAuthStateChanged,
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
+        GoogleAuthProvider,
+        signInWithPopup,
       } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
       const statusEl   = document.getElementById("auth-status");
       const emailInput = document.getElementById("auth-email");
       const passInput  = document.getElementById("auth-password");
       const btnPrimary = document.getElementById("btn-primary");
+      const btnGoogle  = document.getElementById("btn-google");
 
       function showStatus(msg, isError = false) {
         if (!statusEl) return;
@@ -415,63 +464,66 @@ if (knob && loginBtn) {
         measurementId: "G-LJN7NRFFX4"
       };
 
-      if (!firebaseConfig.apiKey) {
-        console.warn("Firebase config missing in auth.html – auth disabled until you paste it.");
-        showStatus("Auth is not configured yet.", true);
-      } else {
-        const app  = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+      const app  = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
 
-        btnPrimary?.addEventListener("click", async () => {
-          const email = (emailInput.value || "").trim();
-          const pass  = passInput.value;
+      // ── Email / password ──────────────────────────────────────
+      btnPrimary?.addEventListener("click", async () => {
+        const email = (emailInput.value || "").trim();
+        const pass  = passInput.value;
 
-          if (!email || !pass) {
-            showStatus("Please enter email and password", true);
-            return;
+        if (!email || !pass) {
+          showStatus("Please enter email and password", true);
+          return;
+        }
+
+        const mode = (window.__authMode === "signup") ? "signup" : "login";
+
+        try {
+          if (mode === "login") {
+            showStatus("Signing in...");
+            const cred = await signInWithEmailAndPassword(auth, email, pass);
+            const user = cred.user;
+            const isAdmin = email.toLowerCase() === "pinpark@outlook.com";
+            showStatus("Signed in.");
+            window.location.href = isAdmin ? "index_admin.html" : "index.html";
+          } else {
+            showStatus("Creating account...");
+            const cred = await createUserWithEmailAndPassword(auth, email, pass);
+            showStatus("Account created.");
+            setTimeout(() => { window.location.href = "index.html"; }, 700);
           }
+        } catch (err) {
+          console.error(err);
+          showStatus(err.message || "Request failed", true);
+        }
+      });
 
-          const mode = (window.__authMode === "signup") ? "signup" : "login";
-
-          try {
-            if (mode === "login") {
-              showStatus("Signing in...");
-              const cred = await signInWithEmailAndPassword(auth, email, pass);
-              const user = cred.user;
-              console.log("Signed in user:", user.email, "uid:", user.uid);
-
-              // 🔐 Treat the typed email as admin check
-              const isAdmin = email.toLowerCase() === "pinpark@outlook.com";
-
-              console.log("isAdmin?", isAdmin ? "YES" : "NO");
-
-              showStatus("Signed in.");
-              if (isAdmin) {
-                window.location.href = "index_admin.html";
-              } else {
-                window.location.href = "index.html";
-              }
-            } else {
-              showStatus("Creating account...");
-              const cred = await createUserWithEmailAndPassword(auth, email, pass);
-              console.log("New user UID:", cred.user.uid, "email:", cred.user.email);
-              showStatus("Account created. You can now sign in.");
-              setTimeout(() => {
-                window.location.href = "index.html";
-              }, 700);
-            }
-          } catch (err) {
-            console.error(err);
-            showStatus(err.message || "Request failed", true);
+      // ── Google Sign-In ────────────────────────────────────────
+      btnGoogle?.addEventListener("click", async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+          showStatus("Opening Google sign-in...");
+          const cred = await signInWithPopup(auth, provider);
+          const user = cred.user;
+          const isAdmin = (user.email || "").toLowerCase() === "pinpark@outlook.com";
+          showStatus("Signed in.");
+          window.location.href = isAdmin ? "index_admin.html" : "index.html";
+        } catch (err) {
+          console.error(err);
+          if (err.code === "auth/popup-closed-by-user") {
+            showStatus("");
+          } else {
+            showStatus(err.message || "Google sign-in failed", true);
           }
-        });
+        }
+      });
 
-        onAuthStateChanged(auth, (user) => {
-          if (user) {
-            console.log("Already signed in as", user.email, "uid:", user.uid);
-          }
-        });
-      }
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log("Already signed in as", user.email, "uid:", user.uid);
+        }
+      });
     </script>
   </body>
 </html>
