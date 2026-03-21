@@ -13,14 +13,12 @@
 		<link rel="icon" type="image/png" href="pinpark_favicon.png">
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- ✅ Make the hero (top/intro cover) 100px shorter -->
 		<style>
 			#home.cover {
 				height: calc(100vh - 275px) !important;
 				min-height: calc(100vh - 275px) !important;
 			}
 
-			/* ✅ PinPark hero tint */
 			#home.cover:before,
 			#home:before {
 				background: linear-gradient(
@@ -91,7 +89,6 @@
 				text-underline-offset: 4px;
 			}
 
-			/* ✅ PinPark logo */
 			#logo .image img {
 				width: 75%;
 				height: auto;
@@ -108,7 +105,6 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Nav highlight */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
 				color: #fff !important;
@@ -128,7 +124,6 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Footer */
 			#footer,
 			#footer::after {
 				background: none !important;
@@ -187,7 +182,6 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Donations button */
 			#donations .actions {
 				margin-left: 0 !important;
 				padding-left: 0 !important;
@@ -199,51 +193,54 @@
 				padding-left: 0 !important;
 				margin-left: 0 !important;
 			}
-		#donations .actions .button {
-    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
-    border: none !important;
-    color: #fff !important;
-    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
-    border-radius: 14px !important;
-    text-transform: none !important;
-    letter-spacing: inherit !important;
-    transform: translateY(0) !important;
-    transition: transform 20ms ease, box-shadow 20ms ease !important;
-    display: inline-block;
-}
-#donations .actions .button:hover {
-    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
-    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
-    transform: translateY(0) !important;
-}
-#donations .actions .button:active {
-    box-shadow: none !important;
-    transform: translateY(2.5px) !important;
-}
+			#donations .actions .button {
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				border: none !important;
+				color: #fff !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: translateY(0) !important;
+				transition: transform 20ms ease, box-shadow 20ms ease !important;
+				display: inline-block;
+			}
+			#donations .actions .button:hover {
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				transform: translateY(0) !important;
+			}
+			#donations .actions .button:active {
+				box-shadow: none !important;
+				transform: translateY(2.5px) !important;
+			}
 
-			/* ✅ Contact button */
 			#contact form input[type="submit"] {
-    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
-    border: none !important;
-    color: #fff !important;
-    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
-    border-radius: 14px !important;
-    text-transform: none !important;
-    letter-spacing: inherit !important;
-    transform: translateY(0) !important;
-    transition: transform 20ms ease, box-shadow 20ms ease !important;
-}
-#contact form input[type="submit"]:hover {
-    background: linear-gradient(to right, #00ADEE, #008ACD) !important;
-    box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
-    transform: translateY(0) !important;
-}
-#contact form input[type="submit"]:active {
-    box-shadow: none !important;
-    transform: translateY(2.5px) !important;
-}
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				border: none !important;
+				color: #fff !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				border-radius: 14px !important;
+				text-transform: none !important;
+				letter-spacing: inherit !important;
+				transform: translateY(0) !important;
+				transition: transform 20ms ease, box-shadow 20ms ease !important;
+			}
+			#contact form input[type="submit"]:hover {
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				transform: translateY(0) !important;
+			}
+			#contact form input[type="submit"]:active {
+				box-shadow: none !important;
+				transform: translateY(2.5px) !important;
+			}
 
-			/* 🔐 Auth nav */
+			/* ✅ Non-resizable textarea */
+			#contact form textarea {
+				resize: none;
+			}
+
 			#header .bottom {
 				text-align: center;
 			}
@@ -261,7 +258,6 @@
 				margin: 0 !important;
 				padding: 0 !important;
 			}
-			/* 🔹 separators between items, but NOT before Logout */
 			#nav-auth ul li + li:not(#nav-logout-item)::before {
 				content: "|";
 				margin: 0 6px;
@@ -276,6 +272,55 @@
 			}
 			#nav-auth a:hover {
 				color: #ffffff !important;
+			}
+
+			/* ✅ Features rows */
+			.feature-row {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+			}
+			.feature-row-left {
+				justify-content: flex-start;
+				padding-left: 10%;
+			}
+			.feature-row-right {
+				justify-content: flex-end;
+				padding-right: 10%;
+			}
+			.feature-row img {
+				width: 154px;
+				height: 154px;
+				border-radius: 50%;
+				object-fit: cover;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+				flex-shrink: 0;
+			}
+
+			@media screen and (max-width: 736px) {
+				.feature-row {
+					flex-direction: row !important;
+					padding-left: 0 !important;
+					padding-right: 0 !important;
+					justify-content: flex-start !important;
+					gap: 16px;
+				}
+				/* Left rows: image then text, fixed left edge */
+				.feature-row-left {
+					padding-left: 5% !important;
+				}
+				/* Right rows: flip order so image is still on right,
+				   but use a fixed right edge for consistent alignment */
+				.feature-row-right {
+					flex-direction: row-reverse !important;
+					justify-content: flex-start !important;
+					padding-left: 5% !important;
+					padding-right: 0 !important;
+				}
+				.feature-row img {
+					width: 100px;
+					height: 100px;
+				}
 			}
 		</style>
 	</head>
@@ -298,7 +343,6 @@
 				</nav>
 			</div>
 
-			<!-- 🔐 Sidebar bottom: auth controls -->
 			<div class="bottom">
 				<nav id="nav-auth">
 					<ul>
@@ -324,12 +368,10 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<!-- ✅ Default: no words; JS will fill in with latest article title if available -->
 						<h2 class="alt"></h2>
 						<p></p>
 					</header>
 					<footer>
-						<!-- ✅ Hidden by default, only shown when an article title is loaded -->
 						<a href="articles.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
 					</footer>
 				</div>
@@ -340,7 +382,6 @@
 					<header>
 						<h2>What we're about</h2>
 					</header>
-
 					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
 						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
 						parking experience, and make travelling less stressful and more enjoyable.
@@ -354,31 +395,31 @@
 						<h2>Features</h2>
 					</header>
 
-						<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
 					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
 					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
 					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
 					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
 					ornare iaculis.</p>
 
-<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
-    <div style="display: flex; justify-content: flex-start; padding-left: 10%; align-items: center; gap: 20px;">
-        <img src="images/pic02.jpg" alt="" style="width: 154px; height: 154px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-        <strong>Navigate Back to Your Pin - </strong>
-    </div>
-<div style="display: flex; justify-content: space-between; padding-left: calc(10% + 77px); padding-right: 10%; align-items: center; gap: 20px;">
-        <strong>Add Notes to Your Pin - </strong>
-        <img src="pic2.png" alt="" style="width: 154px; height: 154px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-    </div>
-    <div style="display: flex; justify-content: flex-start; padding-left: 10%; align-items: center; gap: 20px;">
-        <img src="pic3.png" alt="" style="width: 154px; height: 154px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-        <strong>Find Your Nearest Car Park - </strong>
-    </div>
-   <div style="display: flex; justify-content: space-between; padding-left: calc(10% + 77px); padding-right: 10%; align-items: center; gap: 20px;">
-        <strong>Suggest Improvements In-App - </strong>
-        <img src="images/pic05.jpg" alt="" style="width: 154px; height: 154px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" />
-    </div>
-</div>
+					<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
+						<div class="feature-row feature-row-left">
+							<img src="images/pic02.jpg" alt="" />
+							<strong>Navigate Back to Your Pin - </strong>
+						</div>
+						<div class="feature-row feature-row-right">
+							<strong>Add Notes to Your Pin - </strong>
+							<img src="pic2.png" alt="" />
+						</div>
+						<div class="feature-row feature-row-left">
+							<img src="pic3.png" alt="" />
+							<strong>Find Your Nearest Car Park - </strong>
+						</div>
+						<div class="feature-row feature-row-right">
+							<strong>Suggest Improvements In-App - </strong>
+							<img src="images/pic05.jpg" alt="" />
+						</div>
+					</div>
 				</div>
 			</section>
 
@@ -387,13 +428,10 @@
 					<header>
 						<h2>Contact</h2>
 					</header>
-
 					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
 						or want to get in touch for any other reason, feel free to send a message. 
 						we'd love to hear from you!
 					</p>
-
-
 					<form method="post" action="#">
 						<div class="row">
 							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
@@ -414,14 +452,12 @@
 					<header>
 						<h2>Donations</h2>
 					</header>
-
 					<p>PinPark is independently developed and will be continuously improved.
 					   If you think you will find our app useful, you can choose to contribute
 					   here. All donations will help us cover infrastructure costs, and allow
 					   more time to be spent improving and refining current features and performance.
 					   Thank you in advance for any donations.
 					</p>
-
 					<ul class="actions">
 						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
 					</ul>
@@ -499,12 +535,9 @@
 					a.addEventListener('click', function (e) {
 						var id = hrefToId(a.getAttribute('href') || '');
 						if (!id) return;
-
 						e.preventDefault();
-
 						lockedUntil = Date.now() + 600;
 						setActiveById(id);
-
 						scrollToId(id, false);
 						clearSectionFromUrl();
 					});
@@ -523,13 +556,10 @@
 				function onScroll() {
 					if (ticking) return;
 					ticking = true;
-
 					requestAnimationFrame(function () {
 						ticking = false;
-
 						var probeY = window.innerHeight * 0.35;
 						var best = null;
-
 						for (var i = 0; i < sections.length; i++) {
 							var s = sections[i];
 							var r = s.getBoundingClientRect();
@@ -538,7 +568,6 @@
 								break;
 							}
 						}
-
 						if (!best) {
 							var bestDist = Infinity;
 							for (var j = 0; j < sections.length; j++) {
@@ -550,7 +579,6 @@
 								}
 							}
 						}
-
 						if (best && Date.now() >= lockedUntil) {
 							setActiveById(best.id);
 						}
@@ -572,172 +600,149 @@
 		</script>
 
 		<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-  import {
-    getFirestore,
-    doc,
-    getDoc,
-    collection,
-    query,
-    where,
-    orderBy,
-    limit,
-    getDocs
-  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc,
+				collection,
+				query,
+				where,
+				orderBy,
+				limit,
+				getDocs
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-    authDomain: "pinpark-1fcb3.firebaseapp.com",
-    projectId: "pinpark-1fcb3",
-    storageBucket: "pinpark-1fcb3.firebasestorage.app",
-    messagingSenderId: "677372487037",
-    appId: "1:677372487037:web:5dcd5e788874aca5851814",
-    measurementId: "G-LJN7NRFFX4"
-  };
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
 
-  const app  = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db   = getFirestore(app);
+			const app  = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+			const db   = getFirestore(app);
 
-  const liLogin    = document.getElementById("nav-login-item");
-  const liSignup   = document.getElementById("nav-signup-item");
-  const liAdmin    = document.getElementById("nav-admin-item");
-  const liLogout   = document.getElementById("nav-logout-item");
-  const logoutLink = document.getElementById("link-logout");
+			const liLogin    = document.getElementById("nav-login-item");
+			const liSignup   = document.getElementById("nav-signup-item");
+			const liAdmin    = document.getElementById("nav-admin-item");
+			const liLogout   = document.getElementById("nav-logout-item");
+			const logoutLink = document.getElementById("link-logout");
 
-  function setVisible(el, show) {
-    if (!el) return;
-    el.style.display = show ? "" : "none";
-  }
+			function setVisible(el, show) {
+				if (!el) return;
+				el.style.display = show ? "" : "none";
+			}
 
-  async function isAdminUser(user) {
-    if (!user) return false;
-    try {
-      const snap = await getDoc(doc(db, "admins", user.uid));
-      return snap.exists();
-    } catch (e) {
-      console.error("Admin check failed:", e);
-      return false;
-    }
-  }
+			async function isAdminUser(user) {
+				if (!user) return false;
+				try {
+					const snap = await getDoc(doc(db, "admins", user.uid));
+					return snap.exists();
+				} catch (e) {
+					console.error("Admin check failed:", e);
+					return false;
+				}
+			}
 
-  // Map normal pages -> admin equivalents
-  const adminMap = {
-    "index.html": "index_admin.html",
-    "articles.html": "articles_admin.html",
-    // add more as you create them:
-    // "policies.html": "policies_admin.html",
-  };
+			const adminMap = {
+				"index.html": "index_admin.html",
+				"articles.html": "articles_admin.html",
+			};
 
-  // Optional reverse map (admin -> normal) if you want to block non-admins from admin pages
-  const normalMap = Object.fromEntries(Object.entries(adminMap).map(([k, v]) => [v, k]));
+			const normalMap = Object.fromEntries(Object.entries(adminMap).map(([k, v]) => [v, k]));
 
-  function currentFile() {
-    // Handles "/" (no filename) -> treat as index.html
-    let file = window.location.pathname.split("/").pop();
-    if (!file) file = "index.html";
-    return file;
-  }
+			function currentFile() {
+				let file = window.location.pathname.split("/").pop();
+				if (!file) file = "index.html";
+				return file;
+			}
 
-  onAuthStateChanged(auth, async (user) => {
-    const file = currentFile();
+			onAuthStateChanged(auth, async (user) => {
+				const file = currentFile();
 
-    if (!user) {
-      // Signed out -> show Login + Sign up, hide Admin + Logout
-      setVisible(liLogin, true);
-      setVisible(liSignup, true);
-      setVisible(liLogout, false);
-      setVisible(liAdmin, false);
+				if (!user) {
+					setVisible(liLogin, true);
+					setVisible(liSignup, true);
+					setVisible(liLogout, false);
+					setVisible(liAdmin, false);
+					if (normalMap[file]) {
+						window.location.replace(normalMap[file]);
+					}
+					return;
+				}
 
-      // (Optional) if someone tries to open an admin page while signed out, kick them to normal
-      if (normalMap[file]) {
-        window.location.replace(normalMap[file]);
-      }
-      return;
-    }
+				const admin = await isAdminUser(user);
 
-    const admin = await isAdminUser(user);
+				const adminTarget = adminMap[file];
+				if (admin && adminTarget && file !== adminTarget) {
+					window.location.replace(adminTarget);
+					return;
+				}
 
-    // If admin and on a normal page with an admin equivalent -> redirect
-    const adminTarget = adminMap[file];
-    if (admin && adminTarget && file !== adminTarget) {
-      window.location.replace(adminTarget); // replace avoids back-button loops
-      return;
-    }
+				const normalTarget = normalMap[file];
+				if (!admin && normalTarget) {
+					window.location.replace(normalTarget);
+					return;
+				}
 
-    // (Optional) If NOT admin and they are on an admin page -> kick them out
-    const normalTarget = normalMap[file];
-    if (!admin && normalTarget) {
-      window.location.replace(normalTarget);
-      return;
-    }
+				setVisible(liLogin, false);
+				setVisible(liSignup, false);
+				setVisible(liLogout, true);
+				setVisible(liAdmin, admin);
+			});
 
-    // If we didn't redirect, just update the nav
-    setVisible(liLogin, false);
-    setVisible(liSignup, false);
-    setVisible(liLogout, true);
-    setVisible(liAdmin, admin);
-  });
+			logoutLink?.addEventListener("click", async (e) => {
+				e.preventDefault();
+				try {
+					await signOut(auth);
+					window.location.replace("index.html");
+				} catch (err) {
+					console.error("Logout failed:", err);
+				}
+			});
 
-  logoutLink?.addEventListener("click", async (e) => {
-    e.preventDefault();
-    try {
-      await signOut(auth);
-      window.location.replace("index.html");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    }
-  });
+			async function loadLatestArticleTitle() {
+				try {
+					const col = collection(db, "articles");
+					let q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("publishedAt", "desc"),
+						limit(1)
+					);
+					let snap;
+					try {
+						snap = await getDocs(q);
+					} catch (e) {
+						console.warn("Falling back to createdAt index for homepage headline:", e);
+						q = query(
+							col,
+							where("status", "==", "published"),
+							orderBy("createdAt", "desc"),
+							limit(1)
+						);
+						snap = await getDocs(q);
+					}
+					if (snap.empty) return;
+					const data = snap.docs[0].data();
+					const title = (data.title || "").trim();
+					if (!title) return;
+					const heroTitle = document.querySelector('#home h2.alt');
+					if (heroTitle) heroTitle.textContent = title;
+					const readMore = document.getElementById("home-read-more");
+					if (readMore) readMore.style.display = "";
+				} catch (e) {
+					console.error("Failed to load latest article title:", e);
+				}
+			}
 
-  // 📰 Load latest published article title into the home hero
-  async function loadLatestArticleTitle() {
-    try {
-      const col = collection(db, "articles");
-
-      let q = query(
-        col,
-        where("status", "==", "published"),
-        orderBy("publishedAt", "desc"),
-        limit(1)
-      );
-
-      let snap;
-      try {
-        snap = await getDocs(q);
-      } catch (e) {
-        console.warn("Falling back to createdAt index for homepage headline:", e);
-        q = query(
-          col,
-          where("status", "==", "published"),
-          orderBy("createdAt", "desc"),
-          limit(1)
-        );
-        snap = await getDocs(q);
-      }
-
-      if (snap.empty) return;
-
-      const data = snap.docs[0].data();
-      const title = (data.title || "").trim();
-      if (!title) return;
-
-      const heroTitle = document.querySelector('#home h2.alt');
-      if (heroTitle) {
-        heroTitle.textContent = title;
-      }
-
-      // ✅ Only show "Read more" when we actually have a title
-      const readMore = document.getElementById("home-read-more");
-      if (readMore) {
-        readMore.style.display = "";
-      }
-    } catch (e) {
-      console.error("Failed to load latest article title:", e);
-    }
-  }
-
-  loadLatestArticleTitle();
-</script>
+			loadLatestArticleTitle();
+		</script>
 	</body>
 </html>
