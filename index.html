@@ -345,7 +345,6 @@
 					position: fixed;
 					left: 0;
 					top: 50%;
-					/* translateY for vertical centring; translateX driven by JS */
 					transform: translateY(-50%);
 					width: 28px;
 					height: 66px;
@@ -356,7 +355,7 @@
 					font-size: 20px;
 					line-height: 1;
 					cursor: pointer;
-					transition: left 0.3s ease;
+					/* No transition here — set via JS so it's guaranteed active before first use */
 				}
 
 				/* Arrow flips when open */
@@ -365,7 +364,7 @@
 					transform: scaleX(-1);
 				}
 
-				/* ── Sidebar drawer — use transform so theme's left: value can't fight us ── */
+				/* ── Sidebar drawer ── */
 				#header {
 					display: block !important;
 					visibility: visible !important;
@@ -376,7 +375,6 @@
 					height: 100% !important;
 					z-index: 9999 !important;
 					overflow-y: auto !important;
-					/* Start fully off-screen to the left */
 					transform: translateX(-300px) !important;
 					transition: transform 0.3s ease !important;
 				}
@@ -468,9 +466,6 @@
 						</li>
 						<li id="nav-signup-item">
 							<a href="auth.html?mode=signup" id="link-signup">Sign up</a>
-						</li>
-						<li id="nav-admin-item" style="display:none;">
-							<a href="articles_admin.html" id="link-admin">Admin</a>
 						</li>
 						<li id="nav-logout-item" style="display:none;">
 							<a href="#" id="link-logout">Logout</a>
@@ -617,24 +612,24 @@
 				var arrow   = document.getElementById('tab-arrow');
 				if (!tab || !header || !overlay) return;
 
+				/* Set transition via JS so it is guaranteed active before any open/close */
+				tab.style.transition = 'left 0.3s ease';
+
 				function isMobile() {
 					return window.innerWidth <= 736;
 				}
 
 				function openNav() {
 					header.classList.add('nav-open');
-					tab.classList.add('nav-open');
 					overlay.classList.add('nav-open');
-					/* Slide tab right to sit flush against the open drawer */
 					tab.style.left = '300px';
 					if (arrow) arrow.style.transform = 'scaleX(-1)';
 				}
 
 				function closeNav() {
 					header.classList.remove('nav-open');
-					tab.classList.remove('nav-open');
 					overlay.classList.remove('nav-open');
-					tab.style.left = '0';
+					tab.style.left = '0px';
 					if (arrow) arrow.style.transform = 'scaleX(1)';
 				}
 
@@ -807,10 +802,9 @@
 			const auth = getAuth(app);
 			const db   = getFirestore(app);
 
-			const liLogin    = document.getElementById("nav-login-item");
-			const liSignup   = document.getElementById("nav-signup-item");
-			const liAdmin    = document.getElementById("nav-admin-item");
-			const liLogout   = document.getElementById("nav-logout-item");
+			const liLogin  = document.getElementById("nav-login-item");
+			const liSignup = document.getElementById("nav-signup-item");
+			const liLogout = document.getElementById("nav-logout-item");
 			const logoutLink = document.getElementById("link-logout");
 
 			function setVisible(el, show) {
@@ -818,62 +812,17 @@
 				el.style.display = show ? "" : "none";
 			}
 
-			async function isAdminUser(user) {
-				if (!user) return false;
-				try {
-					const snap = await getDoc(doc(db, "admins", user.uid));
-					return snap.exists();
-				} catch (e) {
-					console.error("Admin check failed:", e);
-					return false;
-				}
-			}
-
-			const adminMap = {
-				"index.html": "index_admin.html",
-				"articles.html": "articles_admin.html",
-			};
-
-			const normalMap = Object.fromEntries(Object.entries(adminMap).map(([k, v]) => [v, k]));
-
-			function currentFile() {
-				let file = window.location.pathname.split("/").pop();
-				if (!file) file = "index.html";
-				return file;
-			}
-
 			onAuthStateChanged(auth, async (user) => {
-				const file = currentFile();
-
 				if (!user) {
 					setVisible(liLogin, true);
 					setVisible(liSignup, true);
 					setVisible(liLogout, false);
-					setVisible(liAdmin, false);
-					if (normalMap[file]) {
-						window.location.replace(normalMap[file]);
-					}
-					return;
-				}
-
-				const admin = await isAdminUser(user);
-
-				const adminTarget = adminMap[file];
-				if (admin && adminTarget && file !== adminTarget) {
-					window.location.replace(adminTarget);
-					return;
-				}
-
-				const normalTarget = normalMap[file];
-				if (!admin && normalTarget) {
-					window.location.replace(normalTarget);
 					return;
 				}
 
 				setVisible(liLogin, false);
 				setVisible(liSignup, false);
 				setVisible(liLogout, true);
-				setVisible(liAdmin, admin);
 			});
 
 			logoutLink?.addEventListener("click", async (e) => {
