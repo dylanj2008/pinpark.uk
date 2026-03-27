@@ -321,18 +321,20 @@
 				}
 				#topbar-logo {
 					display: block;
-					height: 52px;
+					height: 65px;
 					width: auto;
 				}
 				#topbar-tab {
 					display: block;
-					position: absolute;
+					position: fixed;
 					left: 0;
-					top: 0;
+					top: 50%;
+					transform: translateY(-50%);
 					width: 28px;
-					height: 100%;
+					height: 48px;
 					background-color: #222629;
-					border-right: 1px solid rgba(255,255,255,0.08);
+					border-radius: 0 6px 6px 0;
+					z-index: 500;
 				}
 			}
 
