@@ -382,6 +382,11 @@
 					transform: translateX(0) !important;
 				}
 
+				/* Sidebar logo: 20% smaller than desktop (75% * 0.8 = 60%) */
+				#header #logo .image img {
+					width: 60% !important;
+				}
+
 				/* Force structural containers visible */
 				#header .top,
 				#header .bottom,
@@ -399,9 +404,21 @@
 				}
 				#header #nav-auth ul {
 					display: inline-flex !important;
+					justify-content: center !important;
+					width: 100% !important;
 				}
-				/* nav-auth li visibility is intentionally NOT forced here,
-				   so JS-controlled display:none on logout/login items is respected */
+				/* Auth li items sit side by side on the same row */
+				#header #nav-auth ul li {
+					display: inline-flex !important;
+					align-items: center !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+				/* nav-auth li[style="display:none"] must still be hideable by JS */
+				#header #nav-auth ul li[style*="display: none"],
+				#header #nav-auth ul li[style*="display:none"] {
+					display: none !important;
+				}
 
 				/* ── Dim overlay behind drawer ── */
 				#nav-overlay {
