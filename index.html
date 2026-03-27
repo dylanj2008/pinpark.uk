@@ -299,25 +299,16 @@
 
 			/* ── Top bar ── */
 			#topbar {
-				position: fixed;
-				top: 0;
-				left: 300px; /* sidebar width */
+				position: relative;
+				left: 0;
 				right: 0;
-				height: 44px;
-				background-color: #1d1d1d;
+				height: 88px;
+				background-color: #2c2c2c;
 				z-index: 200;
-				box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-			}
-			#main {
-				padding-top: 44px;
 			}
 			@media screen and (max-width: 736px) {
 				#topbar {
-					left: 0;
-					top: 44px; /* below the mobile header */
-				}
-				#main {
-					padding-top: 88px;
+					height: 88px;
 				}
 			}
 
