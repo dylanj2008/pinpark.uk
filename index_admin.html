@@ -13,9 +13,8 @@
 		<link rel="icon" type="image/png" href="pinpark_favicon.png">
 		<link rel="stylesheet" href="assets/css/main.css" />
 
-		<!-- ✅ Make the hero (top/intro cover) 100px shorter -->
 		<style>
-			/* ✅ Hide admin page until admin is verified */
+			/* ✅ Hide page until admin is verified */
 			html { visibility: hidden; }
 
 			#home.cover {
@@ -23,7 +22,6 @@
 				min-height: calc(100vh - 275px) !important;
 			}
 
-			/* ✅ PinPark hero tint (replace pink/blue/grey with PinPark palette) */
 			#home.cover:before,
 			#home:before {
 				background: linear-gradient(
@@ -34,7 +32,6 @@
 				) !important;
 			}
 
-			/* ✅ PinPark hero tint overlay (forces #00ADEE + circular highlights) */
 			#home.cover {
 				position: relative;
 				overflow: hidden;
@@ -70,13 +67,11 @@
 					);
 			}
 
-			/* ✅ keep your hero content above the tint */
 			#home.cover > .container {
 				position: relative;
 				z-index: 1;
 			}
 
-			/* ✅ Replace "Read more" button with link-style text (underline on hover) */
 			#home .button.scrolly {
 				background: transparent !important;
 				border: 0 !important;
@@ -97,14 +92,11 @@
 				text-underline-offset: 4px;
 			}
 
-			/* ✅ Make PinPark logo 25% smaller total (was 15%, now 10% smaller again) */
 			#logo .image img {
 				width: 75%;
 				height: auto;
 				transform: translateY(-10px);
 			}
-
-			/* ✅ Center the PinPark logo horizontally in the sidebar column */
 			#logo {
 				text-align: center;
 			}
@@ -116,7 +108,6 @@
 				margin: 0 auto;
 			}
 
-			/* ✅ Ensure left nav icons visibly highlight when active */
 			#nav ul li a.active span.icon:before,
 			#nav ul li a.active-locked span.icon:before {
 				color: #fff !important;
@@ -125,8 +116,6 @@
 			#nav ul li a.active-locked {
 				color: #fff !important;
 			}
-
-			/* ✅ Smooth fade for active tab highlight (0.1s in/out, no flash) */
 			#nav ul li a,
 			#nav ul li a:before,
 			#nav ul li a:after,
@@ -138,7 +127,6 @@
 					border-color 0.1s ease;
 			}
 
-			/* ✅ Revert footer bar styling back to default (non-blue, black text) */
 			#footer,
 			#footer::after {
 				background: none !important;
@@ -197,7 +185,6 @@
 				border-bottom-color: rgba(0, 0, 0, 0.7) !important;
 			}
 
-			/* ✅ Remove bullet point next to Support PinPark */
 			#donations .actions {
 				margin-left: 0 !important;
 				padding-left: 0 !important;
@@ -209,51 +196,54 @@
 				padding-left: 0 !important;
 				margin-left: 0 !important;
 			}
-
-			/* ✅ Make the donations button PinPark-style (Update Note vibe) */
 			#donations .actions .button {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
-				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				border: none !important;
 				color: #fff !important;
-				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
-				transform: scale(1);
-				transition: transform 100ms ease;
+				transform: translateY(0) !important;
+				transition: transform 20ms ease, box-shadow 20ms ease !important;
 				display: inline-block;
 			}
 			#donations .actions .button:hover {
-				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-				transform: scale(1.025);
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				transform: translateY(0) !important;
 			}
 			#donations .actions .button:active {
-				transform: scale(1.025) translateY(1px);
+				box-shadow: none !important;
+				transform: translateY(2.5px) !important;
 			}
 
-			/* ✅ Apply the same PinPark button styling to "Send Message" */
 			#contact form input[type="submit"] {
-				background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%) !important;
-				border: 1px solid rgba(255, 255, 255, 0.0) !important;
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				border: none !important;
 				color: #fff !important;
-				box-shadow: 0 5px 11px rgba(0, 0, 0, 0.07) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
 				border-radius: 14px !important;
 				text-transform: none !important;
 				letter-spacing: inherit !important;
-				transform: scale(1);
-				transition: transform 100ms ease;
+				transform: translateY(0) !important;
+				transition: transform 20ms ease, box-shadow 20ms ease !important;
 			}
 			#contact form input[type="submit"]:hover {
-				background: linear-gradient(135deg, #008ACD 0%, #00ADEE 100%) !important;
-				box-shadow: 0 6px 13px rgba(0, 0, 0, 0.09) !important;
-				transform: scale(1.025);
+				background: linear-gradient(to right, #00ADEE, #008ACD) !important;
+				box-shadow: 0 3px 0 rgba(0, 95, 138, 0.70) !important;
+				transform: translateY(0) !important;
 			}
 			#contact form input[type="submit"]:active {
-				transform: scale(1.025) translateY(1px);
+				box-shadow: none !important;
+				transform: translateY(2.5px) !important;
 			}
 
-			/* 🔐 Auth nav: centred, no underline, with "|" separators, colours like tabs */
+			/* ✅ Non-resizable textarea */
+			#contact form textarea {
+				resize: none;
+			}
+
 			#header .bottom {
 				text-align: center;
 			}
@@ -275,20 +265,220 @@
 				text-decoration: none !important;
 				border: none !important;
 				box-shadow: none !important;
-				color: rgba(255, 255, 255, 0.55) !important; /* unselected tab */
+				color: rgba(255, 255, 255, 0.55) !important;
 				transition: color 0.1s ease;
 			}
 			#nav-auth a:hover {
-				color: #ffffff !important; /* selected tab */
+				color: #ffffff !important;
+			}
+
+			/* ✅ Features rows */
+			.feature-row {
+				display: flex;
+				align-items: center;
+				gap: 20px;
+			}
+			.feature-row-left {
+				justify-content: flex-start;
+				padding-left: 10%;
+			}
+			.feature-row-right {
+				justify-content: flex-end;
+				padding-right: 10%;
+			}
+			.feature-row img {
+				width: 154px;
+				height: 154px;
+				border-radius: 50%;
+				object-fit: cover;
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+				flex-shrink: 0;
+			}
+
+			/* ── Top bar ── */
+			#topbar {
+				position: relative;
+				margin-left: 300px;
+				height: 88px;
+				background-color: #222629;
+				box-shadow: none !important;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#topbar-logo {
+				display: none;
+			}
+			#topbar-tab {
+				display: none;
+			}
+
+			/* ── Articles link in topbar (desktop only) ── */
+			#topbar-articles {
+				position: absolute;
+				right: 24px;
+				color: rgba(255, 255, 255, 0.55) !important;
+				font-size: 0.8em;
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+				transition: color 0.1s ease;
+			}
+			#topbar-articles:hover {
+				color: #ffffff !important;
+			}
+
+			@media screen and (max-width: 736px) {
+				/* ── Topbar: no logo on mobile ── */
+				#topbar {
+					margin-left: 0;
+					height: 88px;
+					position: relative;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					overflow: hidden;
+				}
+				#topbar-logo {
+					display: none;
+				}
+				#topbar-articles {
+					display: none;
+				}
+
+				/* ── Hero: shorter on mobile ── */
+				#home.cover {
+					height: calc((100vh - 275px) * 0.60) !important;
+					min-height: calc((100vh - 275px) * 0.60) !important;
+				}
+
+				/* ── Side tab — child of #header so it moves with the drawer transform ── */
+				#topbar-tab {
+					display: flex !important;
+					visibility: visible !important;
+					align-items: center;
+					justify-content: center;
+					position: absolute;
+					right: -28px;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 28px;
+					height: 66px;
+					background-color: #222629;
+					border-radius: 0 6px 6px 0;
+					z-index: 10000;
+					color: #ffffff;
+					font-size: 20px;
+					line-height: 1;
+					cursor: pointer;
+				}
+
+				/* Arrow flips when drawer is open */
+				#header.nav-open #tab-arrow {
+					display: inline-block;
+					transform: scaleX(-1);
+				}
+
+				/* ── Sidebar drawer ── */
+				#header {
+					display: block !important;
+					visibility: visible !important;
+					position: fixed !important;
+					top: 0 !important;
+					left: 0 !important;
+					width: 300px !important;
+					height: 100% !important;
+					z-index: 9999 !important;
+					overflow: visible !important;
+					transform: translateX(-300px) !important;
+					transition: transform 0.3s ease !important;
+				}
+				#header.nav-open {
+					transform: translateX(0) !important;
+				}
+
+				/* Sidebar logo: 20% smaller than desktop */
+				#header #logo .image img {
+					width: 60% !important;
+				}
+
+				/* Force structural containers visible */
+				#header .top,
+				#header .bottom,
+				#header #logo,
+				#header #nav,
+				#header #nav ul,
+				#header #nav ul li,
+				#header #nav ul li a,
+				#header #nav-auth,
+				#header #nav-auth ul,
+				#header #nav-auth ul li a {
+					display: block !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+				#header #nav-auth ul {
+					display: inline-flex !important;
+					justify-content: center !important;
+					width: 100% !important;
+				}
+				#header #nav-auth ul li {
+					display: inline-flex !important;
+					align-items: center !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+				#header #nav-auth ul li[style*="display: none"],
+				#header #nav-auth ul li[style*="display:none"] {
+					display: none !important;
+				}
+
+				/* ── Dim overlay behind drawer ── */
+				#nav-overlay {
+					display: none;
+					position: fixed;
+					inset: 0;
+					background: rgba(0, 0, 0, 0.45);
+					z-index: 9998;
+				}
+				#nav-overlay.nav-open {
+					display: block;
+				}
+			}
+
+			@media screen and (max-width: 736px) {
+				.feature-row {
+					flex-direction: row !important;
+					padding-left: 0 !important;
+					padding-right: 0 !important;
+					gap: 16px;
+				}
+				.feature-row-left {
+					justify-content: flex-start !important;
+					padding-left: 5% !important;
+				}
+				.feature-row-right {
+					justify-content: flex-end !important;
+					flex-direction: row !important;
+					padding-right: 5% !important;
+					padding-left: 0 !important;
+				}
+				.feature-row img {
+					width: 100px;
+					height: 100px;
+				}
 			}
 		</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
-		<!-- Header -->
+		<!-- Header — tab is inside so it rides the same transform -->
 		<div id="header">
+			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
+
 			<div class="top">
 				<div id="logo">
+					<!-- Admin logo -->
 					<span class="image"><img src="pinparkadmin.png" alt="PinPark" /></span>
 				</div>
 
@@ -303,16 +493,25 @@
 				</nav>
 			</div>
 
-			<!-- 🔐 Sidebar bottom: auth controls -->
+			<!-- Admin: only show Log Out, never Log In / Sign Up -->
 			<div class="bottom">
 				<nav id="nav-auth">
 					<ul>
 						<li id="nav-logout-item" style="display:none;">
-							<a href="#" id="link-logout">Logout</a>
+							<a href="#" id="link-logout">Log Out</a>
 						</li>
 					</ul>
 				</nav>
 			</div>
+		</div>
+
+		<!-- Overlay (mobile only) -->
+		<div id="nav-overlay"></div>
+
+		<!-- Top bar -->
+		<div id="topbar">
+			<img id="topbar-logo" src="pinparkadmin.png" alt="PinPark" />
+			<a href="articles_admin.html" id="topbar-articles">Articles</a>
 		</div>
 
 		<!-- Main -->
@@ -320,12 +519,10 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<!-- ✅ Default: no words; JS will fill in with latest article title if available -->
 						<h2 class="alt"></h2>
 						<p></p>
 					</header>
 					<footer>
-						<!-- ✅ Hidden by default, only shown when an article title is loaded -->
 						<a href="articles_admin.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
 					</footer>
 				</div>
@@ -336,56 +533,10 @@
 					<header>
 						<h2>What we're about</h2>
 					</header>
-
 					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
 						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
 						parking experience, and make travelling less stressful and more enjoyable.
 					</p>
-
-					<div class="row">
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a>
-								<header>
-									<h3>Ipsum Feugiat</h3>
-								</header>
-							</article>
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a>
-								<header>
-									<h3>Rhoncus Semper</h3>
-								</header>
-							</article>
-						</div>
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a>
-								<header>
-									<h3>Magna Nullam</h3>
-								</header>
-							</article>
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a>
-								<header>
-									<h3>Natoque Vitae</h3>
-								</header>
-							</article>
-						</div>
-						<div class="col-4 col-12-mobile">
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a>
-								<header>
-									<h3>Dolor Penatibus</h3>
-								</header>
-							</article>
-							<article class="item">
-								<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
-								<header>
-									<h3>Orci Convallis</h3>
-								</header>
-							</article>
-						</div>
-					</div>
 				</div>
 			</section>
 
@@ -395,14 +546,31 @@
 						<h2>Features</h2>
 					</header>
 
-					<a href="#" class="image featured"><img src="images/pic08.jpg" alt="" /></a>
-
 					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
 					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
 					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
 					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
 					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
 					ornare iaculis.</p>
+
+					<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
+						<div class="feature-row feature-row-left">
+							<img src="pic1.png" alt="" />
+							<strong>Navigate Back to Your Pin - </strong>
+						</div>
+						<div class="feature-row feature-row-right">
+							<strong>Add Notes to Your Pin - </strong>
+							<img src="pic2.png" alt="" />
+						</div>
+						<div class="feature-row feature-row-left">
+							<img src="pic3.png" alt="" />
+							<strong>Find Your Nearest Car Park - </strong>
+						</div>
+						<div class="feature-row feature-row-right">
+							<strong>Simple User Interface - </strong>
+							<img src="pic4.png" alt="" />
+						</div>
+					</div>
 				</div>
 			</section>
 
@@ -411,12 +579,10 @@
 					<header>
 						<h2>Contact</h2>
 					</header>
-
 					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
 						or want to get in touch for any other reason, feel free to send a message. 
 						we'd love to hear from you!
 					</p>
-
 					<form method="post" action="#">
 						<div class="row">
 							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
@@ -437,14 +603,12 @@
 					<header>
 						<h2>Donations</h2>
 					</header>
-
 					<p>PinPark is independently developed and will be continuously improved.
 					   If you think you will find our app useful, you can choose to contribute
 					   here. All donations will help us cover infrastructure costs, and allow
 					   more time to be spent improving and refining current features and performance.
 					   Thank you in advance for any donations.
 					</p>
-
 					<ul class="actions">
 						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
 					</ul>
@@ -468,6 +632,52 @@
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+
+		<script>
+			/* ── Mobile nav drawer ── */
+			(function () {
+				var tab     = document.getElementById('topbar-tab');
+				var header  = document.getElementById('header');
+				var overlay = document.getElementById('nav-overlay');
+				var arrow   = document.getElementById('tab-arrow');
+				if (!tab || !header || !overlay) return;
+
+				function isMobile() {
+					return window.innerWidth <= 736;
+				}
+
+				function openNav() {
+					header.classList.add('nav-open');
+					overlay.classList.add('nav-open');
+					if (arrow) arrow.style.transform = 'scaleX(-1)';
+				}
+
+				function closeNav() {
+					header.classList.remove('nav-open');
+					overlay.classList.remove('nav-open');
+					if (arrow) arrow.style.transform = 'scaleX(1)';
+				}
+
+				function toggleNav() {
+					if (!isMobile()) return;
+					header.classList.contains('nav-open') ? closeNav() : openNav();
+				}
+
+				tab.addEventListener('click', toggleNav);
+				overlay.addEventListener('click', closeNav);
+
+				var navLinks = header.querySelectorAll('#nav a');
+				navLinks.forEach(function (a) {
+					a.addEventListener('click', function () {
+						if (isMobile()) closeNav();
+					});
+				});
+
+				window.addEventListener('resize', function () {
+					if (!isMobile()) closeNav();
+				});
+			})();
+		</script>
 
 		<script>
 			(function () {
@@ -512,7 +722,6 @@
 					});
 				}
 
-				// ✅ Add "instant" option so initial load doesn't smooth-scroll
 				function scrollToId(id, instant) {
 					var el = document.getElementById(id);
 					if (!el) return;
@@ -523,12 +732,9 @@
 					a.addEventListener('click', function (e) {
 						var id = hrefToId(a.getAttribute('href') || '');
 						if (!id) return;
-
 						e.preventDefault();
-
 						lockedUntil = Date.now() + 600;
 						setActiveById(id);
-
 						scrollToId(id, false);
 						clearSectionFromUrl();
 					});
@@ -537,7 +743,6 @@
 				var initial = (new URL(window.location.href)).searchParams.get('section');
 				if (initial && document.getElementById(initial)) {
 					requestAnimationFrame(function () {
-						// ✅ Initial load jumps instantly (no scroll animation)
 						scrollToId(initial, true);
 						setActiveById(initial);
 						clearSectionFromUrl();
@@ -548,13 +753,10 @@
 				function onScroll() {
 					if (ticking) return;
 					ticking = true;
-
 					requestAnimationFrame(function () {
 						ticking = false;
-
 						var probeY = window.innerHeight * 0.35;
 						var best = null;
-
 						for (var i = 0; i < sections.length; i++) {
 							var s = sections[i];
 							var r = s.getBoundingClientRect();
@@ -563,7 +765,6 @@
 								break;
 							}
 						}
-
 						if (!best) {
 							var bestDist = Infinity;
 							for (var j = 0; j < sections.length; j++) {
@@ -575,7 +776,6 @@
 								}
 							}
 						}
-
 						if (best && Date.now() >= lockedUntil) {
 							setActiveById(best.id);
 						}
@@ -587,7 +787,6 @@
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
 					if (id && document.getElementById(id)) {
-						// ✅ Back/forward jumps instantly too
 						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
@@ -597,7 +796,7 @@
 			})();
 		</script>
 
-		<!-- 🔐 Auth state: show Logout only + load latest article title into hero -->
+		<!-- 🔐 Admin guard + article title loader -->
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -650,15 +849,12 @@
 				const admin = await isAdminUser(user);
 
 				if (!admin) {
-					// Block access (act like it never existed)
 					window.location.replace("index.html");
 					return;
 				}
 
-				// ✅ Admin confirmed -> reveal page
+				// ✅ Admin confirmed — reveal page
 				document.documentElement.style.visibility = "visible";
-
-				// Only show logout when signed in (admin will be signed in)
 				setVisible(liLogout, !!user);
 			});
 
@@ -672,7 +868,6 @@
 				}
 			});
 
-			// 📰 Load latest published article title into the admin home hero
 			async function loadLatestArticleTitle() {
 				try {
 					const col = collection(db, "articles");
@@ -705,15 +900,10 @@
 					if (!title) return;
 
 					const heroTitle = document.querySelector('#home h2.alt');
-					if (heroTitle) {
-						heroTitle.textContent = title;
-					}
+					if (heroTitle) heroTitle.textContent = title;
 
-					// ✅ Only show "Read more" when we actually have a title
 					const readMore = document.getElementById("home-read-more");
-					if (readMore) {
-						readMore.style.display = "";
-					}
+					if (readMore) readMore.style.display = "";
 				} catch (e) {
 					console.error("Failed to load latest article title (admin):", e);
 				}

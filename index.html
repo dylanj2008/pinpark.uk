@@ -315,6 +315,21 @@
 				display: none;
 			}
 
+			/* ── Articles link in topbar (desktop only) ── */
+			#topbar-articles {
+				position: absolute;
+				right: 24px;
+				color: rgba(255, 255, 255, 0.55) !important;
+				font-size: 0.8em;
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+				transition: color 0.1s ease;
+			}
+			#topbar-articles:hover {
+				color: #ffffff !important;
+			}
+
 			@media screen and (max-width: 736px) {
 				/* ── Topbar: no logo on mobile ── */
 				#topbar {
@@ -327,6 +342,9 @@
 					overflow: hidden;
 				}
 				#topbar-logo {
+					display: none;
+				}
+				#topbar-articles {
 					display: none;
 				}
 
@@ -453,7 +471,7 @@
 				}
 			}
 		</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Header — tab is inside so it rides the same transform -->
@@ -499,6 +517,7 @@
 		<!-- Top bar -->
 		<div id="topbar">
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
+			<a href="articles.html" id="topbar-articles">Articles</a>
 		</div>
 
 		<!-- Main -->
