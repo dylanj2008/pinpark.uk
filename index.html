@@ -382,7 +382,7 @@
 					transform: translateX(0) !important;
 				}
 
-				/* Force all nav content visible regardless of theme */
+				/* Force structural containers visible */
 				#header .top,
 				#header .bottom,
 				#header #logo,
@@ -392,7 +392,6 @@
 				#header #nav ul li a,
 				#header #nav-auth,
 				#header #nav-auth ul,
-				#header #nav-auth ul li,
 				#header #nav-auth ul li a {
 					display: block !important;
 					visibility: visible !important;
@@ -401,6 +400,8 @@
 				#header #nav-auth ul {
 					display: inline-flex !important;
 				}
+				/* nav-auth li visibility is intentionally NOT forced here,
+				   so JS-controlled display:none on logout/login items is respected */
 
 				/* ── Dim overlay behind drawer ── */
 				#nav-overlay {
@@ -462,13 +463,13 @@
 				<nav id="nav-auth">
 					<ul>
 						<li id="nav-login-item">
-							<a href="auth.html?mode=login" id="link-login">Login</a>
+							<a href="auth.html?mode=login" id="link-login">Log In</a>
 						</li>
 						<li id="nav-signup-item">
-							<a href="auth.html?mode=signup" id="link-signup">Sign up</a>
+							<a href="auth.html?mode=signup" id="link-signup">Sign Up</a>
 						</li>
 						<li id="nav-logout-item" style="display:none;">
-							<a href="#" id="link-logout">Logout</a>
+							<a href="#" id="link-logout">Log Out</a>
 						</li>
 					</ul>
 				</nav>
