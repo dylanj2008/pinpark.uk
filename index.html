@@ -314,7 +314,9 @@
 			#topbar-tab {
 				display: none;
 			}
+
 			@media screen and (max-width: 736px) {
+				/* ── Topbar ── */
 				#topbar {
 					margin-left: 0;
 					height: 88px;
@@ -334,6 +336,8 @@
 					transform: translate(-50%, -50%);
 					z-index: 1;
 				}
+
+				/* ── Side tab ── */
 				#topbar-tab {
 					display: flex;
 					align-items: center;
@@ -346,10 +350,48 @@
 					height: 66px;
 					background-color: #222629;
 					border-radius: 0 6px 6px 0;
-					z-index: 500;
+					z-index: 10000;
 					color: #ffffff;
 					font-size: 20px;
 					line-height: 1;
+					cursor: pointer;
+					transition: left 0.3s ease;
+				}
+				/* Tab slides with the drawer when open */
+				#topbar-tab.nav-open {
+					left: 300px;
+				}
+				/* Arrow flips when open */
+				#topbar-tab.nav-open #tab-arrow {
+					display: inline-block;
+					transform: scaleX(-1);
+				}
+
+				/* ── Sidebar drawer on mobile ── */
+				#header {
+					position: fixed !important;
+					top: 0 !important;
+					left: -300px !important;
+					width: 300px !important;
+					height: 100% !important;
+					z-index: 9999 !important;
+					overflow-y: auto !important;
+					transition: left 0.3s ease !important;
+				}
+				#header.nav-open {
+					left: 0 !important;
+				}
+
+				/* ── Dim overlay behind drawer ── */
+				#nav-overlay {
+					display: none;
+					position: fixed;
+					inset: 0;
+					background: rgba(0, 0, 0, 0.45);
+					z-index: 9998;
+				}
+				#nav-overlay.nav-open {
+					display: block;
 				}
 			}
 
@@ -418,9 +460,12 @@
 			</div>
 		</div>
 
+		<!-- Overlay (mobile only) -->
+		<div id="nav-overlay"></div>
+
 		<!-- Top bar -->
 		<div id="topbar">
-			<div id="topbar-tab">&#8250;</div>
+			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
 		</div>
 
@@ -542,6 +587,53 @@
 		<script src="assets/js/browser.min.js"></script>
 		<script src="assets/js/util.js"></script>
 		<script src="assets/js/main.js"></script>
+
+		<script>
+			/* ── Mobile nav drawer ── */
+			(function () {
+				var tab     = document.getElementById('topbar-tab');
+				var header  = document.getElementById('header');
+				var overlay = document.getElementById('nav-overlay');
+				if (!tab || !header || !overlay) return;
+
+				function isMobile() {
+					return window.innerWidth <= 736;
+				}
+
+				function openNav() {
+					header.classList.add('nav-open');
+					tab.classList.add('nav-open');
+					overlay.classList.add('nav-open');
+				}
+
+				function closeNav() {
+					header.classList.remove('nav-open');
+					tab.classList.remove('nav-open');
+					overlay.classList.remove('nav-open');
+				}
+
+				function toggleNav() {
+					if (!isMobile()) return;
+					header.classList.contains('nav-open') ? closeNav() : openNav();
+				}
+
+				tab.addEventListener('click', toggleNav);
+				overlay.addEventListener('click', closeNav);
+
+				/* Close drawer when a nav link is tapped */
+				var navLinks = header.querySelectorAll('#nav a');
+				navLinks.forEach(function (a) {
+					a.addEventListener('click', function () {
+						if (isMobile()) closeNav();
+					});
+				});
+
+				/* Close drawer if window resized above mobile breakpoint */
+				window.addEventListener('resize', function () {
+					if (!isMobile()) closeNav();
+				});
+			})();
+		</script>
 
 		<script>
 			(function () {
