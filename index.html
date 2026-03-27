@@ -318,21 +318,22 @@
 				#topbar {
 					margin-left: 0;
 					height: 88px;
+					position: relative;
 					display: flex;
 					align-items: center;
 					justify-content: center;
 					overflow: hidden;
 				}
-			#topbar-logo {
-    display: block;
-    height: 0px;
-    width: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-}
+				#topbar-logo {
+					display: block;
+					height: 72px;
+					width: auto;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 1;
+				}
 				#topbar-tab {
 					display: flex;
 					align-items: center;
@@ -353,29 +354,29 @@
 			}
 
 			@media screen and (max-width: 736px) {
-    .feature-row {
-        flex-direction: row !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        gap: 16px;
-    }
-    /* Rows 1 & 3: image flush to left edge */
-    .feature-row-left {
-        justify-content: flex-start !important;
-        padding-left: 5% !important;
-    }
-    /* Rows 2 & 4: image flush to right edge */
-    .feature-row-right {
-        justify-content: flex-end !important;
-        flex-direction: row !important;
-        padding-right: 5% !important;
-        padding-left: 0 !important;
-    }
-    .feature-row img {
-        width: 100px;
-        height: 100px;
-    }
-}
+				.feature-row {
+					flex-direction: row !important;
+					padding-left: 0 !important;
+					padding-right: 0 !important;
+					gap: 16px;
+				}
+				/* Rows 1 & 3: image flush to left edge */
+				.feature-row-left {
+					justify-content: flex-start !important;
+					padding-left: 5% !important;
+				}
+				/* Rows 2 & 4: image flush to right edge */
+				.feature-row-right {
+					justify-content: flex-end !important;
+					flex-direction: row !important;
+					padding-right: 5% !important;
+					padding-left: 0 !important;
+				}
+				.feature-row img {
+					width: 100px;
+					height: 100px;
+				}
+			}
 		</style>
 	</head>
 	<body class="is-preload">
