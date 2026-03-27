@@ -337,13 +337,14 @@
 					z-index: 1;
 				}
 
-				/* ── Side tab ── */
+				/* ── Side tab — child of #header so it moves with the drawer transform ── */
 				#topbar-tab {
-					display: flex;
+					display: flex !important;
+					visibility: visible !important;
 					align-items: center;
 					justify-content: center;
-					position: fixed;
-					left: 0;
+					position: absolute;
+					right: -28px;
 					top: 50%;
 					transform: translateY(-50%);
 					width: 28px;
@@ -355,11 +356,10 @@
 					font-size: 20px;
 					line-height: 1;
 					cursor: pointer;
-					/* No transition here — set via JS so it's guaranteed active before first use */
 				}
 
-				/* Arrow flips when open */
-				#topbar-tab.nav-open #tab-arrow {
+				/* Arrow flips when drawer is open */
+				#header.nav-open #tab-arrow {
 					display: inline-block;
 					transform: scaleX(-1);
 				}
@@ -374,7 +374,7 @@
 					width: 300px !important;
 					height: 100% !important;
 					z-index: 9999 !important;
-					overflow-y: auto !important;
+					overflow: visible !important;
 					transform: translateX(-300px) !important;
 					transition: transform 0.3s ease !important;
 				}
@@ -407,14 +407,12 @@
 					justify-content: center !important;
 					width: 100% !important;
 				}
-				/* Auth li items sit side by side on the same row */
 				#header #nav-auth ul li {
 					display: inline-flex !important;
 					align-items: center !important;
 					visibility: visible !important;
 					opacity: 1 !important;
 				}
-				/* nav-auth li[style="display:none"] must still be hideable by JS */
 				#header #nav-auth ul li[style*="display: none"],
 				#header #nav-auth ul li[style*="display:none"] {
 					display: none !important;
@@ -458,8 +456,10 @@
 		</style>
 	</head>
 	<body class="is-preload">
-		<!-- Header -->
+		<!-- Header — tab is now inside so it rides the same transform -->
 		<div id="header">
+			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
+
 			<div class="top">
 				<div id="logo">
 					<span class="image"><img src="pinparklogo.png" alt="PinPark" /></span>
@@ -498,7 +498,6 @@
 
 		<!-- Top bar -->
 		<div id="topbar">
-			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
 		</div>
 
@@ -630,9 +629,6 @@
 				var arrow   = document.getElementById('tab-arrow');
 				if (!tab || !header || !overlay) return;
 
-				/* Set transition via JS so it is guaranteed active before any open/close */
-				tab.style.transition = 'left 0.3s ease';
-
 				function isMobile() {
 					return window.innerWidth <= 736;
 				}
@@ -640,14 +636,12 @@
 				function openNav() {
 					header.classList.add('nav-open');
 					overlay.classList.add('nav-open');
-					tab.style.left = '300px';
 					if (arrow) arrow.style.transform = 'scaleX(-1)';
 				}
 
 				function closeNav() {
 					header.classList.remove('nav-open');
 					overlay.classList.remove('nav-open');
-					tab.style.left = '0px';
 					if (arrow) arrow.style.transform = 'scaleX(1)';
 				}
 
