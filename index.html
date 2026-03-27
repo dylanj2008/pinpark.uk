@@ -297,6 +297,30 @@
 				flex-shrink: 0;
 			}
 
+			/* ── Top bar ── */
+			#topbar {
+				position: fixed;
+				top: 0;
+				left: 300px; /* sidebar width */
+				right: 0;
+				height: 44px;
+				background-color: #1d1d1d;
+				z-index: 200;
+				box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+			}
+			#main {
+				padding-top: 44px;
+			}
+			@media screen and (max-width: 736px) {
+				#topbar {
+					left: 0;
+					top: 44px; /* below the mobile header */
+				}
+				#main {
+					padding-top: 88px;
+				}
+			}
+
 			@media screen and (max-width: 736px) {
     .feature-row {
         flex-direction: row !important;
@@ -362,6 +386,9 @@
 			</div>
 		</div>
 
+		<!-- Top bar -->
+		<div id="topbar"></div>
+
 		<!-- Main -->
 		<div id="main">
 			<section id="home" class="one dark cover">
@@ -415,7 +442,7 @@
 							<strong>Find Your Nearest Car Park - </strong>
 						</div>
 						<div class="feature-row feature-row-right">
-							<strong>Suggest Improvements In-App - </strong>
+							<strong>Simple User Interface - </strong>
 							<img src="pic4.png" alt="" />
 						</div>
 					</div>
