@@ -369,6 +369,7 @@
 
 				/* ── Sidebar drawer on mobile ── */
 				#header {
+					display: block !important;
 					position: fixed !important;
 					top: 0 !important;
 					left: -300px !important;
@@ -380,6 +381,34 @@
 				}
 				#header.nav-open {
 					left: 0 !important;
+				}
+
+				/* Force all header children fully visible */
+				#header .top,
+				#header .bottom {
+					display: block !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+					width: 100% !important;
+				}
+				#header #logo,
+				#header #nav,
+				#header #nav ul,
+				#header #nav ul li,
+				#header #nav ul li a,
+				#header #nav-auth,
+				#header #nav-auth ul,
+				#header #nav-auth ul li {
+					display: block !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+				#header #nav ul,
+				#header #nav-auth ul {
+					display: block !important;
+				}
+				#header #nav-auth ul {
+					display: inline-flex !important;
 				}
 
 				/* ── Dim overlay behind drawer ── */
