@@ -321,16 +321,22 @@
 					display: flex;
 					align-items: center;
 					justify-content: center;
+					overflow: hidden;
 				}
 				#topbar-logo {
 					display: block;
-					height: 101px;
+					height: 72px;
 					width: auto;
-					position: relative;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
 					z-index: 1;
 				}
 				#topbar-tab {
-					display: block;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 					position: fixed;
 					left: 0;
 					top: 50%;
@@ -340,6 +346,9 @@
 					background-color: #222629;
 					border-radius: 0 6px 6px 0;
 					z-index: 500;
+					color: #ffffff;
+					font-size: 20px;
+					line-height: 1;
 				}
 			}
 
@@ -410,7 +419,7 @@
 
 		<!-- Top bar -->
 		<div id="topbar">
-			<div id="topbar-tab"></div>
+			<div id="topbar-tab">&#8250;</div>
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
 		</div>
 
