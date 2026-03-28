@@ -315,21 +315,6 @@
 				display: none;
 			}
 
-			/* ── Articles link in topbar (desktop only) ── */
-			#topbar-articles {
-				position: absolute;
-				right: 24px;
-				color: rgba(255, 255, 255, 0.55) !important;
-				font-size: 0.8em;
-				text-decoration: none !important;
-				border: none !important;
-				box-shadow: none !important;
-				transition: color 0.1s ease;
-			}
-			#topbar-articles:hover {
-				color: #ffffff !important;
-			}
-
 			@media screen and (max-width: 736px) {
 				/* ── Topbar: no logo on mobile ── */
 				#topbar {
@@ -342,9 +327,6 @@
 					overflow: hidden;
 				}
 				#topbar-logo {
-					display: none;
-				}
-				#topbar-articles {
 					display: none;
 				}
 
@@ -471,7 +453,7 @@
 				}
 			}
 		</style>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Header — tab is inside so it rides the same transform -->
@@ -517,7 +499,6 @@
 		<!-- Top bar -->
 		<div id="topbar">
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
-			<a href="articles.html" id="topbar-articles">Articles</a>
 		</div>
 
 		<!-- Main -->
@@ -525,12 +506,9 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<h2 class="alt"></h2>
+						<h2 class="alt" id="hero-welcome"></h2>
 						<p></p>
 					</header>
-					<footer>
-						<a href="articles.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
-					</footer>
 				</div>
 			</section>
 
@@ -630,6 +608,17 @@
 				<li><a href="policies.html#other">Privacy</a></li>
 			</ul>
 		</div>
+
+		<!-- Welcome message -->
+		<script>
+			(function () {
+				var heroTitle = document.getElementById("hero-welcome");
+				if (!heroTitle) return;
+				var hasVisited = localStorage.getItem("pinpark_visited");
+				heroTitle.textContent = hasVisited ? "Welcome back" : "Welcome to the PinPark website";
+				localStorage.setItem("pinpark_visited", "1");
+			})();
+		</script>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -731,10 +720,6 @@
 				}
 
 				function scrollToId(id, instant) {
-					if (id === 'home') {
-						window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
-						return;
-					}
 					var el = document.getElementById(id);
 					if (!el) return;
 					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
@@ -811,17 +796,6 @@
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-			import {
-				getFirestore,
-				doc,
-				getDoc,
-				collection,
-				query,
-				where,
-				orderBy,
-				limit,
-				getDocs
-			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -835,7 +809,6 @@
 
 			const app  = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
-			const db   = getFirestore(app);
 
 			const liLogin  = document.getElementById("nav-login-item");
 			const liSignup = document.getElementById("nav-signup-item");
@@ -870,7 +843,7 @@
 				}
 			});
 
-			async function loadLatestArticleTitle() {
+		async function loadLatestArticleTitle() {
 				try {
 					const col = collection(db, "articles");
 					let q = query(
