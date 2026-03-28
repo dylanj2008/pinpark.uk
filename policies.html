@@ -5,9 +5,10 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="en">
 	<head>
-		<title>PinPark</title>
+		<title>PinPark – Terms &amp; Privacy</title>
+		<meta name="description" content="PinPark Terms and Conditions and Privacy Policy." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -349,7 +350,7 @@
 						If you have any questions regarding these Terms and Conditions, you may contact us
 						using the methods provided below: <br><br>
 
-						&bull; Contact us by email: pinpark@outlook.com<br><br>
+						&bull; Contact us by email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="02726b6c72637069426d77766e6d6d692c616d6f">[email&#160;protected]</a><br><br>
 
 						&bull; Contact us through our in-built contact feature<br><br><br>
 
@@ -380,7 +381,7 @@
 
 						<span style="font-weight: 500">1.4 Availability</span><br>
 						We may update, modify, suspend, or discontinue any part of the service at any
-						time, temporarily, or permenantly, without prior notice. We do not guarantee
+						time, temporarily, or permanently, without prior notice. We do not guarantee
 						uninterrupted or error-free access to the service.<br><br>
 
 						<span style="font-weight: 500">1.5 Eligibility</span><br>
@@ -448,7 +449,7 @@
 						or termination without notice.<br><br>
 
 						<span style="font-weight: 500">2.6 Account Suspension and Termination</span><br>
-						PinPark reserves the right to suspend or terminate user accounts temporarily or permenantly,
+						PinPark reserves the right to suspend or terminate user accounts temporarily or permanently,
 						at its sole discretion, where a user: <br><br>
 
 						&bull; Breaches these Terms and Conditions<br><br>
@@ -533,7 +534,7 @@
 
 						All content, features, and functionality available through the PinPark mobile application and PinPark
 						website, including but not limited to text, graphics, logos, icons, designs, layouts, software, and code
-						(collectively, the "content") are owned by or lisenced to PinPark and are protected by intellectual
+						(collectively, the "content") are owned by or licensed to PinPark and are protected by intellectual
 						property laws. <br><br>
 
 						Nothing in these Terms and Conditions grants users any ownership rights in the content. <br><br>
@@ -596,7 +597,7 @@
 						our control, including GPS accuracy, device limitations, environmental conditions, or third-party
 						data-sources. <br><br>
 
-						Users are responsible for excercising their own judgement and complying with local laws, parking
+						Users are responsible for exercising their own judgement and complying with local laws, parking
 						regulations, signage, and road conditions. <br><br>
 
 						<span style="font-weight: 500">5.4 No Liability for Fines or Loss</span><br>
@@ -648,7 +649,7 @@
 						The PinPark service is under ongoing development. Features may be added, removed, or adjusted over
 						time, and user experience may change as improvements are introduced. <br><br>
 
-						Continued use of the mobile application or website following updates constitues acceptance of those
+						Continued use of the mobile application or website following updates constitutes acceptance of those
 						changes <br><br>
 
 						<span style="font-weight: 500">6.3 Changes to These Terms</span><br>
@@ -661,7 +662,7 @@
 
 						<span style="font-weight: 500">6.4 Availability</span><br>
 
-						PinPArk does not guarantee that the app or website will always be available of free from
+						PinPark does not guarantee that the app or website will always be available of free from
 						errors. Temporary interruptions may occur due to maintenance, technical issues, or circumstances
 						beyond our control. <br><br><br>
 
@@ -673,7 +674,7 @@
 						and Wales. <br><br>
 
 						Any disputes arising out of or in connection with these Terms and Conditions, the PinPark mobile
-						application, or the PinPArk website shall be subject to the exclusive jurisdiction of the courts of
+						application, or the PinPark website shall be subject to the exclusive jurisdiction of the courts of
 						England and Wales.<br><br>
 
 						The PinPark service is operated from the United Kingdom. Users accessing this service from
@@ -701,7 +702,7 @@
 
 						<span style="display:block; text-align:left;">
 
-						PinPark is a parking and navigation mobile appliction designed to help users save parking loactions
+						PinPark is a parking and navigation mobile application designed to help users save parking locations
 						and navigate back to them more easily.<br><br><br>
 
 						<span style="font-size: 2em; display:block; text-align:center;">2. Information We Collect</span><br><br>
@@ -729,9 +730,15 @@
 						&bull; Displaying nearby parking-related information<br><br>
 
 						Location data is collected only with user permission and only while the app is
-						in use or as configuerd in their device settings.<br><br>
+						in use or as configured in their device settings.<br><br>
 
-						<span style="font-weight: 500">2.3 Techical and Usage Data</span><br>
+						<span style="font-weight: 500">2.3 Browser Storage</span><br>
+
+						The PinPark website uses browser localStorage solely to remember your visit for the purpose
+						of displaying a personalised welcome message and to keep you signed in via Firebase Authentication.
+						No advertising, tracking, or third-party analytics cookies are used.<br><br>
+
+						<span style="font-weight: 500">2.4 Technical and Usage Data</span><br>
 
 						We may automatically collect limited technical information, including:<br><br>
 
@@ -836,7 +843,7 @@
 			</ul>
 		</div>
 
-		<script src="assets/js/jquery.min.js"></script>
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/jquery.min.js"></script>
 		<script src="assets/js/jquery.scrolly.min.js"></script>
 		<script src="assets/js/jquery.scrollex.min.js"></script>
 		<script src="assets/js/browser.min.js"></script>
@@ -997,17 +1004,4 @@
 				window.addEventListener('resize', onScroll);
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
-					if (id && document.getElementById(id)) {
-						// ✅ Back/forward should jump instantly too
-						scrollToId(id, true);
-						setActiveById(id);
-						clearSectionFromUrl();
-					}
-				});
-
-				onScroll();
-			})();
-		</script>
-
-	</body>
-</html>
+					if (id && document.getElementB

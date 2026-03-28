@@ -5,9 +5,10 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="en">
 	<head>
 		<title>PinPark</title>
+		<meta name="description" content="PinPark helps you save your parking location, navigate back to your car, find nearby car parks, and add notes to your pin." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="icon" type="image/png" href="pinpark_favicon.png">
@@ -287,9 +288,11 @@
 			.feature-row-left {
 				justify-content: flex-start;
 				padding-left: 10%;
+				padding-right: 10%;
 			}
 			.feature-row-right {
 				justify-content: flex-end;
+				padding-left: 10%;
 				padding-right: 10%;
 			}
 			.feature-row img {
@@ -456,22 +459,63 @@
 				.feature-row-left {
 					justify-content: flex-start !important;
 					padding-left: 5% !important;
+					padding-right: 5% !important;
 				}
 				.feature-row-right {
 					justify-content: flex-end !important;
 					flex-direction: row !important;
+					padding-left: 5% !important;
 					padding-right: 5% !important;
-					padding-left: 0 !important;
 				}
 				.feature-row img {
 					width: 100px;
 					height: 100px;
 				}
 			}
+
+			/* ── Cookie consent banner ── */
+			#cookie-banner {
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: #222629;
+				color: rgba(255,255,255,0.85);
+				font-size: 0.78em;
+				padding: 12px 20px;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 14px;
+				z-index: 99999;
+				flex-wrap: wrap;
+			}
+			#cookie-banner a {
+				color: #00ADEE;
+				text-decoration: none;
+			}
+			#cookie-banner a:hover { text-decoration: underline; }
+			#cookie-accept {
+				background: linear-gradient(to right, #00ADEE, #008ACD);
+				color: #fff;
+				border: none;
+				border-radius: 8px;
+				padding: 7px 18px;
+				cursor: pointer;
+				font-size: 1em;
+				white-space: nowrap;
+			}
 		</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
+
+		<!-- UK GDPR / ePrivacy consent banner -->
+		<div id="cookie-banner" role="region" aria-label="Cookie notice" style="display:none;">
+			<span>PinPark uses browser storage to remember your visit and keep you signed in. See our <a href="policies.html#other">Privacy Policy</a>.</span>
+			<button id="cookie-accept">OK</button>
+		</div>
+
 		<!-- Header — tab is inside so it rides the same transform -->
 		<div id="header">
 			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
@@ -639,6 +683,20 @@
 
 		<!-- Welcome message -->
 		<script>
+
+			// UK GDPR / ePrivacy cookie consent
+			(function () {
+				var banner = document.getElementById("cookie-banner");
+				var btn    = document.getElementById("cookie-accept");
+				if (!banner || !btn) return;
+				if (!localStorage.getItem("pinpark_cookie_ok")) {
+					banner.style.display = "flex";
+				}
+				btn.addEventListener("click", function () {
+					localStorage.setItem("pinpark_cookie_ok", "1");
+					banner.style.display = "none";
+				});
+			})();
 			(function () {
 				var heroTitle = document.getElementById("hero-welcome");
 				if (!heroTitle) return;
@@ -748,6 +806,10 @@
 				}
 
 				function scrollToId(id, instant) {
+					if (id === 'home') {
+						window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+						return;
+					}
 					var el = document.getElementById(id);
 					if (!el) return;
 					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
@@ -870,43 +932,6 @@
 					console.error("Logout failed:", err);
 				}
 			});
-
-		async function loadLatestArticleTitle() {
-				try {
-					const col = collection(db, "articles");
-					let q = query(
-						col,
-						where("status", "==", "published"),
-						orderBy("publishedAt", "desc"),
-						limit(1)
-					);
-					let snap;
-					try {
-						snap = await getDocs(q);
-					} catch (e) {
-						console.warn("Falling back to createdAt index for homepage headline:", e);
-						q = query(
-							col,
-							where("status", "==", "published"),
-							orderBy("createdAt", "desc"),
-							limit(1)
-						);
-						snap = await getDocs(q);
-					}
-					if (snap.empty) return;
-					const data = snap.docs[0].data();
-					const title = (data.title || "").trim();
-					if (!title) return;
-					const heroTitle = document.querySelector('#home h2.alt');
-					if (heroTitle) heroTitle.textContent = title;
-					const readMore = document.getElementById("home-read-more");
-					if (readMore) readMore.style.display = "";
-				} catch (e) {
-					console.error("Failed to load latest article title:", e);
-				}
-			}
-
-			loadLatestArticleTitle();
 		</script>
 	</body>
 </html>
