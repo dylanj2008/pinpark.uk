@@ -506,7 +506,7 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<h2 class="alt" id="hero-welcome"></h2>
+						<h2 class="alt" id="hero-welcome" style="font-size: 110%;"></h2>
 						<p></p>
 					</header>
 				</div>
@@ -615,7 +615,7 @@
 				var heroTitle = document.getElementById("hero-welcome");
 				if (!heroTitle) return;
 				var hasVisited = localStorage.getItem("pinpark_visited");
-				heroTitle.textContent = hasVisited ? "Welcome back" : "Welcome to the PinPark website";
+				heroTitle.textContent = hasVisited ? "Nice to see you again" : "Welcome to the PinPark website";
 				localStorage.setItem("pinpark_visited", "1");
 			})();
 		</script>
