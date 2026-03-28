@@ -731,6 +731,10 @@
 				}
 
 				function scrollToId(id, instant) {
+					if (id === 'home') {
+						window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+						return;
+					}
 					var el = document.getElementById(id);
 					if (!el) return;
 					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
