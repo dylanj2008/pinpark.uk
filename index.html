@@ -67,10 +67,6 @@
 			#home.cover > .container {
 				position: relative;
 				z-index: 1;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
 			}
 
 			#home .button.scrolly {
@@ -287,9 +283,11 @@
 			.feature-row-left {
 				justify-content: flex-start;
 				padding-left: 10%;
+				padding-right: 10%;
 			}
 			.feature-row-right {
 				justify-content: flex-end;
+				padding-left: 10%;
 				padding-right: 10%;
 			}
 			.feature-row img {
@@ -299,18 +297,6 @@
 				object-fit: cover;
 				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 				flex-shrink: 0;
-			}
-			.feature-text {
-				display: flex;
-				align-items: baseline;
-				gap: 0.3em;
-			}
-			.feature-text strong {
-				white-space: nowrap;
-				flex-shrink: 0;
-			}
-			.feature-text p {
-				margin: 0;
 			}
 
 			/* ── Top bar ── */
@@ -368,7 +354,7 @@
 					border-radius: 0 6px 6px 0;
 					z-index: 10000;
 					color: #ffffff;
-					font-size: 25px;
+					font-size: 20px;
 					line-height: 1;
 					cursor: pointer;
 				}
@@ -456,12 +442,13 @@
 				.feature-row-left {
 					justify-content: flex-start !important;
 					padding-left: 5% !important;
+					padding-right: 5% !important;
 				}
 				.feature-row-right {
 					justify-content: flex-end !important;
 					flex-direction: row !important;
+					padding-left: 5% !important;
 					padding-right: 5% !important;
-					padding-left: 0 !important;
 				}
 				.feature-row img {
 					width: 100px;
@@ -469,7 +456,6 @@
 				}
 			}
 		</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Header — tab is inside so it rides the same transform -->
@@ -522,9 +508,12 @@
 			<section id="home" class="one dark cover">
 				<div class="container">
 					<header>
-						<h2 class="alt" id="hero-welcome" style="transform: scale(1.1); display: inline-block;"></h2>
+						<h2 class="alt"></h2>
 						<p></p>
 					</header>
+					<footer>
+						<a href="articles.html" id="home-read-more" class="button scrolly" style="display:none;">Read more</a>
+					</footer>
 				</div>
 			</section>
 
@@ -556,30 +545,18 @@
 					<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
 						<div class="feature-row feature-row-left">
 							<img src="pic1.png" alt="" />
-							<div class="feature-text">
-								<strong>Navigate Back to Your Pin -</strong>
-								<p>PinPark allows you to set routes back to your Pin, eliminating the need to switch between apps, saving you time and effort.</p>
-							</div>
+							<strong>Navigate Back to Your Pin - </strong>
 						</div>
 						<div class="feature-row feature-row-right">
-							<div class="feature-text">
-								<strong>Add Notes to Your Pin -</strong>
-								<p>Know exactly where you parked with the help of private notes. Remind yourself of key details to be able to find your car quicker.</p>
-							</div>
+							<strong>Add Notes to Your Pin - </strong>
 							<img src="pic2.png" alt="" />
 						</div>
 						<div class="feature-row feature-row-left">
 							<img src="pic3.png" alt="" />
-							<div class="feature-text">
-								<strong>Find Your Nearest Car Park -</strong>
-								<p>PinPark knows the location of almost every car park worldwide, helping you choose which one is best for price, space and overall rating.</p>
-							</div>
+							<strong>Find Your Nearest Car Park - </strong>
 						</div>
 						<div class="feature-row feature-row-right">
-							<div class="feature-text">
-								<strong>Suggest Improvements In-App -</strong>
-								<p>PinPark has a built-in Improvements and Report feature, so you can share your thoughts on what we could do to make PinPark better. The future of PinPark is in your hands.</p>
-							</div>
+							<strong>Simple User Interface - </strong>
 							<img src="pic4.png" alt="" />
 						</div>
 					</div>
@@ -636,17 +613,6 @@
 				<li><a href="policies.html#other">Privacy</a></li>
 			</ul>
 		</div>
-
-		<!-- Welcome message -->
-		<script>
-			(function () {
-				var heroTitle = document.getElementById("hero-welcome");
-				if (!heroTitle) return;
-				var hasVisited = localStorage.getItem("pinpark_visited");
-				heroTitle.textContent = hasVisited ? "Nice to see you again" : "Welcome to the PinPark website";
-				localStorage.setItem("pinpark_visited", "1");
-			})();
-		</script>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -824,6 +790,17 @@
 		<script type="module">
 			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+			import {
+				getFirestore,
+				doc,
+				getDoc,
+				collection,
+				query,
+				where,
+				orderBy,
+				limit,
+				getDocs
+			} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 			const firebaseConfig = {
 				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
@@ -837,6 +814,7 @@
 
 			const app  = initializeApp(firebaseConfig);
 			const auth = getAuth(app);
+			const db   = getFirestore(app);
 
 			const liLogin  = document.getElementById("nav-login-item");
 			const liSignup = document.getElementById("nav-signup-item");
@@ -871,7 +849,7 @@
 				}
 			});
 
-		async function loadLatestArticleTitle() {
+			async function loadLatestArticleTitle() {
 				try {
 					const col = collection(db, "articles");
 					let q = query(
