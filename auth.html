@@ -139,6 +139,10 @@
     border-radius: 999px;
     background: linear-gradient(135deg, #00ADEE 0%, #008ACD 100%);
     pointer-events: none;
+    transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .auth-toggle-knob.no-transition {
+    transition: none !important;
   }
   .auth-toggle button {
     position: relative;
@@ -377,7 +381,6 @@
             ? document.getElementById("toggle-signup")
             : document.getElementById("toggle-login");
           if (knob && activeBtn) {
-            knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
             knob.style.width = activeBtn.offsetWidth + "px";
             knob.style.transform = "translateX(" + Math.max(0, activeBtn.offsetLeft - 3) + "px)";
           }
@@ -410,12 +413,12 @@
         const knob = document.getElementById("toggle-knob");
         const loginBtn = document.getElementById("toggle-login");
         if (knob && loginBtn) {
-          knob.style.transition = "none";
+          knob.classList.add("no-transition");
           knob.style.width = loginBtn.offsetWidth + "px";
           knob.style.transform = "translateX(0)";
         }
 
-        // Set correct mode from URL — knob moves instantly since transition is still "none"
+        // Set correct mode from URL — no-transition class prevents animation
         try {
           const u = new URL(window.location.href);
           const mode = u.searchParams.get("mode");
@@ -428,10 +431,10 @@
           setMode("login");
         }
 
-        // Enable transitions only after initial position is settled
+        // Remove no-transition after initial position is settled so clicks animate
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            if (knob) knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
+            if (knob) knob.classList.remove("no-transition");
           });
         });
 
