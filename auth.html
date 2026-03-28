@@ -314,8 +314,8 @@
         <div class="auth-card">
           <div class="auth-toggle">
             <div class="auth-toggle-knob" id="toggle-knob"></div>
-            <button id="toggle-login" class="active" type="button">Login</button>
-            <button id="toggle-signup" type="button">Sign up</button>
+            <button id="toggle-login" class="active" type="button">Log In</button>
+            <button id="toggle-signup" type="button">Sign Up</button>
           </div>
 
           <h2 id="auth-title">Sign in to PinPark</h2>
@@ -406,6 +406,16 @@
           }, 160);
         }
 
+        // Initialise knob position with no transition first
+        const knob = document.getElementById("toggle-knob");
+        const loginBtn = document.getElementById("toggle-login");
+        if (knob && loginBtn) {
+          knob.style.transition = "none";
+          knob.style.width = loginBtn.offsetWidth + "px";
+          knob.style.transform = "translateX(0)";
+        }
+
+        // Set correct mode from URL — knob moves instantly since transition is still "none"
         try {
           const u = new URL(window.location.href);
           const mode = u.searchParams.get("mode");
@@ -418,18 +428,12 @@
           setMode("login");
         }
 
-        const knob = document.getElementById("toggle-knob");
-        const loginBtn = document.getElementById("toggle-login");
-        if (knob && loginBtn) {
-          knob.style.transition = "none";
-          knob.style.width = loginBtn.offsetWidth + "px";
-          knob.style.transform = "translateX(0)";
+        // Enable transitions only after initial position is settled
+        requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
-            });
+            if (knob) knob.style.transition = "transform 220ms cubic-bezier(0.4, 0, 0.2, 1), width 220ms cubic-bezier(0.4, 0, 0.2, 1)";
           });
-        }
+        });
 
         toggleLogin?.addEventListener("click", () => setMode("login"));
         toggleSignup?.addEventListener("click", () => setMode("signup"));
