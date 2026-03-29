@@ -1,8 +1,10 @@
 <!-- auth.html -->
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
     <title>PinPark – Account</title>
+    <meta name="description" content="Sign in or create a PinPark account." />
+    <meta name="robots" content="noindex, nofollow" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="icon" type="image/png" href="pinpark_favicon.png">
@@ -322,7 +324,7 @@
             <button id="toggle-signup" type="button">Sign Up</button>
           </div>
 
-          <h2 id="auth-title">Sign in to PinPark</h2>
+          <h2 id="auth-title">Log in to PinPark</h2>
           <p class="auth-subtitle" id="auth-subtitle">
             Use the same email and password you use in the app.
           </p>
@@ -397,7 +399,7 @@
                 primaryBtn.classList.add("mode-signup");
               }
             } else {
-              titleEl.textContent = "Sign in to PinPark";
+              titleEl.textContent = "Log in to PinPark";
               subtitleEl.textContent = "Use the same email and password you use in the app.";
               if (primaryBtn) {
                 primaryBtn.textContent = "Log In";
@@ -454,6 +456,7 @@
         GoogleAuthProvider,
         signInWithPopup,
       } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
       const statusEl   = document.getElementById("auth-status");
       const emailInput = document.getElementById("auth-email");
@@ -479,6 +482,15 @@
 
       const app  = initializeApp(firebaseConfig);
       const auth = getAuth(app);
+      const db   = getFirestore(app);
+
+      async function checkIsAdmin(user) {
+        if (!user) return false;
+        try {
+          const snap = await getDoc(doc(db, "admins", user.uid));
+          return snap.exists();
+        } catch (_) { return false; }
+      }
 
       // ── Email / password ──────────────────────────────────────
       btnPrimary?.addEventListener("click", async () => {
@@ -492,12 +504,17 @@
 
         const mode = (window.__authMode === "signup") ? "signup" : "login";
 
+        if (mode === "signup" && pass.length < 6) {
+          showStatus("Password must be at least 6 characters.", true);
+          return;
+        }
+
         try {
           if (mode === "login") {
             showStatus("Signing in...");
             const cred = await signInWithEmailAndPassword(auth, email, pass);
             const user = cred.user;
-            const isAdmin = email.toLowerCase() === "pinpark@outlook.com";
+            const isAdmin = await checkIsAdmin(user);
             showStatus("Signed in.");
             window.location.href = isAdmin ? "index_admin.html" : "index.html";
           } else {
@@ -519,7 +536,7 @@
           showStatus("Opening Google sign-in...");
           const cred = await signInWithPopup(auth, provider);
           const user = cred.user;
-          const isAdmin = (user.email || "").toLowerCase() === "pinpark@outlook.com";
+          const isAdmin = await checkIsAdmin(user);
           showStatus("Signed in.");
           window.location.href = isAdmin ? "index_admin.html" : "index.html";
         } catch (err) {
