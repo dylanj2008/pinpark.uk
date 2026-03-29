@@ -7,7 +7,7 @@
 -->
 <html lang="en">
 	<head>
-		<title>PinPark – Terms &amp; Privacy</title>
+		<title>PinPark</title>
 		<meta name="description" content="PinPark Terms and Conditions and Privacy Policy." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -350,7 +350,7 @@
 						If you have any questions regarding these Terms and Conditions, you may contact us
 						using the methods provided below: <br><br>
 
-						&bull; Contact us by email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="02726b6c72637069426d77766e6d6d692c616d6f">[email&#160;protected]</a><br><br>
+						&bull; Contact us by email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1868717668796a7358776d6c74777773367b7775">[email&#160;protected]</a><br><br>
 
 						&bull; Contact us through our in-built contact feature<br><br><br>
 
@@ -364,7 +364,7 @@
 						<span style="font-weight: 500">1.1 Overview</span><br>
 						PinPark provides a location-based parking assistance service designed to
 						help users save and later locate the position of their parked vehicle. The
-						service is is offered through the PinPark mobile application and the PinPark
+						service is offered through the PinPark mobile application and the PinPark
 						website (together, the "service").<br><br>
 
 						<span style="font-weight: 500">1.2 Guidance Only</span><br>
@@ -414,7 +414,7 @@
 
 						<span style="font-weight: 500">2.3 Acceptable Use</span><br>
 						Users agree to use the PinPark app and website only for lawful purposes and in a manner consistent with
-						theirintended use. <br><br>
+						their intended use. <br><br>
 						They must not: <br><br>
 
 						&bull; Misuse or attempt to interfere with the operation, security, or integrity of the PinPark
@@ -457,7 +457,7 @@
 						&bull; Poses a risk to the service, other users, or PinPark<br><br>
 
 						Users may stop using the service at any time. Termination of an account does not affect any
-						obligations or liabilities accured prior to termination. <br><br>
+						obligations or liabilities accrued prior to termination. <br><br>
 
 						<span style="font-weight: 500">2.7 Changes to Accounts</span><br>
 						PinPark may modify, update, or remove account features at any time as part of ongoing
@@ -662,7 +662,7 @@
 
 						<span style="font-weight: 500">6.4 Availability</span><br>
 
-						PinPark does not guarantee that the app or website will always be available of free from
+						PinPark does not guarantee that the app or website will always be available or free from
 						errors. Temporary interruptions may occur due to maintenance, technical issues, or circumstances
 						beyond our control. <br><br><br>
 
@@ -681,7 +681,7 @@
 						outside the UK do so at their own initiative and are responsible for compliance with local laws
 						where applicable. <br><br>
 
-						<span style="display:block; text-align:center; font-size:0.75em;">Last updated: 20/12/2025</span>
+						<span style="display:block; text-align:center; font-size:0.75em;">Last updated: 29/03/2026</span>
 
 						</span>
 					</p>
@@ -732,13 +732,7 @@
 						Location data is collected only with user permission and only while the app is
 						in use or as configured in their device settings.<br><br>
 
-						<span style="font-weight: 500">2.3 Browser Storage</span><br>
-
-						The PinPark website uses browser localStorage solely to remember your visit for the purpose
-						of displaying a personalised welcome message and to keep you signed in via Firebase Authentication.
-						No advertising, tracking, or third-party analytics cookies are used.<br><br>
-
-						<span style="font-weight: 500">2.4 Technical and Usage Data</span><br>
+						<span style="font-weight: 500">2.3 Technical and Usage Data</span><br>
 
 						We may automatically collect limited technical information, including:<br><br>
 
@@ -750,7 +744,14 @@
 
 						&bull; Crash or performance data<br><br>
 
-						This information helps us improve app performance and reliability. <br><br><br>
+						This information helps us improve app performance and reliability. <br><br>
+
+						<span style="font-weight: 500">2.4 Browser Storage</span><br>
+
+						The PinPark website uses browser localStorage solely to remember your visit for the
+						purpose of displaying a personalised welcome message, and to retain your cookie consent
+						preference. Firebase Authentication also uses browser storage to keep you signed in.
+						No advertising, tracking, or third-party analytics cookies are used.<br><br><br>
 
 						<span style="font-size: 2em; display:block; text-align:center;">3. How We Use User Information</span><br><br>
 
@@ -810,7 +811,7 @@
 
 						&bull; The right to access their personal data<br><br>
 
-						&bull; The right to correct innacurate information<br><br>
+						&bull; The right to correct inaccurate information<br><br>
 
 						&bull; The right to request deletion of data<br><br>
 
@@ -828,7 +829,7 @@
 						This Privacy Policy may be updated over time as the service evolves. Any changes will be posted on the
 						PinPark website, and continued use of the service indicates acceptance of the updated policy. <br><br>
 
-						<span style="display:block; text-align:center; font-size:0.75em;">Last updated: 20/12/2025</span>
+						<span style="display:block; text-align:center; font-size:0.75em;">Last updated: 29/03/2026</span>
 
 						</span>
 						</span>
@@ -1004,4 +1005,17 @@
 				window.addEventListener('resize', onScroll);
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
-					if (id && document.getElementB
+					if (id && document.getElementById(id)) {
+						// ✅ Back/forward should jump instantly too
+						scrollToId(id, true);
+						setActiveById(id);
+						clearSectionFromUrl();
+					}
+				});
+
+				onScroll();
+			})();
+		</script>
+
+	</body>
+</html>
