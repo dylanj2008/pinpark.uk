@@ -529,28 +529,7 @@
 			<button id="cookie-accept">OK</button>
 		</div>
 
-		<!-- Welcome message + cookie consent -->
-		<script>
-			(function () {
-				var banner = document.getElementById("cookie-banner");
-				var btn    = document.getElementById("cookie-accept");
-				if (!banner || !btn) return;
-				if (!localStorage.getItem("pinpark_cookie_ok")) {
-					banner.style.display = "flex";
-				}
-				btn.addEventListener("click", function () {
-					localStorage.setItem("pinpark_cookie_ok", "1");
-					banner.style.display = "none";
-				});
-			})();
-			(function () {
-				var heroTitle = document.getElementById("hero-welcome");
-				if (!heroTitle) return;
-				var hasVisited = localStorage.getItem("pinpark_visited");
-				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
-				localStorage.setItem("pinpark_visited", "1");
-			})();
-		</script>
+
 
 		<!-- Header — tab is inside so it rides the same transform -->
 		<div id="header">
@@ -945,5 +924,27 @@
 				}
 			});
 		</script>
+
+		<!-- Welcome message + cookie consent -->
+		<script>
+			(function () {
+				var banner = document.getElementById("cookie-banner");
+				var btn    = document.getElementById("cookie-accept");
+				if (!banner || !btn) return;
+				if (!localStorage.getItem("pinpark_cookie_ok")) {
+					banner.style.display = "flex";
+				}
+				btn.addEventListener("click", function () {
+					localStorage.setItem("pinpark_cookie_ok", "1");
+					banner.style.display = "none";
+				});
+			})();
+			(function () {
+				var heroTitle = document.getElementById("hero-welcome");
+				if (!heroTitle) return;
+				var hasVisited = localStorage.getItem("pinpark_visited");
+				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
+				localStorage.setItem("pinpark_visited", "1");
+			})();</script>
 	</body>
 </html>
