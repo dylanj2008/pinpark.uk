@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="icon" type="image/png" href="pinpark_favicon.png">
   <title>Delete Account</title>
+  <meta name="description" content="Delete your PinPark account." />
+  <meta name="robots" content="noindex, nofollow" />
   <style>
     :root {
       --bg: #f1f1f1;
@@ -177,7 +179,7 @@
         <h1>Delete your account</h1>
 
         <p id="subtitle">
-          To delete your PinPark account, you can either do it here, or directly through the app. All user data is deleted within 90 days.
+          To delete your PinPark account, you can either do it here, or directly through the app. Your account and all associated data are permanently deleted immediately upon confirmation.
         </p>
 
         <p>
@@ -186,7 +188,7 @@
 
         <p>
           1. Click the 'Delete my account' button at the bottom of the box<br><br>
-          2. When prompted with the confirmation message, enter the email and password of the account you would like to delete'<br><br>
+          2. When prompted with the confirmation message, enter the email and password of the account you would like to delete<br><br>
           3. Click 'Yes I'm sure' to permanently delete the account and any linked information
         </p>
 
@@ -199,7 +201,7 @@
         <div id="msg" class="msg"></div>
 
         <div class="tiny">
-          If you're having trouble, please <a href="mailto:pinpark@outlook.com" class="support-link">contact support</a>.
+          If you're having trouble, please <a href="/cdn-cgi/l/email-protection#6b1b02051b0a19002b041e1f0704040045080406" class="support-link">contact support</a>.
         </div>
 
       </div>
@@ -224,7 +226,7 @@
     </div>
   </div>
 
-<script type="module">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, deleteUser } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, doc, getDocs, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -242,7 +244,7 @@ const db = getFirestore(app);
 
 const btn = document.getElementById("deleteBtn");
 const modal = document.getElementById("confirmModal");
-const confirm = document.getElementById("confirmDelete");
+const confirmBtn = document.getElementById("confirmDelete");
 const cancel = document.getElementById("cancelDelete");
 const msg = document.getElementById("msg");
 
@@ -254,7 +256,7 @@ cancel.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-confirm.addEventListener("click", async () => {
+confirmBtn.addEventListener("click", async () => {
   const email = document.getElementById("emailInput").value;
   const password = document.getElementById("passwordInput").value;
 
@@ -290,15 +292,31 @@ confirm.addEventListener("click", async () => {
       console.error("Firestore cleanup failed", e);
     }
 
+    // Delete admins collection entry if present
+    try {
+      await deleteDoc(doc(db, "admins", uid));
+    } catch (_) {}
+
     // Delete Auth user
     await deleteUser(user);
 
     msg.style.display = "block";
     msg.textContent = "Your account has been deleted successfully.";
 
-  } catch (e) {
+    } catch (e) {
     msg.style.display = "block";
-    msg.textContent = e.message || "Failed to delete account.";
+    const code = e.code || "";
+    if (code === "auth/wrong-password" || code === "auth/invalid-credential") {
+      msg.textContent = "Incorrect email or password. Please try again.";
+    } else if (code === "auth/user-not-found") {
+      msg.textContent = "No account found with that email address.";
+    } else if (code === "auth/too-many-requests") {
+      msg.textContent = "Too many attempts. Please wait a moment and try again.";
+    } else if (code === "auth/network-request-failed") {
+      msg.textContent = "Network error. Please check your connection and try again.";
+    } else {
+      msg.textContent = "Failed to delete account. Please check your credentials and try again.";
+    }
   }
 });
 </script>
