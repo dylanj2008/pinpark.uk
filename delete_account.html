@@ -59,13 +59,19 @@
       width: 100%;
       padding: 12px 14px;
       border-radius: 12px;
-      border: 1px solid rgba(0,0,0,0.18);
+      border: none;
       background: linear-gradient(to right, #ff4d4d, #d93636);
       color: #ffffff;
       font-weight: 700;
       cursor: pointer;
       margin-top: 10px;
+      box-shadow: 0 3px 0 rgba(140, 0, 0, 0.50);
+      transform: translateY(0);
+      transition: transform 20ms ease, box-shadow 20ms ease;
+    }
+    .btn:active {
       box-shadow: none;
+      transform: translateY(2.5px);
     }
 
     .btn:disabled {
@@ -154,16 +160,30 @@
       color: white;
       font-weight: 700;
       cursor: pointer;
+      box-shadow: 0 3px 0 rgba(140, 0, 0, 0.50);
+      transform: translateY(0);
+      transition: transform 20ms ease, box-shadow 20ms ease;
+    }
+    .confirm:active {
+      box-shadow: none;
+      transform: translateY(2.5px);
     }
 
     .cancel {
       flex: 1;
       padding: 11px;
       border-radius: 10px;
-      border: 1px solid black;
+      border: 1px solid rgba(0,0,0,0.18);
       background: white;
       font-weight: 600;
       cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.15);
+      transform: translateY(0);
+      transition: transform 20ms ease, box-shadow 20ms ease;
+    }
+    .cancel:active {
+      box-shadow: none;
+      transform: translateY(2.5px);
     }
 
   </style>
