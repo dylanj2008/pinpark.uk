@@ -288,11 +288,9 @@
 			.feature-row-left {
 				justify-content: flex-start;
 				padding-left: 10%;
-				padding-right: 10%;
 			}
 			.feature-row-right {
 				justify-content: flex-end;
-				padding-left: 10%;
 				padding-right: 10%;
 			}
 			.feature-row img {
@@ -467,6 +465,14 @@
 					padding-left: 5% !important;
 					padding-right: 5% !important;
 				}
+				.feature-text {
+					flex: 1;
+					min-width: 0;
+				}
+				.feature-text strong {
+					white-space: normal;
+					flex-shrink: 1;
+				}
 				.feature-row img {
 					width: 100px;
 					height: 100px;
@@ -517,12 +523,34 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
-
 		<!-- UK GDPR / ePrivacy consent banner -->
 		<div id="cookie-banner" role="region" aria-label="Cookie notice" style="display:none;">
 			<span>PinPark uses browser storage to remember your visit and keep you signed in. See our <a href="policies.html#other">Privacy Policy</a>.</span>
 			<button id="cookie-accept">OK</button>
 		</div>
+
+		<!-- Welcome message + cookie consent -->
+		<script>
+			(function () {
+				var banner = document.getElementById("cookie-banner");
+				var btn    = document.getElementById("cookie-accept");
+				if (!banner || !btn) return;
+				if (!localStorage.getItem("pinpark_cookie_ok")) {
+					banner.style.display = "flex";
+				}
+				btn.addEventListener("click", function () {
+					localStorage.setItem("pinpark_cookie_ok", "1");
+					banner.style.display = "none";
+				});
+			})();
+			(function () {
+				var heroTitle = document.getElementById("hero-welcome");
+				if (!heroTitle) return;
+				var hasVisited = localStorage.getItem("pinpark_visited");
+				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
+				localStorage.setItem("pinpark_visited", "1");
+			})();
+		</script>
 
 		<!-- Header — tab is inside so it rides the same transform -->
 		<div id="header">
@@ -689,30 +717,6 @@
 			</ul>
 		</div>
 
-		<!-- Welcome message -->
-		<script>
-
-			// UK GDPR / ePrivacy cookie consent
-			(function () {
-				var banner = document.getElementById("cookie-banner");
-				var btn    = document.getElementById("cookie-accept");
-				if (!banner || !btn) return;
-				if (!localStorage.getItem("pinpark_cookie_ok")) {
-					banner.style.display = "flex";
-				}
-				btn.addEventListener("click", function () {
-					localStorage.setItem("pinpark_cookie_ok", "1");
-					banner.style.display = "none";
-				});
-			})();
-			(function () {
-				var heroTitle = document.getElementById("hero-welcome");
-				if (!heroTitle) return;
-				var hasVisited = localStorage.getItem("pinpark_visited");
-				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
-				localStorage.setItem("pinpark_visited", "1");
-			})();
-		</script>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
