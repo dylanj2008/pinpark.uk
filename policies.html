@@ -750,9 +750,9 @@
 						&bull; Displaying nearby parking-related information<br><br>
 
 						Location data is collected only with user permission and only while the app is
-						in use or as configuerd in their device settings.<br><br>
+						in use or as configured in their device settings.<br><br>
 
-						<span style="font-weight: 500">2.3 Techical and Usage Data</span><br>
+						<span style="font-weight: 500">2.3 Technical and Usage Data</span><br>
 
 						We may automatically collect limited technical information, including:<br><br>
 
@@ -764,7 +764,13 @@
 
 						&bull; Crash or performance data<br><br>
 
-						This information helps us improve app performance and reliability. <br><br><br>
+						This information helps us improve app performance and reliability. <br><br>
+
+						<span style="font-weight: 500">2.4 Browser Storage</span><br>
+
+						The PinPark website uses browser localStorage solely to remember your visit for the
+						purpose of displaying a personalised welcome message, and to retain your cookie consent
+						preference. No advertising, tracking, or third-party analytics cookies are used.<br><br><br>
 
 						<span style="font-size: 2em; display:block; text-align:center;">3. How We Use User Information</span><br><br>
 
@@ -1019,7 +1025,6 @@
 				window.addEventListener('popstate', function () {
 					var id = (new URL(window.location.href)).searchParams.get('section');
 					if (id && document.getElementById(id)) {
-						// ✅ Back/forward should jump instantly too
 						scrollToId(id, true);
 						setActiveById(id);
 						clearSectionFromUrl();
