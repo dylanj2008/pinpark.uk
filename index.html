@@ -5,10 +5,9 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html lang="en">
+<html>
 	<head>
 		<title>PinPark</title>
-		<meta name="description" content="PinPark helps you save your parking location, navigate back to your car, find nearby car parks, and add notes to your pin." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="icon" type="image/png" href="pinpark_favicon.png">
@@ -332,6 +331,44 @@
 				display: none;
 			}
 
+			/* ── Account button ── */
+			#topbar-account-btn {
+				position: absolute;
+				right: 20px;
+				top: 50%;
+				transform: translateY(-50%);
+				background: linear-gradient(to right, #00ADEE, #008ACD);
+				color: #fff !important;
+				border: none;
+				border-radius: 10px;
+				padding: 8px 18px;
+				font-size: 0.82em;
+				font-weight: 600;
+				cursor: pointer;
+				text-decoration: none !important;
+				display: flex;
+				align-items: center;
+				gap: 7px;
+				box-shadow: 0 2px 0 rgba(0, 95, 138, 0.60);
+				transition: transform 20ms ease, box-shadow 20ms ease;
+				white-space: nowrap;
+			}
+			#topbar-account-btn:hover {
+				box-shadow: 0 2px 0 rgba(0, 95, 138, 0.60);
+				transform: translateY(calc(-50%));
+			}
+			#topbar-account-btn:active {
+				box-shadow: none;
+				transform: translateY(calc(-50% + 2px));
+			}
+			@media screen and (max-width: 736px) {
+				#topbar-account-btn {
+					right: 14px;
+					padding: 7px 13px;
+					font-size: 0.78em;
+				}
+			}
+
 			@media screen and (max-width: 736px) {
 				/* ── Topbar: no logo on mobile ── */
 				#topbar {
@@ -457,80 +494,22 @@
 				.feature-row-left {
 					justify-content: flex-start !important;
 					padding-left: 5% !important;
-					padding-right: 5% !important;
 				}
 				.feature-row-right {
 					justify-content: flex-end !important;
 					flex-direction: row !important;
-					padding-left: 5% !important;
 					padding-right: 5% !important;
-				}
-				.feature-text {
-					flex: 1;
-					min-width: 0;
-				}
-				.feature-text strong {
-					white-space: normal;
-					flex-shrink: 1;
+					padding-left: 0 !important;
 				}
 				.feature-row img {
 					width: 100px;
 					height: 100px;
 				}
 			}
-
-			/* ── Cookie consent banner ── */
-			#cookie-banner {
-				position: fixed;
-				bottom: 10px;
-				left: calc(300px + 10px);
-				right: 10px;
-				background: #222629;
-				color: rgba(255,255,255,0.85);
-				font-size: 0.78em;
-				padding: 12px 20px;
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 14px;
-				z-index: 99999;
-				flex-wrap: wrap;
-				border-radius: 12px;
-				box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-			}
-			#cookie-banner a {
-				color: #00ADEE;
-				text-decoration: none;
-			}
-			#cookie-banner a:hover { text-decoration: underline; }
-			#cookie-accept {
-				background: linear-gradient(to right, #00ADEE, #008ACD);
-				color: #fff;
-				border: none;
-				border-radius: 8px;
-				padding: 7px 18px;
-				cursor: pointer;
-				font-size: 1em;
-				white-space: nowrap;
-			}
-			@media screen and (max-width: 736px) {
-				#cookie-banner {
-					left: 10px;
-					right: 10px;
-				}
-			}
 		</style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
-		<!-- UK GDPR / ePrivacy consent banner -->
-		<div id="cookie-banner" role="region" aria-label="Cookie notice" style="display:none;">
-			<span>PinPark uses browser storage to remember your visit and keep you signed in. See our <a href="policies.html#other">Privacy Policy</a>.</span>
-			<button id="cookie-accept">OK</button>
-		</div>
-
-
-
 		<!-- Header — tab is inside so it rides the same transform -->
 		<div id="header">
 			<div id="topbar-tab"><span id="tab-arrow">&#8250;</span></div>
@@ -574,6 +553,9 @@
 		<!-- Top bar -->
 		<div id="topbar">
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
+			<a id="topbar-account-btn" href="auth.html?mode=login">
+				<span>&#9679;</span> Account
+			</a>
 		</div>
 
 		<!-- Main -->
@@ -592,9 +574,7 @@
 					<header>
 						<h2>What we're about</h2>
 					</header>
-					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
-						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
-						parking experience, and make travelling less stressful and more enjoyable.
+					<p>PinPark is a simple but helpful navigation tool designed to help you find your car quickly and easily. We have spent months tweaking the interface to ensure a smooth and effortless parking experience.
 					</p>
 				</div>
 			</section>
@@ -691,6 +671,16 @@
 			</ul>
 		</div>
 
+		<!-- Welcome message -->
+		<script>
+			(function () {
+				var heroTitle = document.getElementById("hero-welcome");
+				if (!heroTitle) return;
+				var hasVisited = localStorage.getItem("pinpark_visited");
+				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
+				localStorage.setItem("pinpark_visited", "1");
+			})();
+		</script>
 
 		<!-- Scripts -->
 		<script src="assets/js/jquery.min.js"></script>
@@ -792,10 +782,6 @@
 				}
 
 				function scrollToId(id, instant) {
-					if (id === 'home') {
-						window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
-						return;
-					}
 					var el = document.getElementById(id);
 					if (!el) return;
 					el.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' });
@@ -890,6 +876,7 @@
 			const liSignup = document.getElementById("nav-signup-item");
 			const liLogout = document.getElementById("nav-logout-item");
 			const logoutLink = document.getElementById("link-logout");
+			const accountBtn = document.getElementById("topbar-account-btn");
 
 			function setVisible(el, show) {
 				if (!el) return;
@@ -901,12 +888,14 @@
 					setVisible(liLogin, true);
 					setVisible(liSignup, true);
 					setVisible(liLogout, false);
+					if (accountBtn) accountBtn.href = "auth.html?mode=login";
 					return;
 				}
 
 				setVisible(liLogin, false);
 				setVisible(liSignup, false);
 				setVisible(liLogout, true);
+				if (accountBtn) accountBtn.href = "account.html";
 			});
 
 			logoutLink?.addEventListener("click", async (e) => {
@@ -918,28 +907,43 @@
 					console.error("Logout failed:", err);
 				}
 			});
-		</script>
 
-		<!-- Welcome message + cookie consent -->
-		<script>
-			(function () {
-				var banner = document.getElementById("cookie-banner");
-				var btn    = document.getElementById("cookie-accept");
-				if (!banner || !btn) return;
-				if (!localStorage.getItem("pinpark_cookie_ok")) {
-					banner.style.display = "flex";
+		async function loadLatestArticleTitle() {
+				try {
+					const col = collection(db, "articles");
+					let q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("publishedAt", "desc"),
+						limit(1)
+					);
+					let snap;
+					try {
+						snap = await getDocs(q);
+					} catch (e) {
+						console.warn("Falling back to createdAt index for homepage headline:", e);
+						q = query(
+							col,
+							where("status", "==", "published"),
+							orderBy("createdAt", "desc"),
+							limit(1)
+						);
+						snap = await getDocs(q);
+					}
+					if (snap.empty) return;
+					const data = snap.docs[0].data();
+					const title = (data.title || "").trim();
+					if (!title) return;
+					const heroTitle = document.querySelector('#home h2.alt');
+					if (heroTitle) heroTitle.textContent = title;
+					const readMore = document.getElementById("home-read-more");
+					if (readMore) readMore.style.display = "";
+				} catch (e) {
+					console.error("Failed to load latest article title:", e);
 				}
-				btn.addEventListener("click", function () {
-					localStorage.setItem("pinpark_cookie_ok", "1");
-					banner.style.display = "none";
-				});
-			})();
-			(function () {
-				var heroTitle = document.getElementById("hero-welcome");
-				if (!heroTitle) return;
-				var hasVisited = localStorage.getItem("pinpark_visited");
-				heroTitle.textContent = hasVisited ? "Welcome back!" : "Welcome to the PinPark website!";
-				localStorage.setItem("pinpark_visited", "1");
-			})();</script>
+			}
+
+			loadLatestArticleTitle();
+		</script>
 	</body>
 </html>
