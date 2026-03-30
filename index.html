@@ -245,39 +245,6 @@
 				resize: none;
 			}
 
-			#header .bottom {
-				text-align: center;
-			}
-			#nav-auth ul {
-				list-style: none !important;
-				margin: 0 !important;
-				padding: 0 0 15px 0 !important;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				flex-wrap: wrap;
-				font-size: 0.8em;
-			}
-			#nav-auth ul li {
-				margin: 0 !important;
-				padding: 0 !important;
-			}
-			#nav-auth ul li + li:not(#nav-logout-item)::before {
-				content: "|";
-				margin: 0 6px;
-				opacity: 0.75;
-			}
-			#nav-auth a {
-				text-decoration: none !important;
-				border: none !important;
-				box-shadow: none !important;
-				color: rgba(255, 255, 255, 0.55) !important;
-				transition: color 0.1s ease;
-			}
-			#nav-auth a:hover {
-				color: #ffffff !important;
-			}
-
 			/* ✅ Features rows */
 			.feature-row {
 				display: flex;
@@ -329,48 +296,6 @@
 			}
 			#topbar-tab {
 				display: none;
-			}
-
-			/* ── Account icon button ── */
-			#topbar-account-btn {
-				position: absolute;
-				right: 20px;
-				top: 50%;
-				transform: translateY(-50%);
-				background: none;
-				border: none;
-				cursor: pointer;
-				text-decoration: none !important;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				color: #ffffff !important;
-				opacity: 0.75;
-				transition: opacity 0.15s ease;
-				padding: 6px;
-			}
-			#topbar-account-btn:hover {
-				opacity: 1;
-				transform: translateY(-50%);
-			}
-			#topbar-account-btn:active {
-				opacity: 0.6;
-				transform: translateY(-50%);
-			}
-			#topbar-account-btn svg {
-				width: 28px;
-				height: 28px;
-				fill: #ffffff;
-				display: block;
-			}
-			@media screen and (max-width: 736px) {
-				#topbar-account-btn {
-					right: 14px;
-				}
-				#topbar-account-btn svg {
-					width: 24px;
-					height: 24px;
-				}
 			}
 
 			@media screen and (max-width: 736px) {
@@ -446,33 +371,14 @@
 
 				/* Force structural containers visible */
 				#header .top,
-				#header .bottom,
 				#header #logo,
 				#header #nav,
 				#header #nav ul,
 				#header #nav ul li,
-				#header #nav ul li a,
-				#header #nav-auth,
-				#header #nav-auth ul,
-				#header #nav-auth ul li a {
+				#header #nav ul li a {
 					display: block !important;
 					visibility: visible !important;
 					opacity: 1 !important;
-				}
-				#header #nav-auth ul {
-					display: inline-flex !important;
-					justify-content: center !important;
-					width: 100% !important;
-				}
-				#header #nav-auth ul li {
-					display: inline-flex !important;
-					align-items: center !important;
-					visibility: visible !important;
-					opacity: 1 !important;
-				}
-				#header #nav-auth ul li[style*="display: none"],
-				#header #nav-auth ul li[style*="display:none"] {
-					display: none !important;
 				}
 
 				/* ── Dim overlay behind drawer ── */
@@ -511,7 +417,6 @@
 				}
 			}
 		</style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Header — tab is inside so it rides the same transform -->
@@ -533,22 +438,6 @@
 					</ul>
 				</nav>
 			</div>
-
-			<div class="bottom">
-				<nav id="nav-auth">
-					<ul>
-						<li id="nav-login-item">
-							<a href="auth.html?mode=login" id="link-login">Log In</a>
-						</li>
-						<li id="nav-signup-item">
-							<a href="auth.html?mode=signup" id="link-signup">Sign Up</a>
-						</li>
-						<li id="nav-logout-item" style="display:none;">
-							<a href="#" id="link-logout">Log Out</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
 		</div>
 
 		<!-- Overlay (mobile only) -->
@@ -557,11 +446,6 @@
 		<!-- Top bar -->
 		<div id="topbar">
 			<img id="topbar-logo" src="pinparklogo.png" alt="PinPark" />
-			<a id="topbar-account-btn" href="auth.html?mode=login" aria-label="Account">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-					<path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-				</svg>
-			</a>
 		</div>
 
 		<!-- Main -->
@@ -861,95 +745,5 @@
 			})();
 		</script>
 
-		<script type="module">
-			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-
-			const firebaseConfig = {
-				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
-				authDomain: "pinpark-1fcb3.firebaseapp.com",
-				projectId: "pinpark-1fcb3",
-				storageBucket: "pinpark-1fcb3.firebasestorage.app",
-				messagingSenderId: "677372487037",
-				appId: "1:677372487037:web:5dcd5e788874aca5851814",
-				measurementId: "G-LJN7NRFFX4"
-			};
-
-			const app  = initializeApp(firebaseConfig);
-			const auth = getAuth(app);
-
-			const liLogin  = document.getElementById("nav-login-item");
-			const liSignup = document.getElementById("nav-signup-item");
-			const liLogout = document.getElementById("nav-logout-item");
-			const logoutLink = document.getElementById("link-logout");
-			const accountBtn = document.getElementById("topbar-account-btn");
-
-			function setVisible(el, show) {
-				if (!el) return;
-				el.style.display = show ? "" : "none";
-			}
-
-			onAuthStateChanged(auth, async (user) => {
-				if (!user) {
-					setVisible(liLogin, true);
-					setVisible(liSignup, true);
-					setVisible(liLogout, false);
-					if (accountBtn) accountBtn.href = "auth.html?mode=login";
-					return;
-				}
-
-				setVisible(liLogin, false);
-				setVisible(liSignup, false);
-				setVisible(liLogout, true);
-				if (accountBtn) accountBtn.href = "account.html";
-			});
-
-			logoutLink?.addEventListener("click", async (e) => {
-				e.preventDefault();
-				try {
-					await signOut(auth);
-					window.location.replace("index.html");
-				} catch (err) {
-					console.error("Logout failed:", err);
-				}
-			});
-
-		async function loadLatestArticleTitle() {
-				try {
-					const col = collection(db, "articles");
-					let q = query(
-						col,
-						where("status", "==", "published"),
-						orderBy("publishedAt", "desc"),
-						limit(1)
-					);
-					let snap;
-					try {
-						snap = await getDocs(q);
-					} catch (e) {
-						console.warn("Falling back to createdAt index for homepage headline:", e);
-						q = query(
-							col,
-							where("status", "==", "published"),
-							orderBy("createdAt", "desc"),
-							limit(1)
-						);
-						snap = await getDocs(q);
-					}
-					if (snap.empty) return;
-					const data = snap.docs[0].data();
-					const title = (data.title || "").trim();
-					if (!title) return;
-					const heroTitle = document.querySelector('#home h2.alt');
-					if (heroTitle) heroTitle.textContent = title;
-					const readMore = document.getElementById("home-read-more");
-					if (readMore) readMore.style.display = "";
-				} catch (e) {
-					console.error("Failed to load latest article title:", e);
-				}
-			}
-
-			loadLatestArticleTitle();
-		</script>
 	</body>
 </html>
