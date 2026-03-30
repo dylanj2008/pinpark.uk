@@ -467,9 +467,7 @@
 			<div class="bottom">
 				<nav id="nav-auth">
 					<ul>
-						<li id="nav-login-item"><a href="auth.html?mode=login" id="link-login">Log In</a></li>
-						<li id="nav-signup-item"><a href="auth.html?mode=signup" id="link-signup">Sign Up</a></li>
-						<li id="nav-logout-item" style="display:none;"><a href="#" id="link-logout">Log Out</a></li>
+						<li><a href="index.html">Back</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -673,30 +671,16 @@
 			function openModal(id)  { document.getElementById(id).classList.add('open'); }
 			function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-			/* ── Sidebar auth state ── */
-			const liLogin  = document.getElementById('nav-login-item');
-			const liSignup = document.getElementById('nav-signup-item');
-			const liLogout = document.getElementById('nav-logout-item');
-			const logoutLink = document.getElementById('link-logout');
-
-			function setVisible(el, show) { if (el) el.style.display = show ? '' : 'none'; }
-
 			/* ── Auth state ── */
 			onAuthStateChanged(auth, (user) => {
 				if (!user) {
 					document.getElementById('not-signed-in').style.display = 'block';
 					document.getElementById('account-content').style.display = 'none';
-					setVisible(liLogin, true);
-					setVisible(liSignup, true);
-					setVisible(liLogout, false);
 					return;
 				}
 
 				document.getElementById('not-signed-in').style.display = 'none';
 				document.getElementById('account-content').style.display = 'block';
-				setVisible(liLogin, false);
-				setVisible(liSignup, false);
-				setVisible(liLogout, true);
 
 				document.getElementById('display-email').textContent = user.email || '—';
 
@@ -706,13 +690,6 @@
 					document.getElementById('display-created').textContent =
 						d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 				}
-			});
-
-			/* ── Sidebar logout ── */
-			logoutLink?.addEventListener('click', async (e) => {
-				e.preventDefault();
-				await signOut(auth);
-				window.location.replace('index.html');
 			});
 
 			/* ── Change email ── */
