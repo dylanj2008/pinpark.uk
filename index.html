@@ -137,93 +137,41 @@
 				position: static !important;
 				overflow: visible !important;
 				height: 70px;
-				padding: 0 20px !important;
+				padding: 0 !important;
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				box-sizing: border-box;
 			}
 			#footer .copyright {
 				margin: 0 !important;
 				position: relative;
 				width: 100%;
-				height: 100%;
 				display: flex;
 				align-items: center;
-				justify-content: flex-end;
-				gap: 12px;
+				justify-content: center;
 			}
 			#footer .copyright li:first-child {
 				position: absolute;
 				left: 50%;
-				top: 50%;
-				transform: translate(-50%, -50%);
+				transform: translateX(-50%);
 				margin: 0 !important;
-				white-space: nowrap;
 			}
-			#footer .copyright li:nth-child(2),
-			#footer .copyright li:nth-child(3) {
+			#footer .copyright li:nth-child(2) {
+				margin-left: auto;
 				padding-left: 0 !important;
 				border-left: 0 !important;
-				margin: 0 !important;
 			}
-			#footer .copyright li:nth-child(3)::before {
-				content: "|";
-				margin-right: 12px;
-				opacity: 0.4;
+			#footer .copyright li:nth-child(3) {
+				margin-left: 12px;
 			}
 			#footer .copyright li:nth-child(2) a,
 			#footer .copyright li:nth-child(3) a {
 				font-size: 12px !important;
 			}
-			@media screen and (max-width: 736px) {
-				#footer {
-					height: auto !important;
-					padding: 10px 20px 12px !important;
-				}
-				#footer .copyright {
-					flex-direction: column;
-					align-items: flex-end;
-					height: auto;
-					gap: 6px;
-				}
-				#footer .copyright li:first-child {
-					position: static;
-					transform: none;
-					left: auto;
-					top: auto;
-					order: 2;
-					width: 100%;
-					text-align: center;
-				}
-				#footer .copyright li:nth-child(2),
-				#footer .copyright li:nth-child(3) {
-					position: static;
-					top: auto;
-					order: 1;
-					display: inline;
-					margin-top: -10px !important;
-				}
-				#footer .copyright li:nth-child(2)::after {
-					content: none;
-				}
-				/* Wrap Terms + Privacy together in a single right-aligned row */
-				#footer .copyright {
-					display: flex;
-					flex-wrap: nowrap;
-					flex-direction: row;
-					flex-wrap: wrap;
-					justify-content: flex-end;
-					align-items: center;
-				}
-				#footer .copyright li:nth-child(2),
-				#footer .copyright li:nth-child(3) {
-					flex-shrink: 0;
-				}
-				#footer .copyright li:first-child {
-					flex-basis: 100%;
-					order: 2;
-				}
+			#footer .copyright li:nth-child(2),
+			#footer .copyright li:nth-child(3) {
+				position: relative;
+				left: -7px;
 			}
 
 			#footer,
@@ -295,6 +243,39 @@
 			/* ✅ Non-resizable textarea */
 			#contact form textarea {
 				resize: none;
+			}
+
+			#header .bottom {
+				text-align: center;
+			}
+			#nav-auth ul {
+				list-style: none !important;
+				margin: 0 !important;
+				padding: 0 0 15px 0 !important;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: wrap;
+				font-size: 0.8em;
+			}
+			#nav-auth ul li {
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+			#nav-auth ul li + li:not(#nav-logout-item)::before {
+				content: "|";
+				margin: 0 6px;
+				opacity: 0.75;
+			}
+			#nav-auth a {
+				text-decoration: none !important;
+				border: none !important;
+				box-shadow: none !important;
+				color: rgba(255, 255, 255, 0.55) !important;
+				transition: color 0.1s ease;
+			}
+			#nav-auth a:hover {
+				color: #ffffff !important;
 			}
 
 			/* ✅ Features rows */
@@ -423,14 +404,33 @@
 
 				/* Force structural containers visible */
 				#header .top,
+				#header .bottom,
 				#header #logo,
 				#header #nav,
 				#header #nav ul,
 				#header #nav ul li,
-				#header #nav ul li a {
+				#header #nav ul li a,
+				#header #nav-auth,
+				#header #nav-auth ul,
+				#header #nav-auth ul li a {
 					display: block !important;
 					visibility: visible !important;
 					opacity: 1 !important;
+				}
+				#header #nav-auth ul {
+					display: inline-flex !important;
+					justify-content: center !important;
+					width: 100% !important;
+				}
+				#header #nav-auth ul li {
+					display: inline-flex !important;
+					align-items: center !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+				}
+				#header #nav-auth ul li[style*="display: none"],
+				#header #nav-auth ul li[style*="display:none"] {
+					display: none !important;
 				}
 
 				/* ── Dim overlay behind drawer ── */
@@ -469,6 +469,7 @@
 				}
 			}
 		</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Header — tab is inside so it rides the same transform -->
@@ -487,6 +488,22 @@
 						<li><a href="?section=features" id="about-link"><span class="icon solid fa-star">Features</span></a></li>
 						<li><a href="?section=contact" id="contact-link"><span class="icon solid fa-envelope">Contact</span></a></li>
 						<li><a href="?section=donations" id="donations-link"><span class="icon solid fa-money-bill">Donations</span></a></li>
+					</ul>
+				</nav>
+			</div>
+
+			<div class="bottom">
+				<nav id="nav-auth">
+					<ul>
+						<li id="nav-login-item">
+							<a href="auth.html?mode=login" id="link-login">Log In</a>
+						</li>
+						<li id="nav-signup-item">
+							<a href="auth.html?mode=signup" id="link-signup">Sign Up</a>
+						</li>
+						<li id="nav-logout-item" style="display:none;">
+							<a href="#" id="link-logout">Log Out</a>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -516,7 +533,9 @@
 					<header>
 						<h2>What we're about</h2>
 					</header>
-					<p>PinPark is a simple but helpful navigation tool designed to help you find your car quickly and easily. We have spent months tweaking the interface to ensure a smooth and effortless parking experience.
+					<p>PinPark is independently designed with a focus on reliability, transparency, and long 
+						term support in mind. We have carefully designed our interface to ensure a fast, effortless 
+						parking experience, and make travelling less stressful and more enjoyable.
 					</p>
 				</div>
 			</section>
@@ -527,7 +546,12 @@
 						<h2>Features</h2>
 					</header>
 
-					<p>PinPark has been equipped with various features all designed to help you locate and navigate back to your vehicle calmly and confidently:</p>
+					<p>Tincidunt eu elit diam magnis pretium accumsan etiam id urna. Ridiculus
+					ultricies curae quis et rhoncus velit. Lobortis elementum aliquet nec vitae
+					laoreet eget cubilia quam non etiam odio tincidunt montes. Elementum sem
+					parturient nulla quam placerat viverra mauris non cum elit tempus ullamcorper
+					dolor. Libero rutrum ut lacinia donec curae mus vel quisque sociis nec
+					ornare iaculis.</p>
 
 					<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
 						<div class="feature-row feature-row-left">
@@ -798,15 +822,102 @@
 			})();
 		</script>
 
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+			import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+			const firebaseConfig = {
+				apiKey: "AIzaSyBBOnsA7zbwoJ7sJFGIOuuJvpYWTHaBW4Q",
+				authDomain: "pinpark-1fcb3.firebaseapp.com",
+				projectId: "pinpark-1fcb3",
+				storageBucket: "pinpark-1fcb3.firebasestorage.app",
+				messagingSenderId: "677372487037",
+				appId: "1:677372487037:web:5dcd5e788874aca5851814",
+				measurementId: "G-LJN7NRFFX4"
+			};
+
+			const app  = initializeApp(firebaseConfig);
+			const auth = getAuth(app);
+
+			const liLogin  = document.getElementById("nav-login-item");
+			const liSignup = document.getElementById("nav-signup-item");
+			const liLogout = document.getElementById("nav-logout-item");
+			const logoutLink = document.getElementById("link-logout");
+
+			function setVisible(el, show) {
+				if (!el) return;
+				el.style.display = show ? "" : "none";
+			}
+
+			onAuthStateChanged(auth, async (user) => {
+				if (!user) {
+					setVisible(liLogin, true);
+					setVisible(liSignup, true);
+					setVisible(liLogout, false);
+					return;
+				}
+
+				setVisible(liLogin, false);
+				setVisible(liSignup, false);
+				setVisible(liLogout, true);
+			});
+
+			logoutLink?.addEventListener("click", async (e) => {
+				e.preventDefault();
+				try {
+					await signOut(auth);
+					window.location.replace("index.html");
+				} catch (err) {
+					console.error("Logout failed:", err);
+				}
+			});
+
+		async function loadLatestArticleTitle() {
+				try {
+					const col = collection(db, "articles");
+					let q = query(
+						col,
+						where("status", "==", "published"),
+						orderBy("publishedAt", "desc"),
+						limit(1)
+					);
+					let snap;
+					try {
+						snap = await getDocs(q);
+					} catch (e) {
+						console.warn("Falling back to createdAt index for homepage headline:", e);
+						q = query(
+							col,
+							where("status", "==", "published"),
+							orderBy("createdAt", "desc"),
+							limit(1)
+						);
+						snap = await getDocs(q);
+					}
+					if (snap.empty) return;
+					const data = snap.docs[0].data();
+					const title = (data.title || "").trim();
+					if (!title) return;
+					const heroTitle = document.querySelector('#home h2.alt');
+					if (heroTitle) heroTitle.textContent = title;
+					const readMore = document.getElementById("home-read-more");
+					if (readMore) readMore.style.display = "";
+				} catch (e) {
+					console.error("Failed to load latest article title:", e);
+				}
+			}
+
+			loadLatestArticleTitle();
+		</script>
 		<!-- EmailJS -->
 		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 		<script>
 			(function () {
 				emailjs.init('UfHEbaY4RUEdUuk3I');
 
-				var form    = document.getElementById('contact-form');
-				var submit  = document.getElementById('contact-submit');
-				var status  = document.getElementById('contact-status');
+				var form   = document.getElementById('contact-form');
+				var submit = document.getElementById('contact-submit');
+				var status = document.getElementById('contact-status');
 
 				if (!form) return;
 
@@ -818,13 +929,13 @@
 					var message = document.getElementById('contact-message').value.trim();
 
 					if (!name || !email || !message) {
-						status.textContent = 'Please fill in all fields before sending.';
-						status.style.color = '#e05555';
+						status.textContent   = 'Please fill in all fields before sending.';
+						status.style.color   = '#e05555';
 						status.style.display = 'block';
 						return;
 					}
 
-					submit.value    = 'Sending…';
+					submit.value    = 'Sending\u2026';
 					submit.disabled = true;
 					status.style.display = 'none';
 
@@ -834,7 +945,7 @@
 						message: message,
 						time:    new Date().toLocaleString('en-GB')
 					}).then(function () {
-						status.textContent   = 'Message sent — thank you!';
+						status.textContent   = 'Message sent \u2014 thank you!';
 						status.style.color   = '#00ADEE';
 						status.style.display = 'block';
 						form.reset();
