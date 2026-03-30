@@ -516,7 +516,7 @@
 					<header>
 						<h2>What we're about</h2>
 					</header>
-					<p>PinPark is a parking and navigation app designed to help you locate your parked vehicle. It lets you save your parking location with a single tap, add notes and timers to your pin, and navigate back to your vehicle using in-app directions. Whether you're in a busy city centre or an unfamiliar car park, PinPark gives you everything you need to find your way back quickly and without the stress.
+					<p>PinPark is a simple but helpful navigation tool designed to help you find your car quickly and easily. We have spent months tweaking the interface to ensure a smooth and effortless parking experience.
 					</p>
 				</div>
 			</section>
@@ -527,7 +527,7 @@
 						<h2>Features</h2>
 					</header>
 
-					<p>Finding your car shouldn't require memory, luck, or retracing your steps. PinPark's features exist to give you reliable, practical tools that take the uncertainty out of parking, covering everything from saving your spot to navigating back on foot:</p>
+					<p>PinPark has been equipped with various features all designed to help you locate and navigate back to your vehicle calmly and confidently:</p>
 
 					<div style="display: flex; flex-direction: column; gap: 40px; margin: 30px 0;">
 						<div class="feature-row feature-row-left">
@@ -568,20 +568,21 @@
 						<h2>Contact</h2>
 					</header>
 					<p>PinPark is continuously evolving. If you have found an issue, have feedback,
-						or want to get in touch for any other reason, feel free to send a message -  
+						or want to get in touch for any other reason, feel free to send a message. 
 						we'd love to hear from you!
 					</p>
-					<form method="post" action="#">
+					<form id="contact-form" method="post" action="#">
 						<div class="row">
-							<div class="col-6 col-12-mobile"><input type="text" name="name" placeholder="Name" /></div>
-							<div class="col-6 col-12-mobile"><input type="text" name="email" placeholder="Email" /></div>
+							<div class="col-6 col-12-mobile"><input id="contact-name" type="text" name="name" placeholder="Name" /></div>
+							<div class="col-6 col-12-mobile"><input id="contact-email" type="text" name="email" placeholder="Email" /></div>
 							<div class="col-12">
-								<textarea name="message" placeholder="Message"></textarea>
+								<textarea id="contact-message" name="message" placeholder="Message"></textarea>
 							</div>
 							<div class="col-12">
-								<input type="submit" value="Send Message" />
+								<input type="submit" id="contact-submit" value="Send Message" />
 							</div>
 						</div>
+						<p id="contact-status" style="margin-top: 12px; display: none;"></p>
 					</form>
 				</div>
 			</section>
@@ -591,7 +592,11 @@
 					<header>
 						<h2>Donations</h2>
 					</header>
-					<p>PinPark is independently developed and maintained. Donations go directly towards infrastructure costs, ongoing development, and the time spent refining the experience for every user. Any contribution, however small, is appreciated.
+					<p>PinPark is independently developed and will be continuously improved.
+					   If you think you will find our app useful, you can choose to contribute
+					   here. All donations will help us cover infrastructure costs, and allow
+					   more time to be spent improving and refining current features and performance.
+					   Thank you in advance for any donations.
 					</p>
 					<ul class="actions">
 						<li><a href="https://donate.stripe.com/fZu00i4Oq7DR30m4kW3ks00" class="button" target="_blank" rel="noopener noreferrer">Support PinPark</a></li>
@@ -790,6 +795,59 @@
 					}
 				});
 				onScroll();
+			})();
+		</script>
+
+		<!-- EmailJS -->
+		<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+		<script>
+			(function () {
+				emailjs.init('UfHEbaY4RUEdUuk3I');
+
+				var form    = document.getElementById('contact-form');
+				var submit  = document.getElementById('contact-submit');
+				var status  = document.getElementById('contact-status');
+
+				if (!form) return;
+
+				form.addEventListener('submit', function (e) {
+					e.preventDefault();
+
+					var name    = document.getElementById('contact-name').value.trim();
+					var email   = document.getElementById('contact-email').value.trim();
+					var message = document.getElementById('contact-message').value.trim();
+
+					if (!name || !email || !message) {
+						status.textContent = 'Please fill in all fields before sending.';
+						status.style.color = '#e05555';
+						status.style.display = 'block';
+						return;
+					}
+
+					submit.value    = 'Sending…';
+					submit.disabled = true;
+					status.style.display = 'none';
+
+					emailjs.send('service_h970fyj', 'template_ecqx192', {
+						name:    name,
+						email:   email,
+						message: message,
+						time:    new Date().toLocaleString('en-GB')
+					}).then(function () {
+						status.textContent   = 'Message sent — thank you!';
+						status.style.color   = '#00ADEE';
+						status.style.display = 'block';
+						form.reset();
+						submit.value    = 'Send Message';
+						submit.disabled = false;
+					}, function () {
+						status.textContent   = 'Something went wrong. Please try again.';
+						status.style.color   = '#e05555';
+						status.style.display = 'block';
+						submit.value    = 'Send Message';
+						submit.disabled = false;
+					});
+				});
 			})();
 		</script>
 
