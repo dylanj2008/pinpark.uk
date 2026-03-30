@@ -169,9 +169,20 @@
 				position: relative;
 				top: 5px;
 			}
+			#footer .copyright li:nth-child(3)::before {
+				content: "|";
+				margin-right: 12px;
+				opacity: 0.4;
+			}
 			#footer .copyright li:nth-child(2) a,
 			#footer .copyright li:nth-child(3) a {
 				font-size: 12px !important;
+			}
+			@media screen and (max-width: 736px) {
+				#footer .copyright li:nth-child(2),
+				#footer .copyright li:nth-child(3) {
+					top: 10px;
+				}
 			}
 
 			#footer,
