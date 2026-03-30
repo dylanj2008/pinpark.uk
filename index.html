@@ -150,7 +150,7 @@
 				height: 100%;
 				display: flex;
 				align-items: center;
-				justify-content: flex-end;
+				justify-content: center;
 				gap: 12px;
 			}
 			#footer .copyright li:first-child {
@@ -166,8 +166,6 @@
 				padding-left: 0 !important;
 				border-left: 0 !important;
 				margin: 0 !important;
-				position: relative;
-				top: 5px;
 			}
 			#footer .copyright li:nth-child(3)::before {
 				content: "|";
@@ -181,7 +179,8 @@
 			@media screen and (max-width: 736px) {
 				#footer .copyright li:nth-child(2),
 				#footer .copyright li:nth-child(3) {
-					top: 10px;
+					position: relative;
+					top: 5px;
 				}
 			}
 
