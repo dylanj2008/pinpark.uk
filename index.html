@@ -338,19 +338,23 @@
 			.feature-row {
 				display: flex;
 				align-items: center;
-				gap: 20px;
+				/* RESPONSIVE: gap scales with viewport */
+				gap: clamp(12px, 2vw, 20px);
 			}
 			.feature-row-left {
 				justify-content: flex-start;
-				padding-left: 10%;
+				/* RESPONSIVE: padding shrinks on narrower desktops */
+				padding-left: clamp(0px, 5%, 10%);
 			}
 			.feature-row-right {
 				justify-content: flex-end;
-				padding-right: 10%;
+				/* RESPONSIVE: padding shrinks on narrower desktops */
+				padding-right: clamp(0px, 5%, 10%);
 			}
 			.feature-row img {
-				width: 154px;
-				height: 154px;
+				/* RESPONSIVE: scales between 80px (narrow desktop) and 154px (wide desktop) */
+				width: clamp(80px, 10vw, 154px);
+				height: clamp(80px, 10vw, 154px);
 				border-radius: 50%;
 				object-fit: cover;
 				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -362,8 +366,9 @@
 				gap: 0.3em;
 			}
 			.feature-text strong {
-				white-space: nowrap;
-				flex-shrink: 0;
+				/* RESPONSIVE: allow wrap so text never overflows on narrow screens */
+				white-space: normal;
+				flex-shrink: 1;
 			}
 			.feature-text p {
 				margin: 0;
@@ -483,6 +488,40 @@
 				}
 			}
 
+			/* RESPONSIVE: mid-range breakpoint for tablets and small laptops */
+			@media screen and (min-width: 737px) and (max-width: 980px) {
+				.feature-row img {
+					width: 88px;
+					height: 88px;
+				}
+				/* RESPONSIVE: stack vertically on very small phones */
+				@media screen and (max-width: 400px) {
+					.feature-row,
+					.feature-row-left,
+					.feature-row-right {
+						flex-direction: column !important;
+						align-items: center !important;
+						padding-left: 0 !important;
+						padding-right: 0 !important;
+						text-align: center;
+					}
+					.feature-row img {
+						width: 100px !important;
+						height: 100px !important;
+					}
+				}
+				.feature-row-left {
+					padding-left: 2% !important;
+				}
+				.feature-row-right {
+					padding-right: 2% !important;
+				}
+				#home.cover {
+					height: calc(100vh - 275px) !important;
+					min-height: calc(100vh - 275px) !important;
+				}
+			}
+
 			@media screen and (max-width: 736px) {
 				.feature-row {
 					flex-direction: row !important;
@@ -501,8 +540,24 @@
 					padding-left: 0 !important;
 				}
 				.feature-row img {
-					width: 100px;
-					height: 100px;
+					width: 88px;
+					height: 88px;
+				}
+				/* RESPONSIVE: stack vertically on very small phones */
+				@media screen and (max-width: 400px) {
+					.feature-row,
+					.feature-row-left,
+					.feature-row-right {
+						flex-direction: column !important;
+						align-items: center !important;
+						padding-left: 0 !important;
+						padding-right: 0 !important;
+						text-align: center;
+					}
+					.feature-row img {
+						width: 100px !important;
+						height: 100px !important;
+					}
 				}
 			}
 		</style>
